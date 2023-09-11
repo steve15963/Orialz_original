@@ -9,7 +9,7 @@ export default function VideoContainer({videos}){
                 {
                     videos.map((video, index) => {
                         return (
-                            <NavLink to={"/test"} key={video.id}>
+                            <NavLink to={"/test"} key={video.id} style={{ textDecoration: "none" }}>
                                 <VideoBox
                                     thumbnail={video.thumbnail}
                                     title={video.title}
