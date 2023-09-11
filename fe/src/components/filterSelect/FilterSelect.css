@@ -1,4 +1,7 @@
 .filter-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     position: absolute;
     width: 50vh;
     height: 80vh;
@@ -8,22 +11,28 @@
 }
 
 .filter-word{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     /* width: 60px; */
     height: 30px;
+    border-radius: 3px;
     text-align: center;
     margin: 10px;
-    padding: 0 5px;
-    clear: both;
-    float: left;
+    padding: 5px;
+    font-size: large;
+    transition: 250ms;
+    /* clear: both;
+    float: left; */
 }
 
 .filter-word:hover{
     cursor:pointer;
+    transform: scale(1.1);
+    font-weight: bold;
 }
 
 .filtered{
     background-color: red;
+    color: white;
 }
 
 .unfiltered{
@@ -50,7 +59,6 @@
     float: left;
     text-align: center;
 }
-
 .filter-mode-btn:hover{
     background-color: aquamarine;
     cursor:pointer;

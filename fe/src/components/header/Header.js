@@ -7,7 +7,8 @@ import {
   discardUser,
 } from '../../util/slice/userSlice';
 import './Header.css';
-import NoticeContainer from '../noticeContainer/NoticeContainer';
+import ProfileBox from '../profileBox/ProfileBox';
+import LoginBtn from '../loginBtn/LoginBtn';
 
 export default function Header({search}){
     
@@ -29,7 +30,10 @@ export default function Header({search}){
                 <button 
                     onClick={search}
                     className='search-form-btn'
-                    >검색</button>
+                    >
+                    <img src="search.svg" alt='search' className="search-form-btn-icon"/>    
+                </button>
+                
             </form>
             <div>
                 <button onClick={(e)=>{
@@ -61,33 +65,5 @@ export default function Header({search}){
     )
 }
 
-export function LoginBtn(){
-    return(
-        <NavLink to={"login"}>
-            <div>로그인 하기</div>
-        </NavLink>
-    )
-}
 
-export  function ProfileBox(){
 
-    const [noticeOn, setNoticeOn] = useState(false);
-
-    function falsifyNoticeOn(){
-        setNoticeOn(false);
-    }
-
-    return(
-        <div className='bell-profile-box'>
-            {noticeOn ? <NoticeContainer falsifyNoticeOn={falsifyNoticeOn}/> : null}
-            <img src="/bell.svg" alt="bell" className='bell-img' onClick={()=>{
-                setNoticeOn(true);
-            }}/>
-            
-            <NavLink to={"/profile"}>
-                <img src="/profile.svg" alt="profile" className='profile-img' />
-            </NavLink>
-        </div>
-    )
-
-}
