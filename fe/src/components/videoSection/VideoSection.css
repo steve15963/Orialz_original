@@ -1,0 +1,10 @@
+
+.video-upload-btn {
+    border: 1px solid black;
+    text-align: center;
+}
+.video-upload-btn:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+
+}

@@ -1,0 +1,30 @@
+.profile-works {
+    width: 600px;
+    /* height: 1000px; */
+    border: 1px solid black;
+    /* margin: 30px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-works-btns {
+    display: flex;
+    
+}
+
+.profile-video-btn,
+.profile-comments-btn
+{
+    border: 1px solid black;
+    height: 30px;
+    width: 50px;
+    text-align: center;
+}
+
+.profile-video-btn:hover,
+.profile-comments-btn:hover
+{
+    cursor: pointer;
+    background-color:beige;
+}

@@ -1,0 +1,34 @@
+.profile-banner {
+    width: 600px;
+    height: 200px;
+    border: 1px solid black;
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.profile-banner-img {
+    width: 100px;
+    height: 100px;
+}
+
+.profile-banner-profiles {
+    margin-left: 20px;
+    display: flex;
+
+}
+
+.profile-banner-cnts {
+    display: flex;
+}
+
+.profile-banner-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.category-select-btn:hover{
+    cursor: pointer;
+}

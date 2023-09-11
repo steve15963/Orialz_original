@@ -1,0 +1,6 @@
+.video-box {
+    border: 1px solid black;
+    min-width: 200px;
+    min-height: 200px;
+    margin: 10px;
+}
