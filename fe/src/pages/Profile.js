@@ -1,3 +1,4 @@
+
 import {useState} from 'react';
 import './Profile.css';
 import ProfileBanner from '../components/profileBanner/ProfileBanner';
@@ -14,7 +15,9 @@ export default function Profile(){
     }
 
     function handleModalOff(){
-        setModalOn(false);
+        setTimeout(()=>{
+            setModalOn(false);
+        },100)
     }
 
     return (

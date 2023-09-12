@@ -3,13 +3,33 @@
     flex-direction: column;
     flex-wrap: wrap;
     position: absolute;
+    z-index: 5;
     width: 50vh;
     height: 80vh;
     min-width: 300px;
     min-height: 800px;
-    background-color: bisque;
+    border-radius: 10px;
+    background-color: rgb(255, 186, 101);
+    transition: 250ms;
+    animation: filter-container-open;
+    animation-duration: 100ms;
 }
-
+@keyframes filter-container-open{
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+@keyframes filter-container-close{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0);
+    }
+}
 .filter-word{
     /* border: 1px solid black; */
     /* width: 60px; */
@@ -26,8 +46,7 @@
 
 .filter-word:hover{
     cursor:pointer;
-    transform: scale(1.1);
-    font-weight: bold;
+    transform: scale(1.2);
 }
 
 .filtered{

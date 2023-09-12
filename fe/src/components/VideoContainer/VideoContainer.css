@@ -1,8 +1,7 @@
 .video-container {
     display: flex;
-    flex-direction: row;
     flex-wrap : wrap;
-    margin: 100px;
+    /* margin: 100px; */
     /* width: 700px; */
     /* border: 1px solid black; */
 }

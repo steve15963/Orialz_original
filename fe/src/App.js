@@ -7,6 +7,7 @@ import Upload from './pages/Upload';
 import './App.css';
 
 function App() {
+
 	return (
 		<BrowserRouter>
 			<div className="App">
