@@ -5,9 +5,11 @@ import './FilterSelect.css';
 
 export default function FilterSelect({handleModalOff}){
 
+    
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const wordsRef = useRef(null);
+    const fcRef = useRef(null);
     const mode = useRef(0);
 
     
@@ -41,14 +43,14 @@ export default function FilterSelect({handleModalOff}){
 
 
     return(
-        <div className='filter-container'>
+        <div className='filter-container' ref={fcRef}>
             <div className='filter-options'>
                 <div className='filter-modes'>
                     <div className='filter-mode-btn' onClick={seeAllWords}>전체 보기</div>
                     <div className='filter-mode-btn' onClick={seeFilteredWords}>적용된 키워드</div>
                     <div className='filter-mode-btn' onClick={seeUnfilteredWords}>미적용 키워드</div>
                 </div>
-                <div className='filter-mode-btn' onClick={handleModalOff}>X</div>
+                <div className='filter-mode-btn' onClick={(e)=>{fcRef.current.style.animation="filter-container-close 100ms forwards"; handleModalOff();}}>X</div>
             </div>
             <div className='filter-word-container' ref={wordsRef}>
                 {user.filter.map((e,idx)=>{
