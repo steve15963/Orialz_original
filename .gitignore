@@ -38,3 +38,5 @@ out/
 
 ### application.properties ###
 **/src/main/resources/application.yaml
+
+BackEnd/src/main/resources/properties/env.properties
