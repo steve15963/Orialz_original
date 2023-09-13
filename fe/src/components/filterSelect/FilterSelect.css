@@ -61,6 +61,11 @@
 .filter-word-container{
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    height: 80%;
 }
 
 .filter-options{
@@ -70,15 +75,40 @@
 
 .filter-modes{
     display: flex;
+    margin: 10px;
 }
 
 .filter-mode-btn{
+    /* width: 80px; */
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
     border: 1px solid black;
-    clear: both;
-    float: left;
+    background-color: rgb(255, 186, 101);
     text-align: center;
+    transition: 100ms;
 }
 .filter-mode-btn:hover{
-    background-color: aquamarine;
     cursor:pointer;
+    transform: scale(1.1);
+}
+
+.filter-exit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 25px;
+    height: 25px;
+    margin: 25px 25px 0 0;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+.filter-exit-btn:hover {
+    cursor:pointer;
+    transform: scale(1.1);
+    background-color: rgb(255, 242, 202);
 }

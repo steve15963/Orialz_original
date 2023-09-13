@@ -8,7 +8,7 @@ export default function VideoContainer({videos}){
     useEffect(()=>{
         // window.addEventListener('load', function(event) {
             var targetClassName = 'flex-wrap-anim';
-            var defaultDuration = '1s';
+            var defaultDuration = '0.5s';
           
             var dummyList = [];
             function addDummy(item, duration) {
