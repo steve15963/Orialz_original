@@ -11,6 +11,10 @@ export default function FilterSelect({handleModalOff}){
     const wordsRef = useRef(null);
     const fcRef = useRef(null);
     const mode = useRef(0);
+    const modeBtnRef1 = useRef(null);
+    const modeBtnRef2 = useRef(null);
+    const modeBtnRef3 = useRef(null);
+
 
     
     console.log(mode.current);
@@ -19,6 +23,9 @@ export default function FilterSelect({handleModalOff}){
             child.style.display = ''
         }
         mode.current=0;
+        modeBtnRef1.current.style.backgroundColor = "aliceblue";
+        modeBtnRef2.current.style.backgroundColor = "rgb(255, 186, 101)";
+        modeBtnRef3.current.style.backgroundColor = "rgb(255, 186, 101)";
     }
 
     function seeFilteredWords(){
@@ -29,6 +36,9 @@ export default function FilterSelect({handleModalOff}){
             }
         }
         mode.current=1;
+        modeBtnRef1.current.style.backgroundColor = "rgb(255, 186, 101)";
+        modeBtnRef2.current.style.backgroundColor = "aliceblue";
+        modeBtnRef3.current.style.backgroundColor = "rgb(255, 186, 101)";
     }
 
     function seeUnfilteredWords(){
@@ -39,6 +49,9 @@ export default function FilterSelect({handleModalOff}){
             }
         }
         mode.current=2;
+        modeBtnRef1.current.style.backgroundColor = "rgb(255, 186, 101)";
+        modeBtnRef2.current.style.backgroundColor = "rgb(255, 186, 101)";
+        modeBtnRef3.current.style.backgroundColor = "aliceblue";
     }
 
 
@@ -46,11 +59,11 @@ export default function FilterSelect({handleModalOff}){
         <div className='filter-container' ref={fcRef}>
             <div className='filter-options'>
                 <div className='filter-modes'>
-                    <div className='filter-mode-btn' onClick={seeAllWords}>전체 보기</div>
-                    <div className='filter-mode-btn' onClick={seeFilteredWords}>적용된 키워드</div>
-                    <div className='filter-mode-btn' onClick={seeUnfilteredWords}>미적용 키워드</div>
+                    <div className='filter-mode-btn' ref={modeBtnRef1} onClick={seeAllWords} style={{backgroundColor:'aliceblue'}}>전체 보기</div>
+                    <div className='filter-mode-btn' ref={modeBtnRef2} onClick={seeFilteredWords}>적용된 키워드</div>
+                    <div className='filter-mode-btn' ref={modeBtnRef3} onClick={seeUnfilteredWords}>미적용 키워드</div>
                 </div>
-                <div className='filter-mode-btn' onClick={(e)=>{fcRef.current.style.animation="filter-container-close 100ms forwards"; handleModalOff();}}>X</div>
+                <div className='filter-exit-btn' onClick={(e)=>{fcRef.current.style.animation="filter-container-close 100ms forwards"; handleModalOff();}}>X</div>
             </div>
             <div className='filter-word-container' ref={wordsRef}>
                 {user.filter.map((e,idx)=>{
