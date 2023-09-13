@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import VideoJS from '../components/VideoJS'
 import videojs from 'video.js';
 import overlay from 'videojs-overlay';
@@ -74,13 +75,13 @@ const Test = () => {
 	function testDraw(){
 		const canvas = videoCanvasRef.current;
 		const ctx = videoCanvasRef.current.getContext('2d');
-		// ctx.fillRect(25,25,100,100);
-		// setTimeout(()=>{ctx.clearRect(0,0,canvas.width,canvas.height)},1000)
+		ctx.fillRect(25,25,100,100);
+		setTimeout(()=>{ctx.clearRect(0,0,canvas.width,canvas.height)},1000)
 
-		// playerRef.current.requestFullscreen();
-		// canvas.requestFullscreen();
-		// imgRef.current.requestFullscreen();
-		// console.log(playerRef.current.overlay);
+		playerRef.current.requestFullscreen();
+		canvas.requestFullscreen();
+		imgRef.current.requestFullscreen();
+		console.log(playerRef.current.overlay);
 	}
 
 	function createBlur(el, data, filter){
