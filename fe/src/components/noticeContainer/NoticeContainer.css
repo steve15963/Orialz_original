@@ -1,0 +1,17 @@
+.notice-container {
+    position: absolute;
+    left: 200px;
+    top: 50px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 1000px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.close-notice-btn {
+    
+}
