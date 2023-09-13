@@ -2,7 +2,7 @@ import VideoSection from '../videoSection/VideoSection';
 import { useState } from 'react';
 
 export default function ProfileVideoContainer(){
-    const [videos, setVideos] = useState([
+    const [videos] = useState([
         {
             id: 1,
             thumbnail: 'pepe.jpg',

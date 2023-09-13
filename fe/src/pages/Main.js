@@ -5,7 +5,7 @@ import './Main.css';
 
 export default function Main(){
 
-    const [videos, setVideos] = useState([
+    const [videos] = useState([
         {
             id: 1,
             thumbnail: './pepe.jpg',
