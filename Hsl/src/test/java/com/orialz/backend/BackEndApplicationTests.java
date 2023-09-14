@@ -4,8 +4,9 @@ package com.orialz.backend;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 @SpringBootTest
-/class BackEndApplicationTests {
+class BackEndApplicationTests {
 
 	@Test
 	void contextLoads() {

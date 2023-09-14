@@ -1,0 +1,7 @@
+.google-img{
+    transition: 250ms;
+}
+
+.google-img:hover{
+    transform: scale(1.2);
+}
