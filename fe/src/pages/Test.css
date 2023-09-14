@@ -1,0 +1,18 @@
+
+.blur-box {
+    position: absolute;
+    background-color: rgba(255,255,192,0.1);
+    backdrop-filter: blur(10px);
+    z-index: 5;
+    border-radius: 10px;
+}
+
+.blur-canvas {
+    height: 1000px;
+    width: 1000px;
+}
+
+.video-canvas {
+    border: 1px solid black;
+    z-index: 2147483647;
+}

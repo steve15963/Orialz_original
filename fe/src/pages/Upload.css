@@ -1,0 +1,11 @@
+.upload-container{
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+.upload-form{
+    
+    display: flex;
+    flex-direction: column;
+}
