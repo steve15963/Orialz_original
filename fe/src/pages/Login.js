@@ -4,6 +4,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const navigateToGoogleLogin = () => {
+    console.log("하이");
     navigate("/oauth2/authorization/google");
   };
 
