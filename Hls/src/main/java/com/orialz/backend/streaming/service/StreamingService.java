@@ -1,6 +1,7 @@
 package com.orialz.backend.streaming.service;
 
 
+import com.orialz.backend.video.domain.entity.CategoryStatus;
 import com.orialz.backend.video.domain.entity.Member;
 import com.orialz.backend.video.domain.entity.Video;
 import com.orialz.backend.video.domain.entity.VideoStatus;
@@ -80,7 +81,7 @@ public class StreamingService {
 
 
     @Transactional
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title) throws IOException, NoSuchAlgorithmException {
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
