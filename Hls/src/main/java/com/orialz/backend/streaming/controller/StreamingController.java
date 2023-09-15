@@ -62,8 +62,8 @@ public class StreamingController {
 //        log.info("con: "+file);
         //올린 영상 제목 출력
         Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title);
-        Future<Boolean> future1 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,2L,content,title);
-        Future<Boolean> future2 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,3L,content,title);
+//        Future<Boolean> future1 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,2L,content,title);
+//        Future<Boolean> future2 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,3L,content,title);
         Boolean res = future.get();
         return ResponseEntity.ok().body(res);
     }
@@ -86,16 +86,16 @@ public class StreamingController {
                 .body(resource);
     }
 
-    @ResponseBody
-    @GetMapping("/hash")
-    public ResponseEntity<String> hashTest() throws NoSuchAlgorithmException {;
-        long id = 1;
-        LocalDateTime date = LocalDateTime.of(2023,9,12,10,14,20);
-        log.info("date: "+date);
-        String hash = streamingService.hashingPath(id,date);
-        return ResponseEntity.ok()
-                .body(hash);
-    }
+//    @ResponseBody
+//    @GetMapping("/hash")
+//    public ResponseEntity<String> hashTest() throws NoSuchAlgorithmException {;
+//        long id = 1;
+//        LocalDateTime date = LocalDateTime.of(2023,9,12,10,14,20);
+//        log.info("date: "+date);
+//        String hash = streamingService.hashingPath(id,date);
+//        return ResponseEntity.ok()
+//                .body(hash);
+//    }
 
 
 //    @ResponseBody
