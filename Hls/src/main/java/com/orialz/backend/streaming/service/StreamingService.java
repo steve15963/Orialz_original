@@ -46,6 +46,7 @@ public class StreamingService {
     private final FFprobe ffprobe;
     private final VideoRepository videoRepository;
     private final MemberRepository memberRepository;
+    private final StreamingAsyncService streaming;
 
     @Value("${video.path}")
     private String rootPath;
@@ -69,7 +70,7 @@ public class StreamingService {
             try {
                 File f1 = new File(rootPath+"/"+file.getOriginalFilename());
                 file.transferTo(f1);// 파일 옮기기
-                convertToHls(file.getOriginalFilename(),file.getOriginalFilename());
+                streaming.convertToHls(file.getOriginalFilename(),file.getOriginalFilename());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -78,7 +79,6 @@ public class StreamingService {
     }
 
 
-    @Async
     @Transactional
     public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title) throws IOException, NoSuchAlgorithmException {
 
@@ -110,7 +110,7 @@ public class StreamingService {
                         .build();
 
                 Video nowVideo = videoRepository.save(video);
-                String hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt());
+                String hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
                 String videoPath = path + "/"+hashing;
 
                 File hashFolder = new File(videoPath); // 폴더 위치
@@ -130,12 +130,14 @@ public class StreamingService {
                 }
 
                 log.info("File uploaded successfully");
+                //Frame 분할
+                streaming.splitFrame(videoPath,fileName);
                 //HLS 변환
-                convertToHls(videoPath,fileName);
+                streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정
                 nowVideo.setPath(videoPath+"/hls");
                 //썸네일 설정
-                getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
+                streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
                 nowVideo.setThumbnail(videoPath+"/"+"thumbnail.jpg");
                 return CompletableFuture.completedFuture(true);
             }
@@ -150,43 +152,6 @@ public class StreamingService {
         }
     }
 
-
-    public void convertToHls(String hashPath , String filename) throws IOException {
-        String path = hashPath+"/"+filename;
-        String hlsPath = hashPath+"/hls";
-        File output = new File(hlsPath);
-        FFmpegProbeResult probeResult = ffprobe.probe(path);
-        String audioCodec = "";
-        // 원본 영상의 오디오 코덱 가지고 오기
-        for (FFmpegStream stream : probeResult.getStreams()) {
-            System.out.println(stream.codec_type);
-            if(FFmpegStream.CodecType.AUDIO.equals(stream.codec_type)){
-                System.out.println("codecName: "+stream.codec_name);
-                audioCodec = stream.codec_name;
-
-            }
-            
-        }
-        if (!output.exists()) {
-            output.mkdirs();
-        }
-
-        FFmpegBuilder builder = new FFmpegBuilder()
-                .setInput(path) // 입력 소스
-                .overrideOutputFiles(true)
-                .addOutput(output.getAbsolutePath() + "/output.m3u8") // 출력 위치
-                .setAudioCodec(audioCodec)
-                .setFormat("hls")
-                .disableSubtitle()
-                .addExtraArgs("-hls_time", "5") // 5초
-                .addExtraArgs("-hls_list_size", "0")
-                .addExtraArgs("-hls_segment_filename", output.getAbsolutePath() + "/output_%08d.ts") // 청크 파일 이름
-                .done();
-
-        FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
-        executor.createJob(builder).run();
-        log.info("success Convert HLS");
-    }
 
 
     public String hashingPath(Long userId, LocalDateTime createAt) throws NoSuchAlgorithmException {
@@ -206,53 +171,16 @@ public class StreamingService {
         }
 
         String sha256Hash = hexString.toString();
-//        log.info("SHA-256 Hash: " + sha256Hash);
         return sha256Hash;
     }
 
-    public void getThumbnail(String inputPath,String outputPath){
-        try {
-            FFmpegBuilder builder = new FFmpegBuilder()
-                    .setInput(inputPath) // 입력 동영상 파일 경로
-                    .addOutput(outputPath) // 썸네일 이미지 파일 경로
-                    .setFrames(1) // 썸네일로 추출할 프레임 수 (1개)
-                    .setVideoCodec("mjpeg") // 썸네일 이미지의 코덱 설정 (JPEG)
-                    .setVideoFrameRate(1) // 초당 프레임 수 (1프레임)
-                    .setStartOffset(1l,SECONDS)
-                    .setVideoResolution(640, 360) // 썸네일 이미지의 해상도 설정
-                    .done();
 
-            FFmpegExecutor executor = new FFmpegExecutor(new FFmpeg(), new FFprobe());
-            executor.createJob(builder).run();
-            log.info("success create thumbnail");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void asyncAct() throws InterruptedException {
+        for(int i = 0; i<10;i++) {
+            Thread.sleep(1);
+            log.info("비동기처리중 " + i);
         }
-
     }
-
-
-
-//    @Async
-//    public Future<String> asyncTest() throws InterruptedException {
-//        for(int i = 0; i < 10; i++){
-//            log.info("i"+i);
-//            if(i == 9){
-//                asyncAct();
-//                return CompletableFuture.completedFuture("now");
-//            }
-//        }
-//        return CompletableFuture.completedFuture("success");
-//    }
-//
-//
-//
-//    public void asyncAct() throws InterruptedException {
-//        for(int i = 0; i<10;i++) {
-//            Thread.sleep(1);
-//            log.info("비동기처리중 " + i);
-//        }
-//    }
 
 
 }
