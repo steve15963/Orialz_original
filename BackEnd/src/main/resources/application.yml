@@ -21,7 +21,7 @@ spring:
           google:
             client-id: 761800020458-45jl2vt7la09bpg35dcoas2rgom5bfpa.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: https://orialz.com/login/oauth2/code/google
+            redirect-uri: https://test.orialz.com/login/oauth2/code/google
             scope:
               - email
               - profile
