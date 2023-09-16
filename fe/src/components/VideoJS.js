@@ -4,9 +4,14 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
 export const VideoJS = (props) => {
-  const videoRef = React.useRef(null);
-  const playerRef = React.useRef(null);
-  const {options, onReady} = props;
+	const videoRef = React.useRef(null);
+	const playerRef = React.useRef(null);
+	const canvasRef = React.useRef(null);
+	const ctxRef = React.useRef(null);
+	const blurIdx = React.useRef(0);
+
+	const {options, onReady, blurData} = props;
+
 
 	React.useEffect(() => {
 
@@ -22,7 +27,6 @@ export const VideoJS = (props) => {
 				videojs.log('player is ready');
 				onReady && onReady(player);
 			});
-
 		// You could update an existing player in the `else` block here
 		// on prop change, for example:
 		} else {
@@ -45,10 +49,68 @@ export const VideoJS = (props) => {
 		};
 	}, [playerRef]);
 
+	function testDraw(){
+		canvasRef.current.width = videoRef.current.clientWidth;
+		canvasRef.current.height = videoRef.current.clientHeight;
+		ctxRef.current = canvasRef.current.getContext("2d");
+
+		// ctx.fillStyle = "green";
+		
+		// console.log(videoRef.current.clientWidth);
+		// // canvas.style.
+
+		// ctx.fillRect(0,0,canvas.width,canvas.height);
+		// setTimeout(()=>{
+		// 	ctx.clearRect(0,0,canvas.width,canvas.height);
+		// },1000);
+
+		window.requestAnimationFrame(drawBlur);
+	}
+	
+	function fullscreen(){
+
+		
+
+		videoRef.current.requestFullscreen();
+	}
+
+	function drawBlur(){
+		// ctxRef.current.fillStyle = "green";
+		ctxRef.current.filter = "blur(4px)";
+		ctxRef.current.font = "48px serif";
+		let curTime = playerRef.current.currentTime();
+		
+		
+		if(curTime > blurData.data[blurIdx.current].time + 0.5){
+			
+			console.log("hi");
+			ctxRef.current.clearRect(0,0,canvasRef.current.width, canvasRef.current.height);
+
+			blurData.data[blurIdx.current].objects.forEach((e)=>{
+				console.log(e.x, e.y);
+				ctxRef.current.fillRect(canvasRef.current.width * e.x, canvasRef.current.height * e.y, canvasRef.current.width * e.w * 0.01, canvasRef.current.height * e.h * 0.01);
+			})
+
+			blurIdx.current++;
+			if(blurIdx.current === blurData.data.length){
+				return;
+			}
+
+		}
+		window.requestAnimationFrame(drawBlur);
+	}
+	
 
   	return (
 		<div data-vjs-player id='videoZone'>
- 			<div ref={videoRef} />
+ 			<div ref={videoRef} onClick={testDraw} onDoubleClick={fullscreen}>
+				<canvas ref={canvasRef} style={{
+					position: "absolute",
+					zIndex:"5",
+					pointerEvents:"none"
+				}}
+				/>
+			</div>
 		</div>
   	);
 }
