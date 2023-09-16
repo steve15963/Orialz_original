@@ -38,4 +38,10 @@ public class Video extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING) //Enum값 문자열로 저장
     private VideoStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private CategoryStatus category;
+
+
+
 }
