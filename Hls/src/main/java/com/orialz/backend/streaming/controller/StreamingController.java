@@ -1,6 +1,7 @@
 package com.orialz.backend.streaming.controller;
 
 import com.orialz.backend.streaming.service.StreamingService;
+import com.orialz.backend.video.domain.entity.CategoryStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,13 @@ public class StreamingController {
     private String rootPath;
 
     // HLS 스트리밍
+
+    @ResponseBody
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello(){
+        return ResponseEntity.ok("hello");
+    }
+
     @ResponseBody
     @GetMapping("/streaming/hls/{videoId}/{fileName}")
     public ResponseEntity<Resource> hlsPlay(@PathVariable Long videoId , @PathVariable String fileName) throws FileNotFoundException, NoSuchAlgorithmException {
@@ -49,21 +57,19 @@ public class StreamingController {
 
 
     // 분할 업로드
+    // 유저 정보 헤더에 담기 나중에 수정
     @ResponseBody
     @PostMapping("/upload/chunk")
     public ResponseEntity<Boolean> upload(@RequestParam("chunk") MultipartFile file,
                                          @RequestParam("totalChunkNum") Integer totalChunkNum,
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
-                                         @RequestParam(name = "content", required = false) String content,
-                                          @RequestParam(name = "content", required = false) String title
+                                         @RequestParam(name = "content", required = false) String content, 
+                                          @RequestParam(name = "content", required = false) String title,
+                                          @RequestParam(name = "category", required = false) CategoryStatus category
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
-
-//        log.info("con: "+file);
-        //올린 영상 제목 출력
-        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title);
-        Future<Boolean> future1 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,2L,content,title);
-        Future<Boolean> future2 = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,3L,content,title);
+        //업로드 성공 여부 반환
+        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
         Boolean res = future.get();
         return ResponseEntity.ok().body(res);
     }
@@ -86,16 +92,16 @@ public class StreamingController {
                 .body(resource);
     }
 
-    @ResponseBody
-    @GetMapping("/hash")
-    public ResponseEntity<String> hashTest() throws NoSuchAlgorithmException {;
-        long id = 1;
-        LocalDateTime date = LocalDateTime.of(2023,9,12,10,14,20);
-        log.info("date: "+date);
-        String hash = streamingService.hashingPath(id,date);
-        return ResponseEntity.ok()
-                .body(hash);
-    }
+//    @ResponseBody
+//    @GetMapping("/hash")
+//    public ResponseEntity<String> hashTest() throws NoSuchAlgorithmException {;
+//        long id = 1;
+//        LocalDateTime date = LocalDateTime.of(2023,9,12,10,14,20);
+//        log.info("date: "+date);
+//        String hash = streamingService.hashingPath(id,date);
+//        return ResponseEntity.ok()
+//                .body(hash);
+//    }
 
 
 //    @ResponseBody
