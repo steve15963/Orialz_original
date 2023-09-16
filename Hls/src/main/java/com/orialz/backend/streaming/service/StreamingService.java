@@ -1,21 +1,14 @@
 package com.orialz.backend.streaming.service;
 
 
-import com.orialz.backend.video.domain.entity.Member;
-import com.orialz.backend.video.domain.entity.Video;
-import com.orialz.backend.video.domain.entity.VideoStatus;
+import com.orialz.backend.video.domain.entity.*;
 import com.orialz.backend.video.domain.repository.MemberRepository;
 import com.orialz.backend.video.domain.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;
-import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
-import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-import net.bramp.ffmpeg.probe.FFmpegStream;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,11 +23,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 @Service
@@ -80,7 +70,7 @@ public class StreamingService {
 
 
     @Transactional
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title) throws IOException, NoSuchAlgorithmException {
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
@@ -100,16 +90,17 @@ public class StreamingService {
                 log.info(title);
                 //해당 유저 찾기
                 Member nowMember = memberRepository.findById(userId).orElse(null);
-                // 디비에 영상 삽입. status = 0;
-                // 디비에서 가지고온 videoId , createAt
                 Video video = Video.builder()
                         .content(content)
                         .member(nowMember)
                         .title(title)
                         .status(VideoStatus.WAIT)
+                        .category(category)
                         .build();
 
                 Video nowVideo = videoRepository.save(video);
+                // 디비에 영상 삽입. status = 0;
+                // 디비에서 가지고온 videoId , createAt
                 String hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
                 String videoPath = path + "/"+hashing;
 
