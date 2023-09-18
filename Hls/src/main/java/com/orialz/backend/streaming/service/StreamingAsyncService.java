@@ -42,7 +42,7 @@ public class StreamingAsyncService {
             FFmpegBuilder builder = new FFmpegBuilder()
                     .setInput(hashPath+"/"+fileName) // 입력 동영상 파일 경로
                     .addOutput(outputPath +"/" +"frame%08d.png") // 썸네일 이미지 파일 경로
-                    .setVideoFilter("fps=60")
+                    .setVideoFilter("fps=5")
                     .done();
 
             FFmpegExecutor executor = new FFmpegExecutor(new FFmpeg(), new FFprobe());
