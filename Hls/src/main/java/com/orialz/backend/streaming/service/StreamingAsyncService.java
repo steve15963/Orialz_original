@@ -1,8 +1,6 @@
 package com.orialz.backend.streaming.service;
 
 
-import com.orialz.backend.video.domain.repository.MemberRepository;
-import com.orialz.backend.video.domain.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;

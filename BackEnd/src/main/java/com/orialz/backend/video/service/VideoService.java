@@ -19,7 +19,7 @@ public class VideoService {
 
     public List<VideoListResponseDto> mainList(){
           List<Video> videos = videoRepository.findAll();
-        List<VideoListResponseDto> resVideos = new ArrayList<>();
+        List<VideoListResponseDto> response = new ArrayList<>();
           for(Video video: videos){
               VideoListResponseDto temp = VideoListResponseDto.builder()
                       .id(video.getVideoId())
@@ -29,9 +29,9 @@ public class VideoService {
                       .uploader(video.getMember().getNickname())
                       .view(video.getView())
                       .build();
-              resVideos.add(temp);
+              response.add(temp);
           }
-          return resVideos;
+          return response;
     }
 
     @Transactional
@@ -42,6 +42,23 @@ public class VideoService {
         VideoViewResponseDto response = VideoViewResponseDto.builder()
                 .view(nowVideo.getView())
                 .build();
+        return response;
+    }
+
+    public List<VideoListResponseDto> searchVideo(String keyword){
+        List<Video> videos = videoRepository.findSearchedVideo(keyword);
+        List<VideoListResponseDto> response = new ArrayList<>();
+        for(Video video: videos){
+            VideoListResponseDto temp = VideoListResponseDto.builder()
+                    .id(video.getVideoId())
+                    .date(video.getCreatedAt()) //~시간 전으로 수정 가능
+                    .thumbnail(video.getThumbnail())
+                    .title(video.getTitle())
+                    .uploader(video.getMember().getNickname())
+                    .view(video.getView())
+                    .build();
+            response.add(temp);
+        }
         return response;
     }
 
