@@ -39,4 +39,7 @@ out/
 ### application.properties ###
 **/src/main/resources/application.yaml
 
+### AI - MMDetection ###
+AI/object-detection/practice/mmdetection
+
 BackEnd/src/main/resources/properties/env.properties
