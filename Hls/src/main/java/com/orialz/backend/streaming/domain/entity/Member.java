@@ -1,4 +1,4 @@
-package com.orialz.backend.Member.domain.entity;
+package com.orialz.backend.streaming.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

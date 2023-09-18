@@ -1,9 +1,12 @@
 package com.orialz.backend.streaming.service;
 
 
-import com.orialz.backend.video.domain.entity.*;
-import com.orialz.backend.video.domain.repository.MemberRepository;
-import com.orialz.backend.video.domain.repository.VideoRepository;
+import com.orialz.backend.streaming.domain.entity.CategoryStatus;
+import com.orialz.backend.streaming.domain.entity.Member;
+import com.orialz.backend.streaming.domain.entity.Video;
+import com.orialz.backend.streaming.domain.entity.VideoStatus;
+import com.orialz.backend.streaming.domain.repository.MemberRepository;
+import com.orialz.backend.streaming.domain.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;
