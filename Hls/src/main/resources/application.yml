@@ -18,3 +18,4 @@ spring:
           format_sql: true
           default_fetch_size: ${chunkSize:100}
           jdbc.batch_size: ${chunkSize:100}
+    database: mysql
