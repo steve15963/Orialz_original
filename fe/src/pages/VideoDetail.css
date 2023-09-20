@@ -7,12 +7,12 @@
     border-radius: 10px;
 }
 
-.blur-canvas {
-    height: 1000px;
+.video-detail-container {
     width: 1000px;
+    /* display: flex; */
+    /* display: flex;    */
 }
 
-.video-canvas {
-    border: 1px solid black;
-    z-index: 2147483647;
+.videojs-container {
+    /* width: 1200px; */
 }
