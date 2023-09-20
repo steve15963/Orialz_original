@@ -5,7 +5,7 @@ spring:
       max-request-size: 50MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${properties.datasource.path}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://db.orialz.com:3306/Orialz?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${properties.datasource.username}
     password: ${properties.datasource.password}
 
