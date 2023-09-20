@@ -3,6 +3,7 @@ package com.orialz.backend.Member.service;
 import com.orialz.backend.Member.domain.entity.Member;
 import com.orialz.backend.Member.domain.repository.MemberRepository;
 import com.orialz.backend.Member.dto.AddMemberRequest;
+import com.orialz.backend.Member.dto.MemberInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class MemberService {
      */
     public Member getMemberByEmail(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException((email)));
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected email"));
     }
 
     /**
@@ -43,5 +44,19 @@ public class MemberService {
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected member"));
+    }
+
+    public MemberInfoResponseDto getMemberInfo(String email) throws Exception {
+        Member member = memberRepository.findMemberByEmail(email);
+
+        MemberInfoResponseDto memberInfoResponseDto = MemberInfoResponseDto.builder()
+                .nickname(member.getNickname())
+                .email(member.getEmail())
+                .picture(member.getPicture())
+                .role(member.getRole())
+                .provider(member.getProvider())
+                .providerId(member.getProviderId())
+                .build();
+        return memberInfoResponseDto;
     }
 }
