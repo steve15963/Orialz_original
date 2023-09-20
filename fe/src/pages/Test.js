@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import VideoJS from '../components/VideoJS'
+import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
-import overlay from 'videojs-overlay';
+import header from '../components/header/Header';
 import './Test.css'
 import data from './data.json';
 import data2 from './data2.json';
 import data3 from './data3.json';
-videojs.registerPlugin('overlay', overlay);
 
 const Test = () => {
 	const playerRef = React.useRef(null);
