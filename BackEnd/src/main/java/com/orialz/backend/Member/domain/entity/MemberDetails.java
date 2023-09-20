@@ -10,10 +10,6 @@ import java.util.Map;
 public class MemberDetails implements OAuth2User {
     private final Member member;
 
-    public Member getMember() {
-        return member;
-    }
-
     private final Map<String, Object> attributes; // 소셜 로그인 통해서 받은 정보들 그대로 담아 return해주는 역할
     public MemberDetails(Member member, Map<String, Object> attributes) {
         this.member = member;
