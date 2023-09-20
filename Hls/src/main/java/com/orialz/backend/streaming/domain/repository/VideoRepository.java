@@ -1,12 +1,8 @@
-package com.orialz.backend.video.domain.repository;
+package com.orialz.backend.streaming.domain.repository;
 
-import com.orialz.backend.video.domain.entity.Video;
-import com.orialz.backend.video.dto.response.VideoListResponseDto;
+import com.orialz.backend.streaming.domain.entity.Video;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long> {
