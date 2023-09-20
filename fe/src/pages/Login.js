@@ -1,12 +1,26 @@
-import { useNavigate } from "react-router-dom";
-
 export default function Login() {
-  const navigate = useNavigate();
+  function navigateToGoogleLogin() {
+    window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
+    // const newTab = window.open(
+    //   "http://localhost:8080/oauth2/authorization/google",
+    //   "_blank"
+    // );
 
-  const navigateToGoogleLogin = () => {
-    console.log("하이");
-    navigate("/oauth2/authorization/google");
-  };
+    // if (newTab) {
+    //   newTab.onload = function () {
+    //     console.log("하이");
+    //     const urlParams = new URLSearchParams(newTab.location.search);
+    //     console.log(urlParams);
+    //     const token = urlParams.get("token");
+
+    //     localStorage.setItem("accessToken", token);
+
+    //     newTab.close();
+
+    //     window.location.href = "http://localhost:3000";
+    //   };
+    // }
+  }
 
   return (
     <div>
