@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${properties.datasource.username}
-    password: ${properties.datasource.password}
-    url: jdbc:mysql://${properties.datasource.path}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: NagDongGangOrialz
+    url: jdbc:mysql://db.orialz.com:3306/Orialz?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     hikari:
       maximum-pool-size: 100
   jpa:
@@ -19,12 +19,12 @@ spring:
       client:
         registration:
           google:
-            client-id: ${oauth2.client.id}
-            client-secret: ${oauth2.client.secret}
-            redirect-uri: https://${properties.server.path}/login/oauth2/code/google
+            client-id: 761800020458-45jl2vt7la09bpg35dcoas2rgom5bfpa.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
             scope:
               - email
               - profile
 jwt:
-  issuer: ${jwt.issuer.email}
-  secret_key: ${jwt.secret.key}
+  issuer: orialz@gmail.com
+  secret_key: ${JWT_SECRET_KEY}
