@@ -1,5 +1,6 @@
 package com.orialz.backend.video.domain.entity;
 
+import com.orialz.backend.Member.domain.entity.Member;
 import com.orialz.backend.common.BaseTimeEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -9,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity(name = "videos")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
