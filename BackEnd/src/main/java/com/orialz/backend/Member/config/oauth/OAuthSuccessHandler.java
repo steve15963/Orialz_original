@@ -8,14 +8,12 @@ import com.orialz.backend.Member.service.MemberService;
 import com.orialz.backend.Member.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,9 +32,6 @@ public class OAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
     private final MemberService memberService;
-
-    @Value("${properties.front.path}")
-    String redirectUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -90,10 +85,9 @@ public class OAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
      * 액세스 토큰을 패스에 추가
      */
     private String getTargetUrl(String token) {
-//        return UriComponentsBuilder.fromUriString("/")
-//                .queryParam("token", token)
-//                .build()
-//                .toUriString();
-        return "https://" + redirectUrl + "/?token=" + token;
+        return UriComponentsBuilder.fromUriString("/")
+                .queryParam("token", token)
+                .build()
+                .toUriString();
     }
 }

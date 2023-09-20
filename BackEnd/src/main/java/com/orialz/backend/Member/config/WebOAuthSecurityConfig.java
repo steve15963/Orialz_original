@@ -9,7 +9,6 @@ import com.orialz.backend.Member.domain.repository.RefreshTokenRepository;
 import com.orialz.backend.Member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -29,10 +28,6 @@ public class WebOAuthSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberService memberService;
-    private final CorsConfig corsConfig;
-
-    @Value("${properties.front.path}")
-    String redirectUrl;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -43,15 +38,12 @@ public class WebOAuthSecurityConfig {
         // 사이트 위변조 요청 방지
         http.csrf().disable();
 
-        http.cors();
-
         // 로그인 설정
         http.formLogin().disable()
                 .httpBasic().disable(); // httpBasic : Http basic Auth 기반으로 로그인 인증창이 뜸.
 
         // 헤더를 확인할 커스텀 필터 추가
-        http.addFilter(corsConfig.corsFilter())
-                .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http
                 .oauth2Login()
@@ -65,7 +57,7 @@ public class WebOAuthSecurityConfig {
                 .successHandler(oAuthSuccessHandler());
 
         // 로그아웃 설정
-        http.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").deleteCookies("refresh_token").logoutSuccessUrl("https://"+redirectUrl);
+        http.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID");
 
         // 예외 처리
         http.exceptionHandling()
