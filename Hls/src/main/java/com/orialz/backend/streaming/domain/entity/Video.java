@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity(name = "videos")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
