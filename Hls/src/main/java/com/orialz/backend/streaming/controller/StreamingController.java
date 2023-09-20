@@ -1,7 +1,7 @@
 package com.orialz.backend.streaming.controller;
 
+import com.orialz.backend.streaming.domain.entity.CategoryStatus;
 import com.orialz.backend.streaming.service.StreamingService;
-import com.orialz.backend.video.domain.entity.CategoryStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +28,7 @@ import java.util.concurrent.Future;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/hls")
 public class StreamingController {
 
 
@@ -45,7 +46,7 @@ public class StreamingController {
     }
 
     @ResponseBody
-    @GetMapping("/streaming/hls/{videoId}/{fileName}")
+    @GetMapping("/streaming/{videoId}/{fileName}")
     public ResponseEntity<Resource> hlsPlay(@PathVariable Long videoId , @PathVariable String fileName) throws FileNotFoundException, NoSuchAlgorithmException {
         log.info("hls!!!!");
         File file = streamingService.videoPlay(videoId,fileName);
