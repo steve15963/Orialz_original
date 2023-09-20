@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class OAuth2AuthorizationRequestBasedOnCookieRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
     public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
+
     private final static int COOKIE_EXPIRE_SECONDS = 18000;
 
     @Override
