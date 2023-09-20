@@ -93,6 +93,7 @@ export const VideoJS = (props) => {
 	
 				blurIdx.current++;
 				if(blurIdx.current === blurData.data.length){
+					blurIdx.current=0;
 					return;
 				}
 	
@@ -104,7 +105,10 @@ export const VideoJS = (props) => {
 		if(timeBefore.current > curTime){
 			blurIdx.current = Math.floor(curTime-1);
 			console.log("영상뒤로감");
-		};
+		} else if(timeBefore.current +0.1 < curTime){
+			blurIdx.current = Math.floor(curTime-0.5);
+			console.log("영상앞으로감");
+		}
 		console.log(curTime, blurData.data[blurIdx.current].time + 0.5);
 		
 		
