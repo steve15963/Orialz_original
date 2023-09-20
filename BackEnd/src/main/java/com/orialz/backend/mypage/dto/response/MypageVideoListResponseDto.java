@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor 
 @AllArgsConstructor
 @Builder
 public class MypageVideoListResponseDto {
