@@ -17,4 +17,6 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
             "UNION " +
             "(SELECT * FROM (SELECT * FROM videos WHERE category = :keyword ORDER BY view DESC limit 100) AS subquery2)" )
     List<Video> findSearchedVideo(@Param("keyword") String keyword);
+
+    List<Video> findByMember_Id(Long memberId);
 }
