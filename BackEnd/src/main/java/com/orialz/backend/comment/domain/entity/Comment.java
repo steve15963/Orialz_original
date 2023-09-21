@@ -1,6 +1,7 @@
 package com.orialz.backend.comment.domain.entity;
 
 import com.orialz.backend.Member.domain.entity.Member;
+import com.orialz.backend.common.BaseTimeEntity;
 import com.orialz.backend.video.domain.entity.Video;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 @Setter
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;

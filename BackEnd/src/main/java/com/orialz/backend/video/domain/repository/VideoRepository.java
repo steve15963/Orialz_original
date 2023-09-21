@@ -13,9 +13,9 @@ import java.util.List;
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
 
-    @Query(nativeQuery = true , value = "(SELECT * FROM (SELECT * FROM videos WHERE title LIKE %:keyword% ORDER BY view DESC limit 100) AS subquery1)" +
+    @Query(nativeQuery = true , value = "(SELECT * FROM (SELECT * FROM video WHERE title LIKE %:keyword% ORDER BY view DESC limit 100) AS subquery1)" +
             "UNION " +
-            "(SELECT * FROM (SELECT * FROM videos WHERE category = :keyword ORDER BY view DESC limit 100) AS subquery2)" )
+            "(SELECT * FROM (SELECT * FROM video WHERE category = :keyword ORDER BY view DESC limit 100) AS subquery2)" )
     List<Video> findSearchedVideo(@Param("keyword") String keyword);
 
     List<Video> findByMember_Id(Long memberId);
