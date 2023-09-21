@@ -4,6 +4,7 @@ import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
 import './VideoDetail.css';
 import data3 from './data3.json';
+import axios from 'axios';
 
 const VideoDetail = () => {
 	const playerRef = React.useRef(null);
@@ -12,11 +13,24 @@ const VideoDetail = () => {
 	const canvasRef = React.useRef(null);
 	const videoCanvasRef = React.useRef(null);
 
+	async function getData() {
+		try {
+			//응답 성공
+			const response = await axios.get("https://test.orialz.com/hls/streaming/3/output.m3u8",{
+			});
+			console.log(response);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+	getData();
+
     const videoJsOptions = {
 		autoplay: true,
 		controls: true,
 		// responsive: true,
-		fluid: true,
+		// fluid: true,
 		userActions: {
 			click: false,
 			doubleClick: false,
@@ -26,8 +40,8 @@ const VideoDetail = () => {
 			fullscreenToggle: false,
 		},
 		sources: [{
-			src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-			type: 'video/mp4'
+			src: 'https://test.orialz.com/hls/streaming/3/output.m3u8',
+			type: 'application/x-mpegURL'
 		}]
     };
 	
