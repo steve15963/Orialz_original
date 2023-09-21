@@ -31,9 +31,12 @@ get_ipython().run_line_magic('cd', 'mmdetection')
 import os
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
+# 모듈 import
+from rich.pretty import pprint
+from PIL import Image
+
 
 # In[20]:
-
 
 # 모델 초기화
 from mmdet.apis import DetInferencer
@@ -50,26 +53,28 @@ device = 'cpu'
 inferencer = DetInferencer(model_name, checkpoint_file, device)
 
 
-# In[21]:
+while True:
+    # In[21]:
 
 
-# 모델 데모 inference
-img = './demo/demo.jpg'
-result = inferencer(img, out_dir='./output')
+    # 모델 데모 inference
+    # img = './demo/demo.jpg'
+    img = input()
+    result = inferencer(img, out_dir='./output')
 
 
-# In[22]:
+    # In[22]:
 
 
-# 모델 데모 inference - 결과 확인
-from rich.pretty import pprint
-# pprint(result, max_length=4)
+    # 모델 데모 inference - 결과 확인
+    # pprint(result, max_length=4)
 
-from PIL import Image
-image = Image.open('./output/vis/demo.jpg')
-image_width, image_height = image.size
-output_result = { 'title': img.split('/')[-1],
-                  'width':image_width,
-                  'height': image_height }
-output_result.update(result['predictions'][0])
-print(output_result)
+    img_title = img.split('/')[-1]
+    image = Image.open('./output/vis/{}'.format(img_title))
+    image_width, image_height = image.size
+
+    output_result = { 'title': img_title,
+                      'width': image_width,
+                      'height': image_height }
+    output_result.update(result['predictions'][0])
+    print(output_result)
