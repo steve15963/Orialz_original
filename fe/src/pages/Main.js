@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import VideoContainer from "../components/videoContainer/VideoContainer";
-import Header from "../components/header/Header";
 import "./Main.css";
+import Header from "../components/header/Header";
 
 export default function Main() {
   useEffect(() => {
@@ -257,16 +257,13 @@ export default function Main() {
     },
   ]);
 
-  function search(e) {
-    e.preventDefault();
-    //검색하는 알고리즘
-  }
+  
 
   return (
     <div>
       {/* <Header search={search}></Header> */}
-      <Header search={search}></Header>
       <div className="main">
+        <Header></Header>
         <VideoContainer videos={videos}></VideoContainer>
       </div>
     </div>
