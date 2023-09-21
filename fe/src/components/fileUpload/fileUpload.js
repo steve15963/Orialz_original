@@ -61,8 +61,8 @@ function FileUpload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL:"http://localhost:8081/hls"
-        // baseURL:"https://test.orialz.com/hls"
+        // baseURL:"http://localhost:8081/hls"
+        baseURL:"https://test.orialz.com/hls"
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
