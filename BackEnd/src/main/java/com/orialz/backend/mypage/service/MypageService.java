@@ -3,6 +3,7 @@ package com.orialz.backend.mypage.service;
 import com.orialz.backend.comment.domain.entity.Comment;
 import com.orialz.backend.comment.domain.repository.CommentRepository;
 import com.orialz.backend.mypage.dto.response.MypageCommentListResponseDto;
+import com.orialz.backend.mypage.dto.response.MypageListResponseDto;
 import com.orialz.backend.mypage.dto.response.MypageVideoListResponseDto;
 import com.orialz.backend.video.domain.entity.Video;
 import com.orialz.backend.video.domain.repository.VideoRepository;
@@ -19,6 +20,20 @@ import java.util.List;
 public class MypageService {
     private final VideoRepository videoRepository;
     private final CommentRepository commentRepository;
+
+
+
+    public MypageListResponseDto getMypage(Long memberId){
+        List<MypageVideoListResponseDto> myVideoList = getMyVideo(memberId);
+        List<MypageCommentListResponseDto> myCommentList = getMyComment(memberId);
+        MypageListResponseDto response = MypageListResponseDto.builder()
+                .commentNum(myCommentList.size())
+                .videoNum(myVideoList.size())
+                .commentList(myCommentList)
+                .videoList(myVideoList)
+                .build();
+        return response;
+    }
 
     public List<MypageVideoListResponseDto> getMyVideo(Long memberId){
         List<Video> nowVideoList = videoRepository.findByMember_Id(memberId);
