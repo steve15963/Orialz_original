@@ -59,19 +59,9 @@ export const VideoJS = (props) => {
 	function fullscreen(){
 		videoRef.current.requestFullscreen();
 	}
-
-	function drawBlur(){
-
-		let curTime = playerRef.current.currentTime();
-
-		// 영상이 멈춰있을 때
-		if(timeBefore.current === curTime){
-			console.log("영상멈춤");
-		} else {
-			if(curTime > blurData.data[blurIdx.current].time + 0.5){
-				blursRef.current.forEach((e)=>{e.remove()});
-				console.log("hi");
-	
+	function createBlurElement(){
+		blursRef.current.forEach((e)=>{e.remove()});
+				
 				blurData.data[blurIdx.current].objects.forEach((e)=>{
 					const rect = realVideoRef.current.getBoundingClientRect();
 					const blurSquare = document.createElement("div");
@@ -79,33 +69,50 @@ export const VideoJS = (props) => {
 					blurSquare.style.position = "absolute";
 					blurSquare.style.top = rect.height * e.y + "px";
 					blurSquare.style.left = rect.width * e.x + "px";
-					// blurSquare.style.height = rect.height * e.h * 0.01 + "px";
 					blurSquare.style.height = e.h + "%";
-					// blurSquare.style.width = rect.width * e.w * 0.01 + "px";
 					blurSquare.style.width = e.w + "%";
 					blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
 					blurSquare.style.zIndex = 5;
 					blurSquare.style.backdropFilter = "blur(20px)";
 					blursRef.current.push(blurSquare);
-					console.log(rect);
 					realVideoRef.current.appendChild(blurSquare);
 				})
-	
-				blurIdx.current++;
-				if(blurIdx.current === blurData.data.length){
-					return;
-				}
-	
-			}
+	}
+	function drawBlur(){
 
+		let curTime = playerRef.current.currentTime();
+		// 영상의 이전 부분으로 돌아갈 때
+		let mode = 0;
+		// 영상이 멈춰있을 때
+		if(timeBefore.current === curTime){
+			// console.log("영상멈춤");
+			mode = 0;
+		} else if(timeBefore.current > curTime){
+			mode = -1;
+			blurIdx.current = Math.floor(curTime);
+				// console.log("영상뒤로감");
+		} else {
+			mode = 1;
+			blurIdx.current = Math.floor(curTime);
+			// console.log("영상앞으로감");
+			
+		}
+		if(mode === 0){
+
+		} else if(mode===1){
+			if(curTime > blurData.data[blurIdx.current].time - 0.5){
+				createBlurElement();
+				blurIdx.current++;
+			}
+			
+		} else if(mode === -1){
+			if(curTime < blurData.data[blurIdx.current].time + 0.5){
+				createBlurElement();
+				blurIdx.current--;
+			}
 		}
 
-		// 영상의 이전 부분으로 돌아갈 때
-		if(timeBefore.current > curTime){
-			blurIdx.current = Math.floor(curTime-1);
-			console.log("영상뒤로감");
-		};
-		console.log(curTime, blurData.data[blurIdx.current].time + 0.5);
+		// console.log(curTime, blurIdx.current);
 		
 		
 		timeBefore.current = curTime;

@@ -12,9 +12,12 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       properties:
         hibernate:
           format_sql: true
           default_fetch_size: ${chunkSize:100}
           jdbc.batch_size: ${chunkSize:100}
+    database: mysql
+server:
+  port=${server.port}

@@ -1,7 +1,6 @@
-package com.orialz.backend.video.domain.repository;
+package com.orialz.backend.streaming.domain.repository;
 
-import com.orialz.backend.video.domain.entity.Member;
-import com.orialz.backend.video.domain.entity.Video;
+import com.orialz.backend.streaming.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

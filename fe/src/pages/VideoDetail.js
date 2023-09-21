@@ -1,27 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import VideoJS from '../components/VideoJS'
+import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
-import overlay from 'videojs-overlay';
-import './Test.css'
-import data from './data.json';
-import data2 from './data2.json';
+import './VideoDetail.css';
 import data3 from './data3.json';
-videojs.registerPlugin('overlay', overlay);
 
-const Test = () => {
+const VideoDetail = () => {
 	const playerRef = React.useRef(null);
 	const index = React.useRef(0);
 	const imgRef = React.useRef(null);
 	const canvasRef = React.useRef(null);
 	const videoCanvasRef = React.useRef(null);
 
-	
-
     const videoJsOptions = {
 		autoplay: true,
 		controls: true,
-		responsive: true,
+		// responsive: true,
 		fluid: true,
 		userActions: {
 			click: false,
@@ -52,15 +46,12 @@ const Test = () => {
 
 	
 	return (
-		<>
-		  	<div>Rest of app here</div>
-		  	<VideoJS options={videoJsOptions} onReady={handlePlayerReady} blurData={data3}/>
-			<img src={require('./room.jpg')} alt='room img' ref={imgRef}/>
-			{/* <canvas className='blur-canvas' ref={canvasRef} onClick={doSomething}></canvas> */}
-			<canvas className='video-canvas' ref={videoCanvasRef}></canvas>
-		  	<div>Rest of app here</div>
-		</>
+		<div className="video-detail-container">
+			<div className="videojs-container">
+		  		<VideoJS options={videoJsOptions} onReady={handlePlayerReady} blurData={data3}/>	
+			</div>
+		</div>
 	);
 };
 
-export default Test;
+export default VideoDetail;
