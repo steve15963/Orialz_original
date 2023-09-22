@@ -50,6 +50,7 @@ public class MemberService {
         Member member = memberRepository.findMemberByEmail(email);
 
         MemberInfoResponseDto memberInfoResponseDto = MemberInfoResponseDto.builder()
+                .id(member.getId())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .picture(member.getPicture())
