@@ -19,6 +19,7 @@ export default function Header({search}){
     console.log(user);
 	const userRef = useRef(null)
 	const userStr = localStorage.getItem("user");
+	console.log(userStr);
 	if(userStr){
 		const userObj = JSON.parse(userStr);
 		userRef.current = {email:userObj.email, nickname:userObj.nickname};
