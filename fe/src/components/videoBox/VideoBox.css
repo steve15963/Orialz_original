@@ -8,13 +8,14 @@
     border-radius: 3px;
     min-width: 250px;
     min-height: 200px;
-    margin: 10px;
+    margin: 5px;
     transition: 300ms;
     
 }
 
 .video-box:hover {
     transform: scale(1.2);
+    z-index: 2;
 }
 
 .video-box-viewdate { 

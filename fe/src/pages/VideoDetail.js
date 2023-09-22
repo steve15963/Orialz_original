@@ -16,7 +16,7 @@ const VideoDetail = () => {
 	async function getData() {
 		try {
 			//응답 성공
-			const response = await axios.get("https://test.orialz.com/hls/streaming/3/output.m3u8",{
+			const response = await axios.get("https://test.orialz.com/hls/streaming/4/output.m3u8",{
 			});
 			console.log(response);
 		} catch (error) {

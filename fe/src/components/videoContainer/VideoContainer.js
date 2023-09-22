@@ -58,7 +58,7 @@ export default function VideoContainer({videos}){
 				}
 			});
         });
-    },[])
+    },[videos])
 	
     return(
         <div className="video-container flex-cont flex-wrap-anim">
