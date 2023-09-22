@@ -18,12 +18,7 @@ export default function Header({search}){
     const dispatch = useDispatch();
     console.log(user);
 	const userRef = useRef(null)
-	const userStr = localStorage.getItem("user");
-	console.log(userStr);
-	if(userStr){
-		const userObj = JSON.parse(userStr);
-		userRef.current = {email:userObj.email, nickname:userObj.nickname};
-	}
+	
 
     function navigateToGoogleLogin() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
@@ -97,25 +92,31 @@ export default function Header({search}){
 		const token = params.get("token");
 		const refresh_token = getCookie("refresh_token");
 		
+		if (token) {
+			localStorage.setItem("access_token", token);
+			window.location.replace("/");
+		}
+		
+		if (refresh_token) {
+			accessTokenReissue();
+		}
+		
+		if (localStorage.getItem("access_token")) {
+			getMemberInfo();
+		}
+		
 		// const userStr = localStorage.getItem("user");
 		// if(userStr){
 		// 	console.log("dispatching userInfo");
 		// 	const userObj = JSON.parse(userStr);
 		// 	dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
 		// }
-		if (token) {
-			localStorage.setItem("access_token", token);
-			window.location.replace("/");
-		}
-
-		if (refresh_token) {
-			accessTokenReissue();
-		}
-
-		if (localStorage.getItem("access_token")) {
-			getMemberInfo();
-		}
-		
+		const userStr = localStorage.getItem("user");
+		console.log(userStr);
+		if(userStr){
+		const userObj = JSON.parse(userStr);
+		userRef.current = {email:userObj.email, nickname:userObj.nickname};
+	}
 
 
 	}, []);
