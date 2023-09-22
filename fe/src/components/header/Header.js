@@ -78,6 +78,7 @@ export default function Header({search}){
 		})
 		.then((response) => {
 			const userInfo = {email:response.email, nickname:response.nickname};
+			console.log("setting userinfo in localstorage in getMemeberInfo()",response.email,response.nickname);
 			// dispatch(uploadUser({email:response.email, nickname:response.nickname}));
 			localStorage.setItem("user", JSON.stringify(userInfo));
             response.json()
