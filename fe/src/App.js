@@ -7,7 +7,6 @@ import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-import { useEffect } from "react";
 
 
 function App() {
