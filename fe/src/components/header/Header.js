@@ -25,6 +25,7 @@ export default function Header({search}){
 	function logoutGoogle() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
 		localStorage.removeItem("access_token");
+		localStorage.removeItem("user");
 	}
 
 	function getCookie(key) {
@@ -76,20 +77,25 @@ export default function Header({search}){
 		},
 		})
 		.then((response) => {
-			dispatch(uploadUser({email:response.email, nickname:response.nickname}));
+			const userInfo = {email:response.email, nickname:response.nickname};
+			// dispatch(uploadUser({email:response.email, nickname:response.nickname}));
+			localStorage.setItem("user", JSON.stringify(userInfo));
             response.json()
 		})
 		.then((data) => console.log(data))
 		.catch((error) => console.log(error));
 	}
 
-	useEffect(() => {
-	}, []);
-	
     useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 		const token = params.get("token");
 		const refresh_token = getCookie("refresh_token");
+		
+		const userStr = localStorage.getItem("user");
+		if(userStr){
+			const userObj = JSON.parse(userStr);
+			dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
+		}
 		
 		if (token) {
 			localStorage.setItem("access_token", token);
