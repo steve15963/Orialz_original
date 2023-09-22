@@ -35,4 +35,5 @@ public class MemberController {
             throw new Exception("정보를 가져올 수 없습니다.");
         }
     }
+
 }
