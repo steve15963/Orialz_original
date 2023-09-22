@@ -39,6 +39,14 @@ out/
 ### application.properties ###
 **/src/main/resources/application.yaml
 
+### AI - Datasets ###
+AI/datasets
+AI/yolov8-test/images
+AI/yolov8-test/Aquarium
+
+### AI - Models ###
+*.pt
+
 ### AI - MMDetection ###
 AI/object-detection/practice/mmdetection
 
