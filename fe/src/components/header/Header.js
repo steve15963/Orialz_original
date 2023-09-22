@@ -97,12 +97,12 @@ export default function Header({search}){
 		const token = params.get("token");
 		const refresh_token = getCookie("refresh_token");
 		
-		const userStr = localStorage.getItem("user");
-		if(userStr){
-			console.log("dispatching userInfo");
-			const userObj = JSON.parse(userStr);
-			dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
-		}
+		// const userStr = localStorage.getItem("user");
+		// if(userStr){
+		// 	console.log("dispatching userInfo");
+		// 	const userObj = JSON.parse(userStr);
+		// 	dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
+		// }
 		if (token) {
 			localStorage.setItem("access_token", token);
 			window.location.replace("/");
