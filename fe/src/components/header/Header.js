@@ -93,10 +93,10 @@ export default function Header({search}){
 		
 		const userStr = localStorage.getItem("user");
 		if(userStr){
+			console.log("dispatching userInfo");
 			const userObj = JSON.parse(userStr);
 			dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
 		}
-		
 		if (token) {
 			localStorage.setItem("access_token", token);
 			window.location.replace("/");
