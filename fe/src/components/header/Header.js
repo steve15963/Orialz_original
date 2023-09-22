@@ -76,15 +76,12 @@ export default function Header({search}){
 			"Content-Type": "application/json",
 		},
 		})
-		.then((response) => {
-			console.log(response);
-			const userInfo = {email:response.email, nickname:response.nickname};
-			console.log("setting userinfo in localstorage in getMemeberInfo()",response.email,response.nickname);
-			// dispatch(uploadUser({email:response.email, nickname:response.nickname}));
+		.then((response) => response.json())
+		.then((data) => {
+			const userInfo = {email:data.email, nickname:data.nickname};
 			localStorage.setItem("user", JSON.stringify(userInfo));
-            return response.json()
+			console.log(data)
 		})
-		.then((data) => console.log(data))
 		.catch((error) => console.log(error));
 	}
 
