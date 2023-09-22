@@ -104,7 +104,7 @@ export default function Header({search}){
 			accessTokenReissue();
 		}
 		
-		if (localStorage.getItem("access_token")) {
+		if (localStorage.getItem("access_token") && !localStorage.getItem("user")) {
 			getMemberInfo();
 		}
 		
