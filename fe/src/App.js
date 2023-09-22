@@ -11,96 +11,31 @@ import { useEffect } from "react";
 
 
 function App() {
-  function logoutGoogle() {
-    window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
-    localStorage.removeItem("access_token");
-  }
-
-  function getCookie(key) {
-    var result = null;
-    var cookie = document.cookie.split(";");
-    cookie.some(function (item) {
-      item = item.replace(" ", "");
-      var dic = item.split("=");
-      if (key === dic[0]) {
-        result = dic[1];
-        return true;
-      }
-    });
-    return result;
-  }
-
-  function accessTokenReissue() {
-    const refresh_token = getCookie("refresh_token");
-    console.log(refresh_token);
-
-    fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refreshToken: getCookie("refresh_token"),
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((result) => {
-        console.log(result.accessToken);
-        localStorage.setItem("access_token", result.accessToken);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  function getMemberInfo() {
-    fetch(`${process.env.REACT_APP_API_PATH}/api/member/info`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-  }
-
-  useEffect(() => {
-    console.log("appjs is rerendering");
-    const refresh_token = getCookie("refresh_token");
-    if (refresh_token) {
-      accessTokenReissue();
-    }
-    if (localStorage.getItem("access_token")) {
-      getMemberInfo();
-    }
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Link to="/login">Login</Link>
-        <button onClick={logoutGoogle}>로그아웃</button>
-        <Link to="/">Main</Link>
-        <Link to="/videoDetail">테스트페이지</Link>
-        <Link to="/profile">프로필</Link>
-        <Link to="/upload">업로드</Link>
 
 
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/" element={<Main />}></Route>
-          <Route path="/videoDetail" element={<VideoDetail />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/upload" element={<Upload />}></Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+
+
+	return (
+		<BrowserRouter>
+		<div className="App">
+			<Link to="/login">Login</Link>
+			<button>로그아웃</button>
+			<Link to="/">Main</Link>
+			<Link to="/videoDetail">테스트페이지</Link>
+			<Link to="/profile">프로필</Link>
+			<Link to="/upload">업로드</Link>
+
+
+			<Routes>
+			<Route path="/login" element={<Login />}></Route>
+			<Route path="/" element={<Main />}></Route>
+			<Route path="/videoDetail" element={<VideoDetail />}></Route>
+			<Route path="/profile" element={<Profile />}></Route>
+			<Route path="/upload" element={<Upload />}></Route>
+			</Routes>
+		</div>
+		</BrowserRouter>
+	);
 }
 
 export default App;

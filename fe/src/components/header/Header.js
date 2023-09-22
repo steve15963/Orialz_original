@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUser,
@@ -7,18 +9,104 @@ import {
 import './Header.css';
 import ProfileBox from '../profileBox/ProfileBox';
 import LoginBtn from '../loginBtn/LoginBtn';
+import { useEffect } from 'react';
+
 
 export default function Header({search}){
     
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     console.log(user);
-    const userInfo = {
-        email: "hihihiihi",
-        nickname: "john"
-    }
-
     
+    function navigateToGoogleLogin() {
+		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
+	}
+
+	function logoutGoogle() {
+		window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
+		localStorage.removeItem("access_token");
+	}
+
+	function getCookie(key) {
+		var result = null;
+		var cookie = document.cookie.split(";");
+		cookie.some(function (item) {
+		item = item.replace(" ", "");
+		var dic = item.split("=");
+		if (key === dic[0]) {
+			result = dic[1];
+			return true;
+		}
+		});
+		return result;
+	}
+
+	function accessTokenReissue() {
+		const refresh_token = getCookie("refresh_token");
+		console.log(refresh_token);
+
+		fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
+		method: "POST",
+		headers: {
+			Authorization: "Bearer " + localStorage.getItem("access_token"),
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			refreshToken: getCookie("refresh_token"),
+		}),
+		})
+		.then((res) => {
+			if (res.ok) {
+			return res.json();
+			}
+		})
+		.then((result) => {
+			console.log(result.accessToken);
+			localStorage.setItem("access_token", result.accessToken);
+		})
+		.catch((error) => console.log(error));
+	}
+
+	function getMemberInfo() {
+		fetch(`${process.env.REACT_APP_API_PATH}/api/member/info`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + localStorage.getItem("access_token"),
+			"Content-Type": "application/json",
+		},
+		})
+		.then((response) => {
+			dispatch(uploadUser({email:response.email, nickname:response.nickname}));
+            response.json()
+		})
+		.then((data) => console.log(data))
+		.catch((error) => console.log(error));
+	}
+
+	useEffect(() => {
+	}, []);
+	
+    useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		const token = params.get("token");
+		const refresh_token = getCookie("refresh_token");
+		
+		if (token) {
+			localStorage.setItem("access_token", token);
+			window.location.replace("/");
+		}
+
+		if (refresh_token) {
+			accessTokenReissue();
+		}
+
+		if (localStorage.getItem("access_token")) {
+			getMemberInfo();
+		}
+		
+
+
+	}, []);
 
     return (
         <div className='header'>
@@ -36,14 +124,15 @@ export default function Header({search}){
             <div>
                 <button onClick={(e)=>{
                     e.preventDefault();
-                    dispatch(uploadUser(userInfo));
+                    dispatch(uploadUser());
                 }}>인</button>
                 <button onClick={(e)=>{
                     e.preventDefault();
                     dispatch(discardUser());
+                    logoutGoogle();
                 }}>아웃</button>
             </div>
-            {user.email ? <ProfileBox/> : <LoginBtn/>}
+            {user.email ? <ProfileBox/> : <LoginBtn googleLogin={navigateToGoogleLogin}/>}
 
             {/* <button onClick={(e)=>{
                 e.preventDefault();
