@@ -82,7 +82,7 @@ export default function Header({search}){
 			console.log("setting userinfo in localstorage in getMemeberInfo()",response.email,response.nickname);
 			// dispatch(uploadUser({email:response.email, nickname:response.nickname}));
 			localStorage.setItem("user", JSON.stringify(userInfo));
-            response.json()
+            return response.json()
 		})
 		.then((data) => console.log(data))
 		.catch((error) => console.log(error));
