@@ -126,13 +126,15 @@ public class StreamingService {
                 log.info("File uploaded successfully");
                 //Frame 분할
                 streaming.splitFrame(videoPath,fileName);
+                //hdfs 전송용 text파일 생성
+                streaming.createTextFile(hashing,userId,videoPath,fileName);
                 //HLS 변환
                 streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정
                 nowVideo.setPath(videoPath+"/hls");
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
-                nowVideo.setThumbnail(videoPath+"/"+"thumbnail.jpg");
+                nowVideo.setThumbnail("/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
                 return CompletableFuture.completedFuture(true);
             }
             else{
