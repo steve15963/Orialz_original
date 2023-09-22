@@ -9,7 +9,7 @@ import {
 import './Header.css';
 import ProfileBox from '../profileBox/ProfileBox';
 import LoginBtn from '../loginBtn/LoginBtn';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 
 export default function Header({search}){
@@ -17,7 +17,13 @@ export default function Header({search}){
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     console.log(user);
-    
+	const userRef = useRef(null)
+	const userStr = localStorage.getItem("user");
+	if(userStr){
+		const userObj = JSON.parse(userStr);
+		userRef.current = {email:userObj.email, nickname:userObj.nickname};
+	}
+
     function navigateToGoogleLogin() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
 	}
@@ -137,7 +143,7 @@ export default function Header({search}){
                     logoutGoogle();
                 }}>아웃</button>
             </div>
-            {user.email ? <ProfileBox/> : <LoginBtn googleLogin={navigateToGoogleLogin}/>}
+            {userRef.current ? <ProfileBox/> : <LoginBtn googleLogin={navigateToGoogleLogin}/>}
 
             {/* <button onClick={(e)=>{
                 e.preventDefault();
