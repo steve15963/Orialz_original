@@ -6,13 +6,13 @@ import 'video.js/dist/video-js.css';
 export const VideoJS = (props) => {
 	const videoRef = React.useRef(null);
 	const playerRef = React.useRef(null);
-	// const blurIdx = React.useRef(0);
+	const blurIdx = React.useRef(0);
 	const realVideoRef = React.useRef(null);
 
-	// const blursRef = React.useRef([]);
-	// const blurAnimationRef = React.useRef();
-	// const timeBefore = React.useRef(-1);
-	const {options, onReady} = props;
+	const blursRef = React.useRef([]);
+	const blurAnimationRef = React.useRef();
+	const timeBefore = React.useRef(-1);
+	const {options, onReady, blurData} = props;
 
 	console.log(1);
 	React.useEffect(() => {
@@ -58,79 +58,79 @@ export const VideoJS = (props) => {
 
 	function testDraw(){
 		console.log(10);
-		// blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
+		blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
 	}
 	
 	function fullscreen(){
 		console.log(11);
 		videoRef.current.requestFullscreen();
 	}
-	// function createBlurElement(){
-	// 	console.log(12);
-	// 	blursRef.current.forEach((e)=>{e.remove()});
+	function createBlurElement(){
+		console.log(12);
+		blursRef.current.forEach((e)=>{e.remove()});
 				
-	// 			blurData.data[blurIdx.current].objects.forEach((e)=>{
-	// 				const rect2 = realVideoRef.current.getBoundingClientRect();
-	// 				const realZone = document.querySelector(".vjs-text-track-display");
-	// 				const rect = realZone.getBoundingClientRect();
-	// 				const blurSquare = document.createElement("div");
-	// 				blurSquare.classList.add("blur-square");
-	// 				blurSquare.style.position = "absolute";
-	// 				blurSquare.style.top =  rect.height * e.y + "px";
-	// 				blurSquare.style.left = rect.width * e.x +  (rect2.width - rect.width)/2 + "px";
-	// 				blurSquare.style.height = e.h  + "%";
-	// 				blurSquare.style.width = e.w * (rect.width/rect2.width) +  "%";	
-	// 				blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
-	// 				blurSquare.style.zIndex = 5;
-	// 				blurSquare.style.backdropFilter = "blur(20px)";
-	// 				blursRef.current.push(blurSquare);
-	// 				realVideoRef.current.appendChild(blurSquare);
-	// 			})
-	// 			console.log(13);
-	// }
-	// function drawBlur(){
-	// 	console.log(14);
-	// 	let curTime = playerRef.current.currentTime();
-	// 	// 영상의 이전 부분으로 돌아갈 때
-	// 	let mode = 0;
-	// 	// 영상이 멈춰있을 때
-	// 	console.log(15);
-	// 	if(timeBefore.current === curTime){
-	// 		// console.log("영상멈춤");
-	// 		mode = 0;
-	// 	} else if(timeBefore.current > curTime){
-	// 		mode = -1;
-	// 		blurIdx.current = Math.floor(curTime);
-	// 			// console.log("영상뒤로감");
-	// 	} else {
-	// 		mode = 1;
-	// 		blurIdx.current = Math.floor(curTime);
-	// 		// console.log("영상앞으로감");
+				blurData.data[blurIdx.current].objects.forEach((e)=>{
+					const rect2 = realVideoRef.current.getBoundingClientRect();
+					const realZone = document.querySelector(".vjs-text-track-display");
+					const rect = realZone.getBoundingClientRect();
+					const blurSquare = document.createElement("div");
+					blurSquare.classList.add("blur-square");
+					blurSquare.style.position = "absolute";
+					blurSquare.style.top =  rect.height * e.y + "px";
+					blurSquare.style.left = rect.width * e.x +  (rect2.width - rect.width)/2 + "px";
+					blurSquare.style.height = e.h  + "%";
+					blurSquare.style.width = e.w * (rect.width/rect2.width) +  "%";	
+					blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
+					blurSquare.style.zIndex = 5;
+					blurSquare.style.backdropFilter = "blur(20px)";
+					blursRef.current.push(blurSquare);
+					realVideoRef.current.appendChild(blurSquare);
+				})
+				console.log(13);
+	}
+	function drawBlur(){
+		console.log(14);
+		let curTime = playerRef.current.currentTime();
+		// 영상의 이전 부분으로 돌아갈 때
+		let mode = 0;
+		// 영상이 멈춰있을 때
+		console.log(15);
+		if(timeBefore.current === curTime){
+			// console.log("영상멈춤");
+			mode = 0;
+		} else if(timeBefore.current > curTime){
+			mode = -1;
+			blurIdx.current = Math.floor(curTime);
+				// console.log("영상뒤로감");
+		} else {
+			mode = 1;
+			blurIdx.current = Math.floor(curTime);
+			// console.log("영상앞으로감");
 			
-	// 	}
-	// 	console.log(16);
-	// 	if(mode === 0){
-	// 	} else if(mode===1){
-	// 		if(curTime > blurData.data[blurIdx.current].time - 0.5){
-	// 			createBlurElement();
-	// 			blurIdx.current++;
-	// 		}
+		}
+		console.log(16);
+		if(mode === 0){
+		} else if(mode===1){
+			if(curTime > blurData.data[blurIdx.current].time - 0.5){
+				createBlurElement();
+				blurIdx.current++;
+			}
 			
-	// 	} else if(mode === -1){
-	// 		if(curTime < blurData.data[blurIdx.current].time + 0.5){
-	// 			createBlurElement();
-	// 			blurIdx.current--;
-	// 		}
-	// 	}
-	// 	console.log(17);
-	// 	// console.log(curTime, blurIdx.current);
+		} else if(mode === -1){
+			if(curTime < blurData.data[blurIdx.current].time + 0.5){
+				createBlurElement();
+				blurIdx.current--;
+			}
+		}
+		console.log(17);
+		// console.log(curTime, blurIdx.current);
 		
 		
-	// 	timeBefore.current = curTime;
-	// 	console.log(18);
-	// 	blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
-	// 	console.log(19);
-	// }
+		timeBefore.current = curTime;
+		console.log(18);
+		blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
+		console.log(19);
+	}
 	console.log(20);
 
   	return (
