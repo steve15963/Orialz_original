@@ -23,12 +23,12 @@ spring:
     database: mysql
 server:
   port=${server.port}
-#cloud:
-#  aws:
-#    region:
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
-#    credentials:
-#      access-key: ${s3.accesskey}
-#      secret-key: ${s3.secretkey}
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      access-key: ${s3.accesskey}
+      secret-key: ${s3.secretkey}
