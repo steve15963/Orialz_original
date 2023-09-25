@@ -8,10 +8,6 @@ import axios from 'axios';
 
 const VideoDetail = () => {
 	const playerRef = React.useRef(null);
-	const index = React.useRef(0);
-	const imgRef = React.useRef(null);
-	const canvasRef = React.useRef(null);
-	const videoCanvasRef = React.useRef(null);
 
 	async function getData() {
 		try {
