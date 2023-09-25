@@ -5,7 +5,7 @@ spring:
     password: ${properties.datasource.password}
     url: jdbc:mysql://${properties.datasource.path}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     hikari:
-      maximum-pool-size: 100
+      maximum-pool-size: 10
   jpa:
     properties:
       hibernate:
