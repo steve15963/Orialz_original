@@ -9,7 +9,7 @@ spring:
     username: ${properties.datasource.username}
     password: ${properties.datasource.password}
     hikari:
-     maximum-pool-size: 100
+     maximum-pool-size: 200
 
   jpa:
     show-sql: true
