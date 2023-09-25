@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React from 'react';
 import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const VideoDetail = () => {
 	const playerRef = React.useRef(null);
-
+	console.log(data3);
 	async function getData() {
 		try {
 			//응답 성공
