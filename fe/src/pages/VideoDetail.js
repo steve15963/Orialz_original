@@ -5,6 +5,7 @@ import videojs from 'video.js';
 import './VideoDetail.css';
 import data3 from './data3.json';
 import axios from 'axios';
+import tempVideo from './tempVideo.mp4';
 
 const VideoDetail = () => {
 	const playerRef = React.useRef(null);
@@ -36,8 +37,10 @@ const VideoDetail = () => {
 			fullscreenToggle: false,
 		},
 		sources: [{
-			src: 'https://test.orialz.com/hls/streaming/3/output.m3u8',
-			type: 'application/x-mpegURL'
+			// src: 'https://test.orialz.com/hls/streaming/3/output.m3u8',
+			// type: 'application/x-mpegURL'
+			src: tempVideo,
+			type: 'video/mp4'
 		}]
     };
 	
