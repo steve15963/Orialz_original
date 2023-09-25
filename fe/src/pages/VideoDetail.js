@@ -62,7 +62,7 @@ const VideoDetail = () => {
 	return (
 		<div className="video-detail-container">
 			<div className="videojs-container">
-		  		<VideoJS options={videoJsOptions} onReady={handlePlayerReady} blurData={data3}/>	
+		  		<VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>	
 			</div>
 		</div>
 	);
