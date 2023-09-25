@@ -8,6 +8,8 @@ spring:
     url: jdbc:mysql://${properties.datasource.path}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${properties.datasource.username}
     password: ${properties.datasource.password}
+    hikari:
+     maximum-pool-size: 200
 
   jpa:
     show-sql: true
