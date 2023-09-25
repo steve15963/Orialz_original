@@ -5,7 +5,8 @@ import videojs from 'video.js';
 import './VideoDetail.css';
 import data3 from './data3.json';
 import axios from 'axios';
-import tempVideo from './tempVideo.mp4';
+// import tempVideo from './tempVideo.mp4';
+
 
 const VideoDetail = () => {
 	const playerRef = React.useRef(null);
