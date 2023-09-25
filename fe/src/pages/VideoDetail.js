@@ -37,10 +37,10 @@ const VideoDetail = () => {
 			fullscreenToggle: false,
 		},
 		sources: [{
-			// src: 'https://test.orialz.com/hls/streaming/3/output.m3u8',
-			// type: 'application/x-mpegURL'
-			src: tempVideo,
-			type: 'video/mp4'
+			src: 'https://test.orialz.com/hls/streaming/3/output.m3u8',
+			type: 'application/x-mpegURL'
+			// src: tempVideo,
+			// type: 'video/mp4'
 		}]
     };
 	
