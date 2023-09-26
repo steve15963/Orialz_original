@@ -7,11 +7,26 @@ import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
 
+	const [videos, setVideos] = useState([]);
+	
+	useEffect(()=>{getData()},[]);
 
+	async function getData() {
+		try {
+			//응답 성공
+			const response = await axios.get("https://test.orialz.com/api/video", {});
+			console.log(response);
+			setVideos(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
 
 	return (
@@ -26,9 +41,9 @@ function App() {
 
 
 			<Routes>
-			<Route path="/login" element={<Login />}></Route>
-			<Route path="/" element={<Main />}></Route>
-			<Route path="/videoDetail" element={<VideoDetail />}></Route>
+			<Route path="/login" element={<Login/>}></Route>
+			<Route path="/" element={<Main videos={videos}/>}></Route>
+			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
 			<Route path="/profile" element={<Profile />}></Route>
 			<Route path="/upload" element={<Upload />}></Route>
 			</Routes>

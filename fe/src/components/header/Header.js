@@ -10,6 +10,7 @@ import './Header.css';
 import ProfileBox from '../profileBox/ProfileBox';
 import LoginBtn from '../loginBtn/LoginBtn';
 import { useEffect, useRef } from 'react';
+import axios from 'axios';
 
 
 export default function Header({search}){
@@ -45,29 +46,53 @@ export default function Header({search}){
 	}
 
 	function accessTokenReissue() {
-		const refresh_token = getCookie("refresh_token");
-		console.log(refresh_token);
-
-		fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
-		method: "POST",
-		headers: {
-			Authorization: "Bearer " + localStorage.getItem("access_token"),
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			refreshToken: getCookie("refresh_token"),
-		}),
-		})
-		.then((res) => {
-			if (res.ok) {
-			return res.json();
+		let access_token = localStorage.getItem("access_token");
+	
+		// access token이 있을 경우
+		if (access_token) {
+			// access token으로 사용자 인증 요청
+			axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/valid`, {
+				accessToken: access_token,
+				})
+				.then((response) => {
+				return;
+				})
+				.catch((error) => {
+				// refresh token으로 access token 요청
+				const refresh_token = getCookie("refresh_token");
+		
+				if (refresh_token) {
+					if (error.response.status === 401 && refresh_token) {
+					axios
+						.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+						refreshToken: refresh_token,
+						})
+						.then((result) => {
+						access_token = result.data.accessToken;
+						localStorage.setItem("access_token", access_token);
+						return;
+						});
+					}
+				}
+				});
+			// access token이 없을 경우
+		} else {
+			// refresh token으로 access token 요청
+			const refresh_token = getCookie("refresh_token");
+	
+			if (refresh_token) {
+				axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+					refreshToken: refresh_token,
+				})
+				.then((result) => {
+					access_token = result.data.accessToken;
+					localStorage.setItem("access_token", access_token);
+					return;
+				});
 			}
-		})
-		.then((result) => {
-			console.log(result.accessToken);
-			localStorage.setItem("access_token", result.accessToken);
-		})
-		.catch((error) => console.log(error));
+		}
 	}
 
 	function getMemberInfo() {
