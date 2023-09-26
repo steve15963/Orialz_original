@@ -133,7 +133,7 @@ public class StreamingService {
 
                 log.info("File uploaded successfully");
 
-                putS3(fullFile,fileName);
+//                putS3(fullFile,fileName);
                 //Frame 분할
                 streaming.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
