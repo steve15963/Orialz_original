@@ -80,22 +80,22 @@ public class StreamingAsyncService {
         String hlsPath = hashPath+"/hls";
         File output = new File(hlsPath);
         FFmpegProbeResult probeResult = ffprobe.probe(path);
-//        String audioCodec = "";
+        String audioCodec = "aac";
         // 원본 영상의 오디오 코덱 가지고 오기
-//        try{
-//            for (FFmpegStream stream : probeResult.getStreams()) {
-//                System.out.println(stream.codec_type);
-//                if(FFmpegStream.CodecType.AUDIO.equals(stream.codec_type)){
-//                    System.out.println("codecName: "+stream.codec_name);
-//                    audioCodec = stream.codec_name;
-//
-//                }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            log.error("no Audio Codec");
-//            throw e;
-//        }
+        try{
+            for (FFmpegStream stream : probeResult.getStreams()) {
+                System.out.println(stream.codec_type);
+                if(FFmpegStream.CodecType.AUDIO.equals(stream.codec_type)){
+                    System.out.println("codecName: "+stream.codec_name);
+                    audioCodec = stream.codec_name;
+
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("no Audio Codec");
+            throw e;
+        }
 
         if (!output.exists()) {
             output.mkdirs();
@@ -108,6 +108,7 @@ public class StreamingAsyncService {
                 .addOutput(output.getAbsolutePath() + "/output.m3u8") // 출력 위치
                 .setFormat("hls")
                 .disableSubtitle()
+                .setAudioCodec(audioCodec)
                 .addExtraArgs("-hls_time", "5") // 5초
                 .addExtraArgs("-hls_list_size", "0")
                 .addExtraArgs("-hls_segment_filename", output.getAbsolutePath() + "/output_%08d.ts") // 청크 파일 이름
