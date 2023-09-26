@@ -58,14 +58,14 @@ export default function VideoContainer({videos}){
 				}
 			});
         });
-    },[])
+    },[videos])
 	
     return(
         <div className="video-container flex-cont flex-wrap-anim">
             {
                 videos.map((video, index) => {
                     return (
-                        <NavLink to={"/test"} key={video.id} style={{ textDecoration: "none" }}>
+                        <NavLink to={"/videoDetail"} key={video.id} style={{ textDecoration: "none" }}>
                             <VideoBox
                                 thumbnail={video.thumbnail}
                                 title={video.title}

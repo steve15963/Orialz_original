@@ -1,6 +1,7 @@
 .video-container {
     display: flex;
     flex-wrap : wrap;
+    padding: 0 80px;
     /* margin: 100px; */
     /* width: 700px; */
     /* border: 1px solid black; */
