@@ -1,0 +1,19 @@
+
+.blur-box {
+    position: absolute;
+    background-color: rgba(255,255,192,0.1);
+    backdrop-filter: blur(10px);
+    z-index: 5;
+    border-radius: 10px;
+}
+
+.video-detail-container {
+
+    /* width: 1000px; */
+    display: flex;
+    /* display: flex;    */
+}
+
+.videojs-container {
+    width: 1200px;
+}

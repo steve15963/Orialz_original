@@ -11,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
+@Table
 public class Member {
 
     @Id

@@ -21,9 +21,9 @@ public class TokenService {
      */
     public String createNewAccessToken(String refreshToken) {
         // 토큰 유효성 검사에 실패했을 경우 예외 발생
-        if(!tokenProvider.validToken(refreshToken)) {
-            throw new IllegalArgumentException("Unexpected token");
-        }
+//        if(!tokenProvider.validToken(refreshToken)) {
+//            throw new IllegalArgumentException("Unexpected token");
+//        }
 
         Long memberId = refreshTokenService.findByRefreshToken(refreshToken).getMemberId();
         Member member = memberService.findById(memberId);
