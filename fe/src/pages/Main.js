@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import VideoContainer from "../components/videoContainer/VideoContainer";
 import "./Main.css";
 import Header from "../components/header/Header";
-import axios from "axios";
 
-export default function Main() {
+export default function Main({videos}) {
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
@@ -16,27 +15,14 @@ export default function Main() {
 		}
 
 		
-		getData();
 	}, []);
 
-	const [videos, setVideos] = useState([]);
-
-	async function getData() {
-		try {
-		//응답 성공
-		const response = await axios.get("https://test.orialz.com/api/video", {});
-		console.log(response);
-		setVideos(response.data);
-		} catch (error) {
-		//응답 실패
-		console.error(error);
-		}
-	}
+	
 
 	return (
 		<div className="main">
-		<Header></Header>
-		<VideoContainer videos={videos}></VideoContainer>
+			<Header></Header>
+			<VideoContainer videos={videos}></VideoContainer>
 		</div>
 	);
 }

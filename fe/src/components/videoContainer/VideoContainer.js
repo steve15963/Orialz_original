@@ -5,6 +5,7 @@ import "./VideoContainer.css";
 import { useEffect } from "react";
 
 export default function VideoContainer({videos}){
+	console.log(videos);
     useEffect(()=>{
         let targetClassName = 'flex-wrap-anim';
         let defaultDuration = '0.5s';
@@ -65,7 +66,7 @@ export default function VideoContainer({videos}){
             {
                 videos.map((video, index) => {
                     return (
-                        <NavLink to={"/videoDetail"} key={video.id} style={{ textDecoration: "none" }}>
+                        <NavLink to={`/videoDetail?id=${video.id}`} key={video.id} style={{ textDecoration: "none" }}>
                             <VideoBox
                                 thumbnail={video.thumbnail}
                                 title={video.title}
