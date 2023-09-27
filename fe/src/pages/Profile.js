@@ -6,9 +6,13 @@ import ProfileWorks from '../components/profileWorks/ProfileWorks';
 import FilterSelect from '../components/filterSelect/FilterSelect';
 
 
-export default function Profile(){
+export default function Profile({myData}){
 
     const [modalOn, setModalOn] = useState(false);
+
+    useState(()=>{
+        console.log(myData);
+    },[myData])
 
     function handleModalOn(){
         setModalOn(true);
