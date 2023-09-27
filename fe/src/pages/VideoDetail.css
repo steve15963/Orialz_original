@@ -1,3 +1,8 @@
+.video-detail-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .blur-box {
     position: absolute;
@@ -11,9 +16,32 @@
 
     /* width: 1000px; */
     display: flex;
+    flex-direction: column;
+    width: 70vw;
     /* display: flex;    */
 }
 
 .videojs-container {
-    width: 1200px;
+    /* width: 1200px; */
+}
+
+.video-detail-subsection {
+    display: flex;
+    justify-content: space-between;
+}
+
+.video-detail-title {
+    font-size: xx-large;
+    border: 1px solid black;
+}
+
+.video-detail-description {
+    border: 1px solid black;
+}
+
+.comment-form {
+    /* width: 100%; */
+}
+.comment-input {
+    /* width: 100%; */
 }

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import {
-  selectUser,
   uploadUser,
   discardUser,
 } from '../../util/slice/userSlice';
@@ -10,15 +9,15 @@ import './Header.css';
 import ProfileBox from '../profileBox/ProfileBox';
 import LoginBtn from '../loginBtn/LoginBtn';
 import { useEffect, useRef } from 'react';
+import axios from 'axios';
 
 
-export default function Header({search}){
+export default function Header({searchVideos}){
     
-    const user = useSelector(selectUser);
+    // const user = useSelector(selectUser);
     const dispatch = useDispatch();
-    console.log(user);
 	const userRef = useRef(null)
-	
+	const searchInputRef = useRef(null);
 
     function navigateToGoogleLogin() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
@@ -45,29 +44,53 @@ export default function Header({search}){
 	}
 
 	function accessTokenReissue() {
-		const refresh_token = getCookie("refresh_token");
-		console.log(refresh_token);
-
-		fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
-		method: "POST",
-		headers: {
-			Authorization: "Bearer " + localStorage.getItem("access_token"),
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			refreshToken: getCookie("refresh_token"),
-		}),
-		})
-		.then((res) => {
-			if (res.ok) {
-			return res.json();
+		let access_token = localStorage.getItem("access_token");
+	
+		// access token이 있을 경우
+		if (access_token) {
+			// access token으로 사용자 인증 요청
+			axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/valid`, {
+				accessToken: access_token,
+				})
+				.then((response) => {
+				return;
+				})
+				.catch((error) => {
+				// refresh token으로 access token 요청
+				const refresh_token = getCookie("refresh_token");
+		
+				if (refresh_token) {
+					if (error.response.status === 401 && refresh_token) {
+					axios
+						.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+						refreshToken: refresh_token,
+						})
+						.then((result) => {
+						access_token = result.data.accessToken;
+						localStorage.setItem("access_token", access_token);
+						return;
+						});
+					}
+				}
+				});
+			// access token이 없을 경우
+		} else {
+			// refresh token으로 access token 요청
+			const refresh_token = getCookie("refresh_token");
+	
+			if (refresh_token) {
+				axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+					refreshToken: refresh_token,
+				})
+				.then((result) => {
+					access_token = result.data.accessToken;
+					localStorage.setItem("access_token", access_token);
+					return;
+				});
 			}
-		})
-		.then((result) => {
-			console.log(result.accessToken);
-			localStorage.setItem("access_token", result.accessToken);
-		})
-		.catch((error) => console.log(error));
+		}
 	}
 
 	function getMemberInfo() {
@@ -125,16 +148,23 @@ export default function Header({search}){
 
 	}, []);
 
+	function handleSearchVideos(e){
+		e.preventDefault();
+		searchVideos(searchInputRef.current.value);
+	}
+
+
     return (
         <div className='header'>
-            <img src="/duck.svg" alt="logo" className='logo-img'/>            
+            <img src="/orialzLogo.jpg" alt="logo" className='logo-img'/>            
             <form className='search-form'>
-                <input placeholder="검색어를 입력하세요" className='search-form-input'></input>
+                <input placeholder="검색어를 입력하세요" className='search-form-input' ref={searchInputRef}></input>
                 <button 
-                    onClick={search}
+                    onClick={handleSearchVideos}
                     className='search-form-btn'
                     >
-                    <img src="search.svg" alt='search' className="search-form-btn-icon"/>    
+					검색
+                    {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
                 
             </form>

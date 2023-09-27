@@ -5,6 +5,8 @@ import "./VideoContainer.css";
 import { useEffect } from "react";
 
 export default function VideoContainer({videos}){
+	
+	// 아직 반영안됨. 검색기능 반영한 뒤로 살짝 맛이 감
     useEffect(()=>{
         let targetClassName = 'flex-wrap-anim';
         let defaultDuration = '0.5s';
@@ -58,14 +60,14 @@ export default function VideoContainer({videos}){
 				}
 			});
         });
-    },[videos])
+    },[])
 	
     return(
         <div className="video-container flex-cont flex-wrap-anim">
             {
                 videos.map((video, index) => {
                     return (
-                        <NavLink to={"/videoDetail"} key={video.id} style={{ textDecoration: "none" }}>
+                        <NavLink to={`/videoDetail?id=${video.id}`} key={video.id} style={{ textDecoration: "none" }}>
                             <VideoBox
                                 thumbnail={video.thumbnail}
                                 title={video.title}
