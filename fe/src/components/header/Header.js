@@ -13,13 +13,13 @@ import { useEffect, useRef } from 'react';
 import axios from 'axios';
 
 
-export default function Header({search}){
+export default function Header({searchVideos}){
     
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     console.log(user);
 	const userRef = useRef(null)
-	
+	const searchInputRef = useRef(null);
 
     function navigateToGoogleLogin() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
@@ -150,16 +150,23 @@ export default function Header({search}){
 
 	}, []);
 
+	function handleSearchVideos(e){
+		e.preventDefault();
+		searchVideos(searchInputRef.current.value);
+	}
+
+
     return (
         <div className='header'>
-            <img src="/duck.svg" alt="logo" className='logo-img'/>            
+            <img src="/orialzLogo.jpg" alt="logo" className='logo-img'/>            
             <form className='search-form'>
-                <input placeholder="검색어를 입력하세요" className='search-form-input'></input>
+                <input placeholder="검색어를 입력하세요" className='search-form-input' ref={searchInputRef}></input>
                 <button 
-                    onClick={search}
+                    onClick={handleSearchVideos}
                     className='search-form-btn'
                     >
-                    <img src="search.svg" alt='search' className="search-form-btn-icon"/>    
+					검색
+                    {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
                 
             </form>

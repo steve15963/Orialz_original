@@ -16,9 +16,9 @@ function App() {
 
 	const [videos, setVideos] = useState([]);
 	
-	useEffect(()=>{getData()},[]);
+	useEffect(()=>{getVideos()},[]);
 
-	async function getData() {
+	async function getVideos() {
 		try {
 			//응답 성공
 			const response = await axios.get("https://test.orialz.com/api/video", {});
