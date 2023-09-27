@@ -4,6 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+env.*
+*.properties
 
 ### STS ###
 .apt_generated
@@ -35,13 +37,3 @@ out/
 
 ### VS Code ###
 .vscode/
-fe/.env
-
-### application.properties ###
-**/src/main/resources/application.yaml
-
-BackEnd/src/main/resources/properties/env.properties
-Hls/src/main/resources/properties/env.properties
-Split/src/main/resources/properties/env.properties
-Split/gradle/wrapper/gradle-wrapper.properties
-
