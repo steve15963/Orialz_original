@@ -7,6 +7,7 @@ import Test from "./pages/Test";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
+import FileCheck from "./components/fileUpload/fileUpload";
 import { useEffect } from "react";
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
           <Route path="/test" element={<Test />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/upload" element={<Upload />}></Route>
+          <Route path="/find" element={<FileCheck />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
