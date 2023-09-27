@@ -40,4 +40,11 @@ out/
 **/src/main/resources/application.yaml
 
 BackEnd/src/main/resources/properties/env.properties
+<<<<<<< Updated upstream
 Hls/src/main/resources/properties/env.properties
+=======
+
+Split/src/main/resources/properties/env.properties
+
+Split/gradle/wrapper/gradle-wrapper.properties
+>>>>>>> Stashed changes
