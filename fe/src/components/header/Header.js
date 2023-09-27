@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import {
-  selectUser,
   uploadUser,
   discardUser,
 } from '../../util/slice/userSlice';
@@ -15,9 +14,8 @@ import axios from 'axios';
 
 export default function Header({searchVideos}){
     
-    const user = useSelector(selectUser);
+    // const user = useSelector(selectUser);
     const dispatch = useDispatch();
-    console.log(user);
 	const userRef = useRef(null)
 	const searchInputRef = useRef(null);
 

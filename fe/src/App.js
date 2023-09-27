@@ -13,8 +13,9 @@ import axios from "axios";
 function App() {
 
 	const [videos, setVideos] = useState([]);
-	
-	useEffect(()=>{getVideos()},[]);
+	const [myData, setMyData] = useState([]);
+
+	useEffect(()=>{getVideos();getMyData()},[]);
 
 	async function getVideos() {
 		try {
@@ -28,6 +29,18 @@ function App() {
 		}
 	}
 
+	// 로그인 되어있을때만 적용시켜야함
+	async function getMyData() {
+		try {
+			//응답 성공
+			const response = await axios.get("https://test.orialz.com/api/mypage/1", {});
+			console.log(response);
+			setMyData(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
 	return (
 		<BrowserRouter>
@@ -44,7 +57,7 @@ function App() {
 			<Route path="/login" element={<Login/>}></Route>
 			<Route path="/" element={<Main videos={videos}/>}></Route>
 			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
-			<Route path="/profile" element={<Profile />}></Route>
+			<Route path="/profile" element={<Profile myData={myData}/>}></Route>
 			<Route path="/upload" element={<Upload />}></Route>
 			</Routes>
 		</div>
