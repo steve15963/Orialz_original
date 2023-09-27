@@ -9,9 +9,9 @@
     box-shadow: 5px 5px 5px grey;
     background-color: white;
     color: grey;
-    min-width: 250px;
-    min-height: 200px;
-    margin: 10px;
+    width: 250px;
+    height: 220px;
+    margin: 15px;
     transition: 300ms;
     
 }
@@ -26,7 +26,7 @@
 }
 
 .video-box-data {
-    margin: 5px 10px;
+    margin: 0 5px 5px 10px;
 }
 .video-box-thumbnail{
     display: flex;
@@ -38,13 +38,14 @@
 .video-box-thumbnail-image{
     /* width: 250px; */
     height: 150px;
-    margin: 5px;
-    object-fit: cover;
+    width: 250px;
+    object-fit: contain;
 }
 
 .video-box-title {
     font-weight: 400;
     font-size: larger;
+    color: black;
 }
 
 .video-box-uploader,

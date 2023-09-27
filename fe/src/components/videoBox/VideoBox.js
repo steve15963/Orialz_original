@@ -14,7 +14,7 @@ export default function VideoBox({thumbnail, title, uploader, view, date}){
         <div >
             <div className="video-box">
                 <div className="video-box-thumbnail">
-                    <img src={thumbnail} alt='videoImage' className="video-box-thumbnail-image"/>    
+                    <img src={thumbnail} alt='videoImage' className="video-box-thumbnail-image"/>  
                 </div>
                 <div className="video-box-data">
                     <div className="video-box-title">{title}</div>
