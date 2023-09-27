@@ -7,10 +7,10 @@ def run():
     freeze_support()
     
     # Load a model 
-    model = YOLO("yolov8m.pt")  # load a pretrained model (recommended for training)
+    model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 
     # Use the model
-    model.train(data="../datasets/Knife/data.yaml", epochs=10, batch=4)  # train the model
+    model.train(data="../datasets/Knife/data.yaml", epochs=20, batch=8)  # train the model
     print(type(model.names), len(model.names))
     print(model.names)
     

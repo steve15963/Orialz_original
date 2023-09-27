@@ -1,6 +1,6 @@
 task: detect
 mode: train
-model: yolov8m.pt
+model: yolov8n.pt
 data: ../datasets/Knife/data.yaml
 epochs: 10
 patience: 50

@@ -1,10 +1,10 @@
 task: detect
 mode: train
-model: yolov8m.pt
+model: yolov8n.pt
 data: ../datasets/Knife/data.yaml
 epochs: 10
 patience: 50
-batch: 16
+batch: 2
 imgsz: 640
 save: true
 save_period: -1
