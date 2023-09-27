@@ -10,4 +10,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Member findMemberByEmail(String email);
     Optional<Member> findById(Long id); // id로 사용자 정보 가져옴
+
+    Member findMemberById(Long id);
 }
