@@ -144,7 +144,7 @@ public class StreamingService {
                 nowVideo.setPath(videoPath+"/hls");
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
-                nowVideo.setThumbnail("/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
+                nowVideo.setThumbnail("/thumb/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
                 return CompletableFuture.completedFuture(true);
             }
             else{
