@@ -1,22 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import React, { useRef, useEffect } from 'react';
 import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
 import './VideoDetail.css';
 import CommentsContainer from '../components/commentsContainer/CommentsContainer';
 import VideoSubs from '../components/videoSubs/VideoSubs';
 import data3 from './data3.json';
-import axios from 'axios';
 // import tempVideo from './tempVideo.mp4';
 require('videojs-contrib-hls.js');
 
 const VideoDetail = ({videos}) => {
-	const playerRef = React.useRef(null);
-	console.log(data3);
 
 	const urlParams = new URL(window.location.href).searchParams;
-	const videoId = urlParams.get('id');
+	const videoId = useRef(urlParams.get('id'));
+	
+	async function viewIncrease() {
+		console.log("hihihihih");
+		try {
+			//응답 성공
+			const response = await axios.get(`https://test.orialz.com/api/video/${videoId.current}/view`, {});
+			console.log(response);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+	useEffect(()=>{viewIncrease()},[]);
+
+	const playerRef = React.useRef(null);
 
 	const videoJsOptionsRef = useRef(null);
 	videoJsOptionsRef.current = {
@@ -33,33 +45,18 @@ const VideoDetail = ({videos}) => {
 			fullscreenToggle: false,
 		},
 		sources: [{
-			src: `https://test.orialz.com/hls/streaming/${videoId}/output.m3u8`,
+			src: `https://test.orialz.com/hls/streaming/${videoId.current}/output.m3u8`,
 			type: 'application/x-mpegURL'
 			// src: tempVideo,
 			// type: 'video/mp4'
 		}]
 	};
-
-	const [comments, setComments] = useState([]);
 	
-	async function getData() {
-		try {
-			//응답 성공
-			const response = await axios.get(`https://test.orialz.com/api/comment/${videoId}`, {});
-			console.log(response);
-			setComments(response.data);
-		} catch (error) {
-			//응답 실패
-			console.error(error);
-		}
-	}
-	useEffect(()=>{
-		getData();
-	},[])
 
+	
 	const handlePlayerReady = (player) => {
 		playerRef.current = player;
-	
+		
 		// You can handle player events here, for example:
 		player.on('waiting', () => {
 		  videojs.log('player is waiting');
@@ -70,6 +67,7 @@ const VideoDetail = ({videos}) => {
 		});
 	};
 
+	
 	
 	return (
 		<div className="video-detail-page">
@@ -85,10 +83,8 @@ const VideoDetail = ({videos}) => {
 					<div>연도</div>
 					<div>설명</div>
 				</div>
-				<form className="comment-form">
-					<input placeholder="댓글 쓰기" className="comment-input"></input>
-				</form>
-				<CommentsContainer comments={comments}/>
+				
+				<CommentsContainer videoId={videoId.current}/>
 				
 			</div>
 			<VideoSubs videos={videos}/>

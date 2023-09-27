@@ -10,8 +10,8 @@ export default function Main({videos}) {
 		const token = params.get("token");
 
 		if (token) {
-		localStorage.setItem("access_token", token);
-		window.location.replace("/");
+			localStorage.setItem("access_token", token);
+			window.location.replace("/");
 		}
 
 		
