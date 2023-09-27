@@ -30,11 +30,13 @@ public class MemberController {
     private final TokenProvider tokenProvider;
 
     @GetMapping("/info")
-    public ResponseEntity<MemberInfoResponseDto> getMemberInfo1(@RequestHeader(value = "Authorization")String token) throws Exception {
+    public ResponseEntity<MemberInfoResponseDto> getMemberInfo(@RequestHeader(value = "Authorization")String token) throws Exception {
         try {
+            String accessToken = token.split("Bearer ")[1];
+            log.info(accessToken);
             log.info(token);
-            log.info(String.valueOf(tokenProvider.getMemberId(token)));
-            Long id = tokenProvider.getMemberId(token);
+            log.info(String.valueOf(tokenProvider.getMemberId(accessToken)));
+            Long id = tokenProvider.getMemberId(accessToken);
             MemberInfoResponseDto memberInfo = memberService.getMemberInfo(id);
             log.info(memberInfo.toString());
             return new ResponseEntity<>(memberInfo, HttpStatus.OK);
