@@ -7,8 +7,10 @@ import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-import { useState, useEffect } from "react";
+import FileCheck from "./components/fileUpload/fileUpload";
+import { useEffect } from "react";
 import axios from "axios";
+import { useState } from "react";
 
 function App() {
 
