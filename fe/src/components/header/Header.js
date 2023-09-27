@@ -158,14 +158,15 @@ export default function Header({searchVideos}){
 
     return (
         <div className='header'>
-            <img src="/duck.svg" alt="logo" className='logo-img'/>            
+            <img src="/orialzLogo.jpg" alt="logo" className='logo-img'/>            
             <form className='search-form'>
                 <input placeholder="검색어를 입력하세요" className='search-form-input' ref={searchInputRef}></input>
                 <button 
                     onClick={handleSearchVideos}
                     className='search-form-btn'
                     >
-                    <img src="search.svg" alt='search' className="search-form-btn-icon"/>    
+					검색
+                    {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
                 
             </form>
