@@ -9,7 +9,8 @@ import {
 import './Header.css';
 import ProfileBox from '../profileBox/ProfileBox';
 import LoginBtn from '../loginBtn/LoginBtn';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import axios from 'axios';
 
 
 export default function Header({search}){
@@ -17,7 +18,9 @@ export default function Header({search}){
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     console.log(user);
-    
+	const userRef = useRef(null)
+	
+
     function navigateToGoogleLogin() {
 		window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
 	}
@@ -43,29 +46,53 @@ export default function Header({search}){
 	}
 
 	function accessTokenReissue() {
-		const refresh_token = getCookie("refresh_token");
-		console.log(refresh_token);
-
-		fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
-		method: "POST",
-		headers: {
-			Authorization: "Bearer " + localStorage.getItem("access_token"),
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			refreshToken: getCookie("refresh_token"),
-		}),
-		})
-		.then((res) => {
-			if (res.ok) {
-			return res.json();
+		let access_token = localStorage.getItem("access_token");
+	
+		// access token이 있을 경우
+		if (access_token) {
+			// access token으로 사용자 인증 요청
+			axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/valid`, {
+				accessToken: access_token,
+				})
+				.then((response) => {
+				return;
+				})
+				.catch((error) => {
+				// refresh token으로 access token 요청
+				const refresh_token = getCookie("refresh_token");
+		
+				if (refresh_token) {
+					if (error.response.status === 401 && refresh_token) {
+					axios
+						.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+						refreshToken: refresh_token,
+						})
+						.then((result) => {
+						access_token = result.data.accessToken;
+						localStorage.setItem("access_token", access_token);
+						return;
+						});
+					}
+				}
+				});
+			// access token이 없을 경우
+		} else {
+			// refresh token으로 access token 요청
+			const refresh_token = getCookie("refresh_token");
+	
+			if (refresh_token) {
+				axios
+				.post(`${process.env.REACT_APP_API_PATH}/api/token`, {
+					refreshToken: refresh_token,
+				})
+				.then((result) => {
+					access_token = result.data.accessToken;
+					localStorage.setItem("access_token", access_token);
+					return;
+				});
 			}
-		})
-		.then((result) => {
-			console.log(result.accessToken);
-			localStorage.setItem("access_token", result.accessToken);
-		})
-		.catch((error) => console.log(error));
+		}
 	}
 
 	function getMemberInfo() {
@@ -76,15 +103,15 @@ export default function Header({search}){
 			"Content-Type": "application/json",
 		},
 		})
-		.then((response) => {
-			console.log(response);
-			const userInfo = {email:response.email, nickname:response.nickname};
-			console.log("setting userinfo in localstorage in getMemeberInfo()",response.email,response.nickname);
-			// dispatch(uploadUser({email:response.email, nickname:response.nickname}));
+		.then((response) => response.json())
+		.then((data) => {
+			const userInfo = {email:data.email, nickname:data.nickname};
 			localStorage.setItem("user", JSON.stringify(userInfo));
-            response.json()
+			console.log(data);
+			userRef.current = userInfo;
+
+			
 		})
-		.then((data) => console.log(data))
 		.catch((error) => console.log(error));
 	}
 
@@ -93,25 +120,32 @@ export default function Header({search}){
 		const token = params.get("token");
 		const refresh_token = getCookie("refresh_token");
 		
-		const userStr = localStorage.getItem("user");
-		if(userStr){
-			console.log("dispatching userInfo");
-			const userObj = JSON.parse(userStr);
-			dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
-		}
 		if (token) {
 			localStorage.setItem("access_token", token);
 			window.location.replace("/");
 		}
-
+		
 		if (refresh_token) {
 			accessTokenReissue();
 		}
-
-		if (localStorage.getItem("access_token")) {
+		
+		if (localStorage.getItem("access_token") && !localStorage.getItem("user")) {
 			getMemberInfo();
 		}
 		
+		// const userStr = localStorage.getItem("user");
+		// if(userStr){
+		// 	console.log("dispatching userInfo");
+		// 	const userObj = JSON.parse(userStr);
+		// 	dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
+		// }
+		
+		const userStr = localStorage.getItem("user");
+		console.log(userStr);
+		if(userStr){
+			const userObj = JSON.parse(userStr);
+			userRef.current = {email:userObj.email, nickname:userObj.nickname};
+		}
 
 
 	}, []);
@@ -140,7 +174,7 @@ export default function Header({search}){
                     logoutGoogle();
                 }}>아웃</button>
             </div>
-            {user.email ? <ProfileBox/> : <LoginBtn googleLogin={navigateToGoogleLogin}/>}
+            {userRef.current ? <ProfileBox/> : <LoginBtn googleLogin={navigateToGoogleLogin}/>}
 
             {/* <button onClick={(e)=>{
                 e.preventDefault();
