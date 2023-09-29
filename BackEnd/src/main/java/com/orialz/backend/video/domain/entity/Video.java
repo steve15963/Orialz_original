@@ -1,6 +1,9 @@
 package com.orialz.backend.video.domain.entity;
 
+import java.util.List;
+
 import com.orialz.backend.Member.domain.entity.Member;
+import com.orialz.backend.blur.domain.entity.FindKeyword;
 import com.orialz.backend.common.BaseTimeEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -23,6 +26,9 @@ public class Video extends BaseTimeEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long videoId;
 
+
+    @OneToMany(mappedBy = "video")
+    private List<FindKeyword> findKeywordList;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

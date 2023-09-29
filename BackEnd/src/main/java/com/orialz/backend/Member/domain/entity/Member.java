@@ -1,11 +1,15 @@
 package com.orialz.backend.Member.domain.entity;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.orialz.backend.blur.domain.entity.SettingKeyword;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,6 +41,9 @@ public class Member {
 
     @Column(name = "provider_id", nullable = false, unique = true)
     private String providerId;
+
+    @OneToMany(mappedBy = "member")
+    private List<SettingKeyword> settingKeywordList;
 
     @Builder
     public Member(String nickname, String email, String picture, Role role, String provider, String providerId) {
