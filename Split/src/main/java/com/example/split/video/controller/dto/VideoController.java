@@ -28,7 +28,7 @@ public class VideoController {
 
     @ResponseBody
     @PostMapping("/upload/chunk")
-    public ResponseEntity<String> upload(@RequestParam("chunk") Byte[] file,
+    public ResponseEntity<String> upload(@RequestParam("chunk") MultipartFile[] file,
                                           @RequestParam("totalChunkNum") Integer totalChunkNum,
                                           @RequestParam("fileName") String fileName,
                                           @RequestParam("chunkNum") Integer chunkNum
@@ -36,10 +36,10 @@ public class VideoController {
         //업로드 성공 여부 반환
 //        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L);
 //        Boolean res = future.get();
-        file.
-        log.info(file.getOriginalFilename() + " "+ chunkNum);
 
-        return ResponseEntity.ok().body(file.getOriginalFilename());
+//        log.info(file.getOriginalFilename() + " "+ chunkNum);
+
+        return ResponseEntity.ok().body("hello");
     }
 
 }
