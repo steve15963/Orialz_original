@@ -9,17 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Keyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "keyword_id")
-	Long id;
+	private Long id;
 
 	@Column
-	String keyword;
+	private String keyword;
 
 	@OneToMany(mappedBy = "keyword")
-	List<FindKeyword> findKeywordList;
-
+	private List<FindKeyword> findKeywordList;
 }

@@ -11,14 +11,21 @@ import javax.persistence.ManyToOne;
 
 import com.orialz.backend.video.domain.entity.Video;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@Getter
+@Setter
+@ToString(exclude = "keyword")
 public class FindKeyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "find_keyword_id")
 	long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "keyword_id")
 	Keyword keyword;
 
@@ -29,13 +36,32 @@ public class FindKeyword {
 	Double time;
 
 	@Column
-	double minx;
+	double minX;
 	@Column
-	double miny;
+	double minY;
 	@Column
-	double maxx;
+	double maxX;
 	@Column
-	double maxy;
+	double maxY;
 	@Column
 	double score;
+	public long getLabel() {
+		return video.getVideoId();
+	}
+
+	public long getX() {
+		return (int)minX;
+	}
+
+	public long getY() {
+		return (int)minY;
+	}
+
+	public long getW() {
+		return (int)(maxX - minX);
+	}
+
+	public long getH() {
+		return (int)(maxY - minY);
+	}
 }

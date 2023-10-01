@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import com.orialz.backend.blur.domain.entity.SettingKeyword;
+import com.orialz.backend.blur.domain.entity.OnKeyword;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,8 +42,8 @@ public class Member {
     @Column(name = "provider_id", nullable = false, unique = true)
     private String providerId;
 
-    @OneToMany(mappedBy = "member")
-    private List<SettingKeyword> settingKeywordList;
+    @OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
+    private List<OnKeyword> onKeywordList;
 
     @Builder
     public Member(String nickname, String email, String picture, Role role, String provider, String providerId) {

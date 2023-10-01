@@ -28,7 +28,7 @@ public class Video extends BaseTimeEntity {
 
 
     @OneToMany(mappedBy = "video")
-    private List<FindKeyword> findKeywordList;
+    private List<FindKeyword> onKeywordList;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
