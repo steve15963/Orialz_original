@@ -45,8 +45,9 @@ public class HadoopControl {
 			"hadoop",
 			"jar",
 			"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
-			nowJob.getRemoteInputPath(),
-			nowJob.getRemoteOutputPath()
+			"com.orialz.ImgToJson",
+			"input.txt",
+			"output"
 		);
 		Process process = processBuilder.start();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
