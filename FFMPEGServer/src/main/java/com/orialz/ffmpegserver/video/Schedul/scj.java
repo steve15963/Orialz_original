@@ -30,7 +30,13 @@ public class scj {
 		if(nextJob.isPresent()){
 			System.out.println("작업시작");
 			Job nowJob = nextJob.get();
-			ProcessBuilder processBuilder = new ProcessBuilder("pwd");
+			ProcessBuilder processBuilder = new ProcessBuilder("hadoop",
+				"jar",
+				"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
+				"com.orialz.ImgToJson",
+				"input.txt",
+				"output"
+			);
 			Process start = processBuilder.start();
 			BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
 
