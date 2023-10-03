@@ -10,7 +10,7 @@ def run():
     model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 
     # Use the model
-    model.train(data="../datasets/Hate/data.yaml", epochs=5, batch=16)  # train the model
+    model.train(data="../datasets/Hate/data.yaml", epochs=50, batch=16)  # train the model
     print(type(model.names), len(model.names))
     print(model.names)
     
