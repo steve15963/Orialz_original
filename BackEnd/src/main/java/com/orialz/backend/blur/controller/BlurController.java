@@ -33,18 +33,7 @@ public class BlurController {
 	OnKeywordService onKeywordService;
 	FindKeywordService findKeywordService;
 
-
-	@GetMapping("/keyword/{id}")
-	public ResponseEntity<List<OnKeywordGetResponse>> getSettingKeyword(@PathVariable long id){
-		return new ResponseEntity<>(onKeywordService.SettingKeywordList(id),HttpStatus.OK);
-	}
-
-	@GetMapping("/keyword")
-	public ResponseEntity<List<KeywordGetResponse>> getKeyword(){
-		return new ResponseEntity<>(keywordService.keywordList(),HttpStatus.OK);
-	}
-
-	@GetMapping("/keyword/{mId}/{vId}")
+	@GetMapping("/list/{mId}/{vId}")
 	public ResponseEntity<Map<Double, List<FindKeywordGetResponse>>> getFindKeyword(@PathVariable long mId,@PathVariable long vId){
 		return new ResponseEntity<>(findKeywordService.findKeywordList(mId, vId),HttpStatus.OK);
 	}
