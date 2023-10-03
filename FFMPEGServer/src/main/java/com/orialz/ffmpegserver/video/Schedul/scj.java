@@ -33,7 +33,7 @@ public class scj {
 			ProcessBuilder processBuilder = new ProcessBuilder("hadoop",
 				"jar",
 				"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
-				"com.orialz.ImgToJson",
+				"com.orialz.imgToJson",
 				"input.txt",
 				"output"
 			);
