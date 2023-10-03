@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.orialz.ffmpegserver.video.Config.HadoopConfiguration;
 import com.orialz.ffmpegserver.video.Vo.Entity.Job;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -20,8 +21,7 @@ public class HadoopControl {
 
 	HadoopConfiguration hadoopConfiguration;
 
-	@Value("{hadoop.root}")
-	static String root;
+	static String root = "hdfs://cluster1:9000/";
 
 
 	public String HDFSUploadInputTxt(Job job) throws IOException {
