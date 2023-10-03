@@ -19,7 +19,7 @@ public class Mapper {
 		ModelMapper mp = new ModelMapper();
 		mp.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		mp.createTypeMap(OnKeyword.class, OnKeywordGetResponse.class)
-			.addMapping(OnKeyword::getId,OnKeywordGetResponse::setId)
+			.addMapping(data -> data.getKeyword().getId(),OnKeywordGetResponse::setId)
 			.addMapping(data -> data.getKeyword().getKeyword(),OnKeywordGetResponse::setKeyword);
 		return mp;
 	}
