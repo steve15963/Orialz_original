@@ -28,10 +28,10 @@ public class scj {
 		if(nextJob.isPresent()){
 			System.out.println("작업시작");
 			Job nowJob = nextJob.get();
-			hadoopControl.HDFSUploadInputTxt(nowJob);
+			//hadoopControl.HDFSUploadInputTxt(nowJob);
 			hadoopControl.MapreduceRunJob(nowJob);
-			hadoopControl.HDFSDownloadOutputTxt(nowJob);
-			findKeywordService.pushfile(nowJob);
+			///hadoopControl.HDFSDownloadOutputTxt(nowJob);
+			//findKeywordService.pushfile(nowJob);
 			//파일 삭제 완료 이후 해당 작업 삭제.
 			jobRepository.delete(nowJob);
 			System.out.println("작업끝");
