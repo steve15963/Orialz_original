@@ -19,4 +19,4 @@ spring:
           jdbc.batch_size: ${chunkSize:100}
     database: mysql
 server:
-  port: {properties.port}
+  port: ${properties.port}
