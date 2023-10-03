@@ -23,7 +23,7 @@ public class VideoController {
 	VideoService videoService;
 	@GetMapping("/test/{vId}")
 	public ResponseEntity<String> test(@PathVariable Long vId) throws IOException, InterruptedException, ClassNotFoundException {
-		videoService.test(vId);
+		videoService.test(vId,"input.txt","input.txt","output","output.txt");
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 }
