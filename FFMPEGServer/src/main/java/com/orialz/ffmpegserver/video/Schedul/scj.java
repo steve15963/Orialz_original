@@ -40,7 +40,7 @@ public class scj {
 			Process start = processBuilder.start();
 			BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
 			BufferedReader er = new BufferedReader(new InputStreamReader(start.getErrorStream()));
-			start.waitFor();
+
 
 			String line;
 			while((line = br.readLine()) != null){
@@ -49,6 +49,7 @@ public class scj {
 			while((line = er.readLine()) != null){
 				System.out.println(line);
 			}
+			start.waitFor();
 
 			//hadoopControl.HDFSUploadInputTxt(nowJob);
 			// hadoopControl.MapreduceRunJob(nowJob);
