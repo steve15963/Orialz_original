@@ -30,15 +30,24 @@ public class scj {
 		if(nextJob.isPresent()){
 			System.out.println("작업시작");
 			Job nowJob = nextJob.get();
-			ProcessBuilder processBuilder = new ProcessBuilder("hadoop"
+			ProcessBuilder processBuilder = new ProcessBuilder("hadoop",
+				"jar",
+				"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
+				"com.orialz.imgToJson",
+				"input.txt",
+				"output"
 			);
 			Process start = processBuilder.start();
 			BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
+
+			start.waitFor();
 
 			String line;
 			while((line = br.readLine()) != null){
 				System.out.println(line);
 			}
+
+
 			//hadoopControl.HDFSUploadInputTxt(nowJob);
 			// hadoopControl.MapreduceRunJob(nowJob);
 			///hadoopControl.HDFSDownloadOutputTxt(nowJob);
