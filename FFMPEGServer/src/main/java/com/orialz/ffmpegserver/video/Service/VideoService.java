@@ -17,14 +17,25 @@ import lombok.AllArgsConstructor;
 public class VideoService {
 	JobRepository jobRepository;
 	VideoRepository videoRepository;
-	public void test(Long vId) throws IOException, InterruptedException, ClassNotFoundException {
+	public void test(Long vId,String li, String ri, String ro, String lo) throws IOException, InterruptedException, ClassNotFoundException {
 		Optional<Video> byId = videoRepository.findById(vId);
 		byId.ifPresent(video -> jobRepository.save(Job.builder()
 			.video(video)
-			.localInputPath("/user/hadoop/" + vId + "/AiInput.txt")
+			.localInputPath(li)
+			.remoteInputPath(ri)
+			.remoteOutputPath(ro)
+			.localOutputPath(lo)
+			.build()
+		));
+	}
+	public void addJob(Long vId) throws IOException, InterruptedException, ClassNotFoundException {
+		Optional<Video> byId = videoRepository.findById(vId);
+		byId.ifPresent(video -> jobRepository.save(Job.builder()
+			.video(video)
+			.localInputPath("" + vId + "/AiInput.txt")
 			.remoteInputPath("/user/hadoop/" + vId + "/AiInput.txt")
-			.remoteOutputPath("/user/hadoop/" + vId + "/json")
-			.localOutputPath("output.json")
+			.remoteOutputPath("/user/hadoop/" + vId + "/json/part-r-00000")
+			.localOutputPath("" + vId +"output.txt")
 			.build()
 		));
 	}
