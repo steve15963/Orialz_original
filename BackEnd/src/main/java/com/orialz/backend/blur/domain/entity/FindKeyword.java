@@ -46,7 +46,7 @@ public class FindKeyword {
 	@Column
 	double score;
 	public long getLabel() {
-		return video.getVideoId();
+		return keyword.getId();
 	}
 
 	public long getX() {
