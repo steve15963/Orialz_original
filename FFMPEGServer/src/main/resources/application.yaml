@@ -9,7 +9,7 @@ spring:
     username: ${properties.datasource.username}
     password: ${properties.datasource.password}
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
       properties:

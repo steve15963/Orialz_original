@@ -1,6 +1,8 @@
 package com.orialz.ffmpegserver.video.Schedul;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Optional;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,8 +30,16 @@ public class scj {
 		if(nextJob.isPresent()){
 			System.out.println("작업시작");
 			Job nowJob = nextJob.get();
+			ProcessBuilder processBuilder = new ProcessBuilder("pwd");
+			Process start = processBuilder.start();
+			BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
+
+			String line;
+			while((line = br.readLine()) != null){
+				System.out.println(line);
+			}
 			//hadoopControl.HDFSUploadInputTxt(nowJob);
-			hadoopControl.MapreduceRunJob(nowJob);
+			// hadoopControl.MapreduceRunJob(nowJob);
 			///hadoopControl.HDFSDownloadOutputTxt(nowJob);
 			//findKeywordService.pushfile(nowJob);
 			//파일 삭제 완료 이후 해당 작업 삭제.
