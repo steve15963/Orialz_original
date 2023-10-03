@@ -11,12 +11,18 @@ import javax.persistence.ManyToOne;
 
 import com.orialz.backend.Member.domain.entity.Member;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OnKeyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
