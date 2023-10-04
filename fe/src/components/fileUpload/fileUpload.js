@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import VideoJS from "../VideoJS";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -55,7 +56,7 @@ function FileUpload() {
       formData.append("chunk", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
-      if (chunkNum == totalChunkNum - 1) {
+      if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
         formData.append("category", category);
