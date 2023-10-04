@@ -1,6 +1,9 @@
 from ultralytics import YOLO
 from multiprocessing import freeze_support
 import os
+import numpy as np
+import json
+
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def run():
@@ -11,16 +14,25 @@ def run():
     # model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
     model = YOLO("best.pt")
 
-    # Use the model
-    # model.train(data="coco128.yaml", epochs=3, batch=8)  # train the model
-    # metrics = model.val()  # evaluate model performance on the validation set
-    results = model.predict(source="./images/insect_000.jpg", save=True) # predict on an image
-    results = model.predict(source="./images/insect_001.jpg", save=True) # predict on an image
-    results = model.predict(source="./images/insect_002.jpg", save=True) # predict on an image
-    results = model.predict(source="./images/insect_003.jpg", save=True) # predict on an image
-    results = model.predict(source="./images/insect_004.jpg", save=True) # predict on an image
-    # path = model.export(format="onnx")  # export the model to ONNX format
-    print(results)
+    while (True):
+    # img = './images/image.jpg
+        img = input()
+
+        results = model.predict(source=img)
+
+        for result in results:
+            data = {}
+            data["img_name"] = img.split('/')[-1]
+            data["orig_shape"] = result.boxes.orig_shape
+            data["cls"] = list(map(int, result.boxes.cls.tolist()))
+            xywhn = result.boxes.xywhn.tolist()
+            for i in range(len(xywhn)):
+                xywhn[i][0] = xywhn[i][0] - (xywhn[i][2] / 2)
+                xywhn[i][1] = xywhn[i][1] - (xywhn[i][3] / 2)
+            data["xywhn"] = xywhn
+            json_data = json.dumps(data)
+            print(json_data)
+            
 
 if __name__ == '__main__':
     run()
