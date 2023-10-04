@@ -16,55 +16,36 @@ const VideoDetail = ({videos}) => {
 	const urlParams = new URL(window.location.href).searchParams;
 	const videoId = useRef(urlParams.get('id'));
 	
-	
+	const blurUrlRef = useRef(`https://test.orialz.com/api/blur/list/7/11`);
+	const userInfoRef = useRef("ImUser");
 
 	// const data4 = useRef(null);
-	const [data5, setData5] = useState([]);
 
 	async function viewIncrease() {
-		console.log("hihihihih");
 		try {
 			//응답 성공
-			const response = await axios.get(`https://test.orialz.com/api/video/${videoId.current}/view`, {});
-			console.log(response);
+			await axios.get(`https://test.orialz.com/api/video/${videoId.current}/view`, {});
 		} catch (error) {
 			//응답 실패
 			console.error(error);
 		}
 	}
 	
-	async function getBlurData() {
-		console.log("hihihihih");
-		try {
-			//응답 성공
-			const response = await axios.get(`https://test.orialz.com/api/blur/list/7/11`, {});
-			console.log(response);
-			
-			setData5(response.data);
-		} catch (error) {
-			//응답 실패
-			console.error(error);
-		}
-	}
+	
 
 	useEffect(()=>{
 		viewIncrease();
-		getBlurData();
-		console.log("hey?");
-		console.log(videos);
 		videos.forEach((e)=>{
-			console.log(e.id === Number(videoId.current));
 			if(e.id === Number(videoId.current)){
 				setCurVideo(e);
-				console.log(e);
 				return;
 			}
 		});
 
 
-	},[videos]);
+	},[]);
 
-	const playerRef = React.useRef(null);
+	const playerRef = useRef(null);
 
 	const videoJsOptionsRef = useRef(null);
 	videoJsOptionsRef.current = {
@@ -109,7 +90,7 @@ const VideoDetail = ({videos}) => {
 		<div className="video-detail-page">
 			<div className="video-detail-container">
 				<div className="videojs-container">
-					{data5.length === 0 ? null : <VideoJS options={videoJsOptionsRef.current} onReady={handlePlayerReady} blurData={data5}/>}
+					<VideoJS options={videoJsOptionsRef.current} onReady={handlePlayerReady} blurUrl={blurUrlRef.current} userInfo={userInfoRef.current}/>
 				</div>
 				<VideoDisc curVideo={curVideo}/>
 				

@@ -1,21 +1,21 @@
-
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import axios from 'axios';
 
 export const VideoJS = (props) => {
-	const videoRef = React.useRef(null);
-	const playerRef = React.useRef(null);
-	const blurIdx = React.useRef(0);
-	// const curBlurKey = React.useRef(0);
-	const realVideoRef = React.useRef(null);
+	const {options, onReady, blurUrl, userInfo} = props;
+	const playerRef = useRef(null);
+	const videoRef = useRef(null);
+	const realVideoRef = useRef(null);
+	const blurDataRef = useRef([]);
+	const blursRef = useRef([]);
+	const blurIdx = useRef(0);
+	const blurAnimationRef = useRef();
+	const timeBefore = useRef(-1);
 
-	const blursRef = React.useRef([]);
-	const blurAnimationRef = React.useRef();
-	const timeBefore = React.useRef(-1);
-	const {options, onReady, blurData} = props;
-
-	React.useEffect(() => {
+	useEffect(() => {
 		// Make sure Video.js player is only initialized once
 		if (!playerRef.current) {
 			// The Video.js player needs to be _inside_ the component el for React 18 Strict Mode. 
@@ -31,14 +31,13 @@ export const VideoJS = (props) => {
 		// on prop change, for example:
 		} else {
 			const player = playerRef.current;
-
 			player.autoplay(options.autoplay);
 			player.src(options.sources);
 		}
 	}, [onReady, options, videoRef]);
 
 	// Dispose the Video.js player when the functional component unmounts
-	React.useEffect(() => {
+	useEffect(() => {
 		const player = playerRef.current;
 		return () => {
 			if (player && !player.isDisposed()) {
@@ -49,36 +48,36 @@ export const VideoJS = (props) => {
 		};
 	}, [playerRef]);
 
-	function testDraw(){
-		blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
+	
+	useEffect(()=>{
+		if(userInfo)getBlurData();
+		const controlBar = document.querySelector(".vjs-control-bar");
+		controlBar.style.zIndex = 2;
+		console.log(controlBar);
+	},[])
+
+	async function getBlurData() {
+		console.log("hihihihih");
+		try {
+			//응답 성공
+			const response = await axios.get(blurUrl, {});
+			console.log(response);
+			blurDataRef.current = response.data;
+			blurAnimationRef.current = window.requestAnimationFrame(drawBlur);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
 	}
 	
-	function fullscreen(){
+	function fullScreen(){
 		videoRef.current.requestFullscreen();
 	}
+
 	function createBlurElement(){
 		blursRef.current.forEach((e)=>{e.remove()});
-			
 
-		// blurData[curBlurKey].forEach((e)=>{
-		// 	const rect2 = realVideoRef.current.getBoundingClientRect();
-		// 				const realZone = document.querySelector(".vjs-text-track-display");
-		// 				const rect = realZone.getBoundingClientRect();
-		// 				const blurSquare = document.createElement("div");
-		// 				blurSquare.classList.add("blur-square");
-		// 				blurSquare.style.position = "absolute";
-		// 				blurSquare.style.top =  rect.height * e.y + "px";
-		// 				blurSquare.style.left = rect.width * e.x +  (rect2.width - rect.width)/2 + "px";
-		// 				blurSquare.style.height = e.h  + "%";
-		// 				blurSquare.style.width = e.w * (rect.width/rect2.width) +  "%";	
-		// 				blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
-		// 				blurSquare.style.zIndex = 5;
-		// 				blurSquare.style.backdropFilter = "blur(20px)";
-		// 				blursRef.current.push(blurSquare);
-		// 				realVideoRef.current.appendChild(blurSquare);
-		// })
-
-		blurData.data[blurIdx.current].objects.forEach((e)=>{
+		blurDataRef.current.data[blurIdx.current].objects.forEach((e)=>{
 						// 비디오 전체 크기
 						const rect2 = realVideoRef.current.getBoundingClientRect();
 						const realZone = document.querySelector(".vjs-text-track-display");
@@ -93,18 +92,14 @@ export const VideoJS = (props) => {
 						blurSquare.style.height = e.h * 100  + "%";
 						blurSquare.style.width = e.w * (rect.width/rect2.width) * 100+  "%";	
 
-						// blurSquare.style.top =  e.y + "px";
-						// blurSquare.style.left = e.x + "px";
-						// blurSquare.style.height = e.h  + "px";
-						// blurSquare.style.width = e.w +  "px";	
-
 						blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
-						blurSquare.style.zIndex = 5;
+						blurSquare.style.zIndex = 1;
 						blurSquare.style.backdropFilter = "blur(20px)";
 						blursRef.current.push(blurSquare);
 						realVideoRef.current.appendChild(blurSquare);
 		})
 	}
+
 	function drawBlur(){
 
 		let curTime = playerRef.current.currentTime();
@@ -116,23 +111,41 @@ export const VideoJS = (props) => {
 			mode = 0;
 		} else if(timeBefore.current > curTime){
 			mode = -1;
-			// blurIdx.current = Math.floor(curTime);
-				// console.log("영상뒤로감");
+			// console.log("영상뒤로감");
+			blurDataRef.current.data.some((e,i)=>{
+				if(e.time>curTime){
+					console.log(e.time, curTime, i);
+					blurIdx.current = i; 
+					return true;
+				}
+				return false;
+			})
+		} else if(timeBefore.current + 0.05 < curTime) {
+			mode = 1;
+			// blurIdx.current = Math.floor(curTime/20);
+			// console.log("영상점프");
+			blurDataRef.current.data.some((e,i)=>{
+				if(e.time>curTime){
+					console.log(e.time, curTime);
+					blurIdx.current = i; 
+					return true;
+				}
+				return false;
+			})
 		} else {
 			mode = 1;
-			// blurIdx.current = Math.floor(curTime);
-			// console.log("영상앞으로감");
+			// console.log("영상진행");
 		}
 
 		if(mode === 0){
 		} else if(mode===1){
-			if(curTime > blurData.data[blurIdx.current].time - 0.005){
+			if(curTime > blurDataRef.current.data[blurIdx.current].time - 0.003){
 				createBlurElement();
 				blurIdx.current++;
 			}
 			
 		} else if(mode === -1){
-			if(curTime < blurData.data[blurIdx.current].time + 0.005){
+			if(curTime < blurDataRef.current.data[blurIdx.current].time + 0.003){
 				createBlurElement();
 				blurIdx.current--;
 			}
@@ -146,8 +159,7 @@ export const VideoJS = (props) => {
 
   	return (
 		<div data-vjs-player id='videoZone'>
- 			<div ref={videoRef} onClick={testDraw} onDoubleClick={fullscreen}>
-				
+ 			<div ref={videoRef} onDoubleClick={fullScreen}>
 			</div>
 		</div>
   	);
