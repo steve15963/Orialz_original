@@ -1,0 +1,54 @@
+.profile-container {
+  position: absolute;
+  right: 30px;
+  top: 130px;
+  z-index: 3;
+  width: 200px;
+  height: 110px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 20px;
+}
+
+.user-info-click {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  text-decoration: none;
+  color: black;
+}
+
+.user-info-click:hover {
+  cursor: pointer;
+  background-color: #ffbf69;
+}
+
+.user-info-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.logout-click {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.logout-click:hover {
+  cursor: pointer;
+  background-color: #ffbf69;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
