@@ -1,13 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import {selectUser, uploadFilter} from '../../util/slice/userSlice'
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import './FilterSelect.css';
+import axios from 'axios';
 
 export default function FilterSelect({handleModalOff}){
 
-    
-    const user = useSelector(selectUser);
-    const dispatch = useDispatch();
     const wordsRef = useRef(null);
     const fcRef = useRef(null);
     const mode = useRef(0);
@@ -15,9 +11,10 @@ export default function FilterSelect({handleModalOff}){
     const modeBtnRef2 = useRef(null);
     const modeBtnRef3 = useRef(null);
 
+    // const [keywords, setKeywords] = useState(null);
+    const [myWords, setMyWords] = useState(null);
 
     
-    console.log(mode.current);
     function seeAllWords(){
         for(const child of wordsRef.current.children){
             child.style.display = ''
@@ -54,6 +51,49 @@ export default function FilterSelect({handleModalOff}){
         modeBtnRef3.current.style.backgroundColor = "aliceblue";
     }
 
+    useEffect(()=>{
+        console.log("hi");
+        initKeywords();
+    },[])
+
+    async function initKeywords() {
+		try {
+            const keywords = await axios.get(`https://test.orialz.com/api/keyword/list`, {});
+
+            const mywords = await axios.get(`https://test.orialz.com/api/onkeyword/list/${1}`, {});
+            
+            const tempFilter = [];
+
+            keywords.data.forEach((word, idx) => {
+                const obj = {
+                    id: word.id,
+                    keyword: word.keyword,
+                    filter: false,
+                };
+                tempFilter.push(obj);
+            });
+
+            mywords.data.forEach((e)=>{
+                tempFilter[e.id].filter=true;
+            })
+
+            setMyWords(tempFilter);
+
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+
+    async function toggleKeyword(kid) {
+		try {
+			//응답 성공
+			await axios.get(`https://test.orialz.com/api/onkeyword/change/${1}/${kid}`, {});
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
     return(
         <div className='filter-container' ref={fcRef}>
@@ -66,22 +106,22 @@ export default function FilterSelect({handleModalOff}){
                 <div className='filter-exit-btn' onClick={(e)=>{fcRef.current.style.animation="filter-container-close 100ms forwards"; handleModalOff();}}>X</div>
             </div>
             <div className='filter-word-container' ref={wordsRef}>
-                {user.filter.map((e,idx)=>{
-                    const name = e.name;
+                {!myWords ? null : myWords.map((word,idx)=>{
+                    const name = word.keyword;
                     return (<div
-                                className={user.filter[idx].filter ? 'filter-word filtered':'filter-word unfiltered'}
-                                key={idx}
+                                className={myWords[idx].filter ? 'filter-word filtered':'filter-word unfiltered'}
+                                key={word.id}
                                 onClick={(e)=>{
-                                    const newFilter = [];
-                                    for(let i=0; i<idx; i++){
-                                        newFilter.push(user.filter[i]);
-                                    }
-                                    newFilter.push({name:user.filter[idx].name, filter: !user.filter[idx].filter});
-                                    for(let i=idx+1; i<user.filter.length; i++){
-                                        newFilter.push(user.filter[i]);
-                                    }
+                                    // const newFilter = [];
+                                    // for(let i=0; i<idx; i++){
+                                    //     newFilter.push(user.filter[i]);
+                                    // }
+                                    // newFilter.push({name:user.filter[idx].name, filter: !user.filter[idx].filter});
+                                    // for(let i=idx+1; i<user.filter.length; i++){
+                                    //     newFilter.push(user.filter[i]);
+                                    // }
 
-                                    if(newFilter[idx].filter){
+                                    if(e.target.classList.contains("unfiltered")){
                                         e.target.classList.add('filtered');
                                         e.target.classList.remove('unfiltered');
                                         if(mode.current===2){e.target.style.display='none'}
@@ -90,18 +130,14 @@ export default function FilterSelect({handleModalOff}){
                                         e.target.classList.remove('filtered');
                                         if(mode.current===1){e.target.style.display='none'}
                                     }
-                                    dispatch(uploadFilter(newFilter))
+
+
+                                    toggleKeyword(word.id);
                                 }}
                             >{name}</div>)
                     
                 })}
             </div>
         </div>
-    )
-}
-
-export function filterWord(){
-    return(
-        <div>name</div>
     )
 }

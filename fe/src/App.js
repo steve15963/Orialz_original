@@ -2,28 +2,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadUser, uploadFilter, discardUser, selectUser } from "./util/slice/userSlice";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-import { useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
 
 function App() {
 
 	const [videos, setVideos] = useState([]);
 	const [myData, setMyData] = useState([]);
 
-	useEffect(()=>{getVideos();getMyData()},[]);
+	// const user = useSelector(selectUser);
+  	const dispatch = useDispatch();
+
+
+	useEffect(()=>{
+		getVideos();
+		getMyData();
+
+		getAllKeywords();
+	},[]); 
+
+	async function getAllKeywords() {
+		try {
+			//응답 성공
+			const response = await axios.get(`https://test.orialz.com/api/keyword/list`, {});
+			dispatch(uploadFilter(response.data));
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
 	async function getVideos() {
 		try {
 			//응답 성공
 			const response = await axios.get("https://test.orialz.com/api/video", {});
-			console.log(response);
 			setVideos(response.data);
 		} catch (error) {
 			//응답 실패
@@ -36,7 +56,6 @@ function App() {
 		try {
 			//응답 성공
 			const response = await axios.get("https://test.orialz.com/api/mypage/1", {});
-			console.log(response);
 			setMyData(response.data);
 		} catch (error) {
 			//응답 실패

@@ -7,31 +7,31 @@ export const userSlice = createSlice({
 		nickname: "",
 		filter: [
 			{
-				name:'bug',
-				filter: true
-			},
-			{
-				name:'knife',
+				keyword:'bug',
 				filter: false
 			},
 			{
-				name:'monkey',
-				filter: true
-			},
-			{
-				name:'clown',
+				keyword:'knife',
 				filter: false
 			},
 			{
-				name:'mouse',
-				filter: true},
-			{
-				name:'chair',
+				keyword:'monkey',
 				filter: false
 			},
 			{
-				name:'ghost',
-				filter: true
+				keyword:'clown',
+				filter: false
+			},
+			{
+				keyword:'mouse',
+				filter: false},
+			{
+				keyword:'chair',
+				filter: false
+			},
+			{
+				keyword:'ghost',
+				filter: false
 			},
 			
 		]
@@ -47,7 +47,6 @@ export const userSlice = createSlice({
 		},
 		uploadFilter: (state, newFilter) => {
 			state.filter = newFilter.payload;
-			console.log(newFilter.payload);
 		}
   	},
 })
