@@ -18,6 +18,7 @@ public class testController {
 	@GetMapping("/hello")
 	public ResponseEntity<String> hello(){
 		log.info("!!");
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		return ResponseEntity.ok("hello");
 	}
 }
