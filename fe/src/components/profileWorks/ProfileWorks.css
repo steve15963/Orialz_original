@@ -1,31 +1,41 @@
 .profile-works {
-    /* width: 600px; */
-    /* height: 1000px; */
-    /* border: 1px solid black; */
-    /* margin: 30px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* width: 600px; */
+  /* height: 1000px; */
+  /* border: 1px solid black; */
+  /* margin: 30px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-works-btns {
-    display: flex;
-    margin-top: 10px;
-    
+  display: flex;
+  margin-top: 10px;
 }
 
 .profile-video-btn,
-.profile-comments-btn
-{
-    border: 1px solid black;
-    height: 30px;
-    width: 50px;
-    text-align: center;
+.profile-comments-btn {
+  border: 0;
+  height: 30px;
+  width: 80px;
+  text-align: center;
+  border-bottom-width: 5px;
+  border-style: solid;
+  border-color: white;
+  transition: border-color 0.3s ease;
 }
 
 .profile-video-btn:hover,
-.profile-comments-btn:hover
-{
-    cursor: pointer;
-    background-color:beige;
+.profile-comments-btn:hover {
+  cursor: pointer;
+  border-bottom-width: 5px;
+  border-style: solid;
+  border-color: black;
+}
+
+.profile-video-btn.active,
+.profile-comments-btn.active {
+  border-bottom-width: 5px;
+  border-style: solid;
+  border-color: black;
 }
