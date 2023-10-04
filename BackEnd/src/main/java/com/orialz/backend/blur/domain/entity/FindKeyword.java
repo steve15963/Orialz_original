@@ -49,19 +49,19 @@ public class FindKeyword {
 		return keyword.getKeyword();
 	}
 
-	public long getX() {
-		return (int)minX;
+	public double getX() {
+		return minX;
 	}
 
-	public long getY() {
-		return (int)minY;
+	public double getY() {
+		return minY;
 	}
 
-	public long getW() {
-		return (int)(maxX - minX);
+	public double getW() {
+		return maxX - minX;
 	}
 
-	public long getH() {
-		return (int)(maxY - minY);
+	public double getH() {
+		return maxY - minY;
 	}
 }
