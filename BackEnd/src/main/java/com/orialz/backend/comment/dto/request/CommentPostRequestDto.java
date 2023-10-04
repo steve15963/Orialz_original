@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentPostRequestDto {
     private String content;
-    private Long memberId; // 나중에 빼기
 }

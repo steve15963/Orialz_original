@@ -43,12 +43,11 @@ public class CommentService {
 
     @Transactional
     //댓글 작성
-    public CommentPostResponseDto postComment(Long videoId, CommentPostRequestDto commentPostRequestDto ){
+    public CommentPostResponseDto postComment(Long videoId, Long memberId, CommentPostRequestDto commentPostRequestDto ){
 
         try{
             // 해당 유저 조회
-            Long nowMemberId = commentPostRequestDto.getMemberId();
-            Member nowMember = memberRepository.findById(nowMemberId).orElse(null);
+            Member nowMember = memberRepository.findById(memberId).orElse(null);
             // 해당 비디오 조회
             Video nowVideo = videoRepository.findById(videoId).orElse(null);
             Comment comment = Comment.builder()
