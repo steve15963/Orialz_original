@@ -5,14 +5,24 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 export default function CommentsContainer({ videoId }) {
+    const [commentClick, setCommentClick] = useState(false);
+    const [commentChange, setCommentChange] = useState(false);
     const [comments, setComments] = useState([]);
     const commentInputRef = useRef(null);
+
+    const handleCommentInputFocus = () => {
+        setCommentClick(true);
+    };
+
+    const handleCommentInputBlur = () => {
+        setCommentClick(false);
+    };
 
     async function getComments() {
         try {
             //응답 성공
             const response = await axios.get(
-                `${process.env.REACT_APP_API_PATH}/api/comment/${videoId}`,
+                `https://test.orialz.com/api/comment/${videoId}`,
                 {}
             );
             console.log(response);
@@ -25,7 +35,8 @@ export default function CommentsContainer({ videoId }) {
 
     useEffect(() => {
         getComments();
-    }, []);
+        setCommentChange(false);
+    }, [commentChange]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -37,7 +48,7 @@ export default function CommentsContainer({ videoId }) {
         }
         axios
             .post(
-                `${process.env.REACT_APP_API_PATH}/api/comment/${videoId}`,
+                `https://test.orialz.com/api/comment/${videoId}`,
                 {
                     content: commentInputRef.current.value,
                 },
@@ -50,6 +61,8 @@ export default function CommentsContainer({ videoId }) {
                 }
             )
             .then(() => {
+                setCommentChange(true);
+                commentInputRef.current.value = "";
                 return;
             })
             .catch((error) => {
@@ -66,13 +79,23 @@ export default function CommentsContainer({ videoId }) {
     return (
         <div className="video-detail-comment-box">
             <form className="comment-form" onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    ref={commentInputRef}
-                    placeholder="댓글 쓰기"
-                    className="comment-input"
-                ></input>
-                <button type="submit">작성</button>
+                <div
+                    className={`comment-input-line ${
+                        commentClick ? "active" : ""
+                    }`}
+                >
+                    <input
+                        type="text"
+                        ref={commentInputRef}
+                        placeholder="댓글 쓰기"
+                        className="comment-input"
+                        onFocus={handleCommentInputFocus}
+                        onBlur={handleCommentInputBlur}
+                    ></input>
+                </div>
+                <button type="submit" className="comment-write-btn">
+                    작성
+                </button>
             </form>
             {comments.map((comment, idx) => {
                 return <CommentBox comment={comment} key={idx} />;
