@@ -15,25 +15,25 @@ export default function VideoContainer({videos}){
         function addDummy(item, duration) {
 			let top = item.offsetTop;
 			let left = item.offsetLeft;
-				setTimeout(function() {
-					item.style.position = 'absolute';
-					item.style.top = top + 'px';
-					item.style.left = left + 'px';
+			setTimeout(function() {
+				item.style.position = 'absolute';
+				item.style.top = top + 'px';
+				item.style.left = left + 'px';
 			
-					let dummyDiv = document.createElement('div');
+				let dummyDiv = document.createElement('div');
 					
-					dummyDiv.classList.add(targetClassName + '-dummy');
-					let rect = item.getBoundingClientRect();
-					dummyDiv.style.width = rect.width +10+ 'px';
-					dummyDiv.style.height = rect.height +10+ 'px';
-					dummyDiv.style.visibility = 'hidden';
-					dummyDiv['__' + targetClassName + '_pair'] = item;
-					dummyDiv['__' + targetClassName + '_duration'] = duration;
-					item.parentNode.appendChild(dummyDiv);
-					dummyList.push(dummyDiv);
-				}, 0);
-            }
-          
+				dummyDiv.classList.add(targetClassName + '-dummy');
+				let rect = item.getBoundingClientRect();
+				dummyDiv.style.width = rect.width +30+ 'px';
+				dummyDiv.style.height = rect.height +30+ 'px';
+				dummyDiv.style.visibility = 'hidden';
+				dummyDiv['__' + targetClassName + '_pair'] = item;
+				dummyDiv['__' + targetClassName + '_duration'] = duration;
+				item.parentNode.appendChild(dummyDiv);
+				dummyList.push(dummyDiv);
+			}, 0);
+        }
+	
         let conts = document.getElementsByClassName(targetClassName);
         for (let i = 0, max = conts.length; i < max; i++) {
 			let cont = conts[i];
@@ -60,7 +60,13 @@ export default function VideoContainer({videos}){
 				}
 			});
         });
-    },[])
+
+		return(()=>{
+			// dummyList.forEach((e)=>{e.style.position = "none"});
+			// dummyList=[];
+		});
+
+    },[videos])
 	
     return(
         <div className="video-container flex-cont flex-wrap-anim">
