@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -7,7 +8,6 @@ import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-import FileCheck from "./components/fileUpload/fileUpload";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
