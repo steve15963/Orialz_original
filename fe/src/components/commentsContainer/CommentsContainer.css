@@ -1,8 +1,49 @@
-
 .video-detail-comment-box {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+}
+
+.comment-form {
+    display: flex;
+    margin: 50px 0;
+}
+
+.comment-input-line {
+    width: 500px;
+    height: 45px;
+    border: 0;
+    border-bottom-width: 4px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.3);
+    transition: border-color 0.2s ease;
+}
+
+.comment-input-line.active {
+    border-color: rgb(0, 0, 0, 0.7);
+}
+
+.comment-input {
+    width: 500px;
+    height: 45px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.comment-write-btn {
+    width: 70px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 30px;
+    border: 0;
+    margin-left: 10px;
+    background-color: rgb(255, 159, 50);
+}
+
+.comment-write-btn:hover {
+    cursor: pointer;
+    background-color: #ffbf69;
 }
