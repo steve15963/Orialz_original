@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -61,6 +62,7 @@ function App() {
 			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
 			<Route path="/profile" element={<Profile myData={myData}/>}></Route>
 			<Route path="/upload" element={<Upload />}></Route>
+			<Route path="/upload2" element={<FileCheck />}></Route>
 			</Routes>
 		</div>
 		</BrowserRouter>
