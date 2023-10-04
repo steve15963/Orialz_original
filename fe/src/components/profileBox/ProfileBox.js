@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
 import NoticeContainer from "../noticeContainer/NoticeContainer";
 import ProfileContainer from "../profileContainer/ProfileContainer";
 import "./ProfileBox.css";
