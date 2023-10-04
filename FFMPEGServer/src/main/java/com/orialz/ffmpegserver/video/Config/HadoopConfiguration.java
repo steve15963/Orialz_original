@@ -21,7 +21,7 @@ public class HadoopConfiguration {
 		System.setProperty("HADOOP_USER_NAME", "hadoop");
 		path = new Path(root);
 		try {
-			FileSystem fileSystem = path.getFileSystem(CONFIGURATION);
+			fileSystem = path.getFileSystem(CONFIGURATION);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
