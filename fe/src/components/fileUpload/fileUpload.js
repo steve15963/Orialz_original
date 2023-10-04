@@ -1,4 +1,3 @@
-import VideoJS from "../VideoJS";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./fileUpload.css";
@@ -7,10 +6,9 @@ import { BsFill1CircleFill, BsFill2CircleFill,BsFill3CircleFill,BsFillFileEarmar
 function FileUpload() {
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState({});
-  const [formData, setFormData] = useState(new FormData());
+  // const [formData, setFormData] = useState(new FormData());
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("MUSIC");
   const [cssActive, setActive] = useState(false);
   const myTextarea = useRef(null);
   const myTextarea1 = useRef(null);
@@ -58,7 +56,7 @@ function FileUpload() {
     console.log(file + " asdfa")
     setFile(file);
     let videoType = "";
-    if(file != undefined){
+    if(file !== undefined){
       videoType =file.type.includes("video");
       setUrl({
         url: URL.createObjectURL(file),
@@ -149,10 +147,9 @@ function FileUpload() {
       formData.append("chunk", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
-      if (chunkNum == totalChunkNum - 1) {
+      if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
-        formData.append("category", category);
       }
 
       const response = await axios.post("/upload/chunk", formData, {
@@ -165,7 +162,7 @@ function FileUpload() {
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
-      if(response.status == 200){
+      if(response.status === 200){
         console.log("value: "+progressRef.current.value)
         console.log(chunkNum);
         progressRef.current.value = Math.ceil(100 / totalChunkNum) * (chunkNum+1);
@@ -205,9 +202,6 @@ function FileUpload() {
         console.log("asdf")
         return;
       }
-      // console.log("aaaa")
-      // setIsMyTextarea(false);
-      // setIsMyTextarea1(false);
       handleTextStyle();
       handleTextStyle1();
     }

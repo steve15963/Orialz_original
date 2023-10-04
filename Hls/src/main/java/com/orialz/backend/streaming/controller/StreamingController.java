@@ -95,13 +95,12 @@ public class StreamingController {
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
                                          @RequestParam(name = "content", required = false) String content, 
-                                          @RequestParam(name = "title", required = false) String title,
-                                          @RequestParam(name = "category", required = false) CategoryStatus category
+                                          @RequestParam(name = "title", required = false) String title
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
 //        //업로드 성공 여부 반환
 //        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
-Boolean res = true;
+        Boolean res = true;
 //        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
 
         return ResponseEntity.ok().body(res);
