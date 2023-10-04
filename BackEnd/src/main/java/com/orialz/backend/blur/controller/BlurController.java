@@ -18,6 +18,7 @@ import com.orialz.backend.blur.domain.repository.FindKeywordRepository;
 import com.orialz.backend.blur.dto.response.FindKeywordGetResponse;
 import com.orialz.backend.blur.dto.response.KeywordGetResponse;
 import com.orialz.backend.blur.dto.response.OnKeywordGetResponse;
+import com.orialz.backend.blur.dto.response.ResponseSet;
 import com.orialz.backend.blur.service.FindKeywordService;
 import com.orialz.backend.blur.service.KeywordService;
 import com.orialz.backend.blur.service.OnKeywordService;
@@ -34,7 +35,7 @@ public class BlurController {
 	FindKeywordService findKeywordService;
 
 	@GetMapping("/list/{mId}/{vId}")
-	public ResponseEntity<Map<Double, List<FindKeywordGetResponse>>> getFindKeyword(@PathVariable long mId,@PathVariable long vId){
+	public ResponseEntity<Map<String,List<ResponseSet>>> getFindKeyword(@PathVariable long mId,@PathVariable long vId){
 		return new ResponseEntity<>(findKeywordService.findKeywordList(mId, vId),HttpStatus.OK);
 	}
 
