@@ -14,6 +14,7 @@ export const VideoJS = (props) => {
 	const blurIdx = useRef(0);
 	const blurAnimationRef = useRef();
 	const timeBefore = useRef(-1);
+	const myWordsRef = useRef([]);
 
 	useEffect(() => {
 		// Make sure Video.js player is only initialized once
@@ -44,13 +45,17 @@ export const VideoJS = (props) => {
 				player.dispose();
 				playerRef.current = null;
 				cancelAnimationFrame(blurAnimationRef.current);
+				myWordsRef.current = [];
 			}
 		};
 	}, [playerRef]);
 
 	
 	useEffect(()=>{
-		if(userInfo)getBlurData();
+		if(userInfo){
+			getMyWords();
+			getBlurData();
+		}
 		const controlBar = document.querySelector(".vjs-control-bar");
 		controlBar.style.zIndex = 2;
 		console.log(controlBar);
@@ -70,34 +75,52 @@ export const VideoJS = (props) => {
 		}
 	}
 	
+	async function getMyWords() {
+		try {
+            const mywords = await axios.get(`https://test.orialz.com/api/onkeyword/list/${1}`, {});
+			mywords.data.forEach((e)=>{
+				myWordsRef.current.push(e.keyword);
+			})
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	function fullScreen(){
 		videoRef.current.requestFullscreen();
 	}
 
 	function createBlurElement(){
 		blursRef.current.forEach((e)=>{e.remove()});
-
+		// console.log(blurDataRef.current.data[blurIdx.current].objects);
 		blurDataRef.current.data[blurIdx.current].objects.forEach((e)=>{
-						// 비디오 전체 크기
-						const rect2 = realVideoRef.current.getBoundingClientRect();
-						const realZone = document.querySelector(".vjs-text-track-display");
-						// 비디오 실제 플레이부분 크기
-						const rect = realZone.getBoundingClientRect();
-						const blurSquare = document.createElement("div");
-						blurSquare.classList.add("blur-square");
-						blurSquare.style.position = "absolute";
 
-						blurSquare.style.top =  rect.height * e.y + "px";
-						blurSquare.style.left = rect.width * e.x +  (rect2.width - rect.width)/2 + "px";
-						blurSquare.style.height = e.h * 100  + "%";
-						blurSquare.style.width = e.w * (rect.width/rect2.width) * 100+  "%";	
+			// 내 필터 키워드에 있을 때만 블러처리
+			if(myWordsRef.current.includes(e.label)){
 
-						blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
-						blurSquare.style.zIndex = 1;
-						blurSquare.style.backdropFilter = "blur(20px)";
-						blursRef.current.push(blurSquare);
-						realVideoRef.current.appendChild(blurSquare);
+				// 비디오 전체 크기
+				const rect2 = realVideoRef.current.getBoundingClientRect();
+				const realZone = document.querySelector(".vjs-text-track-display");
+				// 비디오 실제 플레이부분 크기
+				const rect = realZone.getBoundingClientRect();
+				const blurSquare = document.createElement("div");
+				blurSquare.classList.add("blur-square");
+				blurSquare.style.position = "absolute";
+
+				blurSquare.style.top =  rect.height * e.y + "px";
+				blurSquare.style.left = rect.width * e.x +  (rect2.width - rect.width)/2 + "px";
+				blurSquare.style.height = e.h * 100  + "%";
+				blurSquare.style.width = e.w * (rect.width/rect2.width) * 100+  "%";	
+
+				blurSquare.style.backgroundColor = "rgba(0,0,0,0.1)";
+				blurSquare.style.zIndex = 1;
+				blurSquare.style.backdropFilter = "blur(20px)";
+				blursRef.current.push(blurSquare);
+				realVideoRef.current.appendChild(blurSquare);
+			}
+
 		})
+
 	}
 
 	function drawBlur(){
