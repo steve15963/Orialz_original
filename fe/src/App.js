@@ -8,7 +8,6 @@ import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
-import FileCheck from "./components/fileUpload/fileUpload";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
@@ -62,7 +61,6 @@ function App() {
 			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
 			<Route path="/profile" element={<Profile myData={myData}/>}></Route>
 			<Route path="/upload" element={<Upload />}></Route>
-			<Route path="/upload2" element={<FileCheck />}></Route>
 			</Routes>
 		</div>
 		</BrowserRouter>
