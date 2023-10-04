@@ -23,6 +23,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+// https://mvnrepository.com/artifact/org.springframework/spring-test
+	implementation group: 'org.springframework', name: 'spring-test', version: '5.3.30'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'net.bramp.ffmpeg:ffmpeg:0.7.0'
