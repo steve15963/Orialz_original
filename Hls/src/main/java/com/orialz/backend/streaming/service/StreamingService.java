@@ -1,6 +1,9 @@
 package com.orialz.backend.streaming.service;
 
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.orialz.backend.streaming.domain.entity.CategoryStatus;
 import com.orialz.backend.streaming.domain.entity.Member;
 import com.orialz.backend.streaming.domain.entity.Video;
@@ -40,6 +43,10 @@ public class StreamingService {
     private final VideoRepository videoRepository;
     private final MemberRepository memberRepository;
     private final StreamingAsyncService streaming;
+//    private final AmazonS3Client amazonS3Client;
+
+    @Value("${s3.bucket}")
+    private String bucket;
 
     @Value("${video.path}")
     private String rootPath;
@@ -122,17 +129,22 @@ public class StreamingService {
                     // 합친 후 삭제
                     Files.delete(chunkFile);
                 }
+                File fullFile = new File(videoPath + "/"+fileName);
 
                 log.info("File uploaded successfully");
+
+//                putS3(fullFile,fileName);
                 //Frame 분할
                 streaming.splitFrame(videoPath,fileName);
+                //hdfs 전송용 text파일 생성
+                streaming.createTextFile(hashing,userId,videoPath,fileName);
                 //HLS 변환
                 streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정
                 nowVideo.setPath(videoPath+"/hls");
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
-                nowVideo.setThumbnail(videoPath+"/"+"thumbnail.jpg");
+                nowVideo.setThumbnail("/thumb/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
                 return CompletableFuture.completedFuture(true);
             }
             else{
@@ -168,6 +180,12 @@ public class StreamingService {
         return sha256Hash;
     }
 
+
+//    private String putS3(File uploadFile, String fileName) {
+//
+//        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+//        return amazonS3Client.getUrl(bucket, fileName).toString();
+//    }
 
     public void asyncAct() throws InterruptedException {
         for(int i = 0; i<10;i++) {

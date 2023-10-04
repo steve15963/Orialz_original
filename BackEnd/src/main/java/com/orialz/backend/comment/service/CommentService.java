@@ -36,6 +36,7 @@ public class CommentService {
                     .memberProfile(comment.getMember().getPicture())
                     .memberNickname(comment.getMember().getNickname())
                     .videoId(comment.getVideo().getVideoId())
+                    .createAt(comment.getCreatedAt())
                     .build();
             result.add(res);
         }
