@@ -135,9 +135,9 @@ public class StreamingService {
 
 //                putS3(fullFile,fileName);
                 //Frame 분할
-                streaming.splitFrame(videoPath,fileName);
+//                streaming.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
-                streaming.createTextFile(hashing,userId,videoPath,fileName);
+//                streaming.createTextFile(hashing,userId,videoPath,fileName);
                 //HLS 변환
                 streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정

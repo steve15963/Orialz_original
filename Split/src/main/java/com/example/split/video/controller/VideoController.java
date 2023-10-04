@@ -1,6 +1,7 @@
-package com.example.split.video.controller.dto;
+package com.example.split.video.controller;
 
 import com.example.split.video.controller.dto.response.TestDto;
+import com.example.split.video.domain.CategoryStatus;
 import com.example.split.video.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +29,21 @@ public class VideoController {
 
     @ResponseBody
     @PostMapping("/upload/chunk")
-    public ResponseEntity<String> upload(@RequestParam("chunk") MultipartFile[] file,
+    public ResponseEntity<Boolean> upload(@RequestParam("chunk") MultipartFile file,
                                           @RequestParam("totalChunkNum") Integer totalChunkNum,
                                           @RequestParam("fileName") String fileName,
-                                          @RequestParam("chunkNum") Integer chunkNum
+                                          @RequestParam("chunkNum") Integer chunkNum,
+                                          @RequestParam(name = "content", required = false) String content,
+                                          @RequestParam(name = "title", required = false) String title,
+                                          @RequestParam CategoryStatus category
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
-        //업로드 성공 여부 반환
-//        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L);
+//        //업로드 성공 여부 반환
+        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
+//        Boolean res = true;
+//        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
 
-//        log.info(file.getOriginalFilename() + " "+ chunkNum);
-
-        return ResponseEntity.ok().body("hello");
+        return ResponseEntity.ok().body(future.get());
     }
 
 }
