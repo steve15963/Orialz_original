@@ -37,7 +37,7 @@ public class HadoopControl {
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
 		String local = job.getRemoteOutputPath();
 		String remote = job.getLocalOutputPath();
-		fileSystem.copyToLocalFile(new Path(local),new Path(root+remote));
+		fileSystem.copyToLocalFile(new Path(root+remote),new Path(local));
 		return true;
 	}
 
