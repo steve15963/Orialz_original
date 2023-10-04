@@ -43,7 +43,7 @@ public class StreamingService {
     private final VideoRepository videoRepository;
     private final MemberRepository memberRepository;
     private final StreamingAsyncService streaming;
-    private final AmazonS3Client amazonS3Client;
+//    private final AmazonS3Client amazonS3Client;
 
     @Value("${s3.bucket}")
     private String bucket;
@@ -181,11 +181,11 @@ public class StreamingService {
     }
 
 
-    private String putS3(File uploadFile, String fileName) {
-
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-        return amazonS3Client.getUrl(bucket, fileName).toString();
-    }
+//    private String putS3(File uploadFile, String fileName) {
+//
+//        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+//        return amazonS3Client.getUrl(bucket, fileName).toString();
+//    }
 
     public void asyncAct() throws InterruptedException {
         for(int i = 0; i<10;i++) {
