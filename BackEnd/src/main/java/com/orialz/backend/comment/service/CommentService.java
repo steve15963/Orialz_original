@@ -33,6 +33,8 @@ public class CommentService {
                     .commentId(comment.getCommentId())
                     .content(comment.getContent())
                     .memberId(comment.getMember().getId())
+                    .memberNickname(comment.getMember().getNickname())
+                    .memberProfile(comment.getMember().getPicture())
                     .videoId(comment.getVideo().getVideoId())
                     .createAt(comment.getCreatedAt())
                     .build();
