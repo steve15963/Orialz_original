@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableJpaAuditing
 public class BackEndApplication {
 
+	static {
+		System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndApplication.class, args);
 	}

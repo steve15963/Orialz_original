@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class MemberInfoResponseDto {
+    private Long id;
     private String nickname;
     private String email;
     private String picture;
@@ -16,7 +17,8 @@ public class MemberInfoResponseDto {
     private String providerId;
 
     @Builder
-    public MemberInfoResponseDto(String nickname, String email, String picture, Role role, String provider, String providerId) {
+    public MemberInfoResponseDto(Long id, String nickname, String email, String picture, Role role, String provider, String providerId) {
+        this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.picture = picture;

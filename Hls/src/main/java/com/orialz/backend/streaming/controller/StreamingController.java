@@ -1,7 +1,8 @@
 package com.orialz.backend.streaming.controller;
 
+import com.orialz.backend.streaming.domain.entity.CategoryStatus;
 import com.orialz.backend.streaming.service.StreamingService;
-import com.orialz.backend.video.domain.entity.CategoryStatus;
+import com.orialz.backend.streaming.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,23 +16,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/hls")
 public class StreamingController {
 
 
     private final StreamingService streamingService;
+    private final VideoService videoService;
 
     @Value("${video.path}")
     private String rootPath;
@@ -45,7 +50,7 @@ public class StreamingController {
     }
 
     @ResponseBody
-    @GetMapping("/streaming/hls/{videoId}/{fileName}")
+    @GetMapping("/streaming/{videoId}/{fileName}")
     public ResponseEntity<Resource> hlsPlay(@PathVariable Long videoId , @PathVariable String fileName) throws FileNotFoundException, NoSuchAlgorithmException {
         log.info("hls!!!!");
         File file = streamingService.videoPlay(videoId,fileName);
@@ -54,6 +59,31 @@ public class StreamingController {
                 .contentType(MediaType.parseMediaType("application/x-mpegURL"))
                 .body(resource);
     }
+
+    @GetMapping("/{text}")
+    public ResponseEntity<String> webClient(@PathVariable String text){
+        WebClient webClient =
+                WebClient
+                        .builder()
+                        .baseUrl("http://localhost:8081")
+                        .build();
+
+        // api 요청
+        Map<String, Object> response =
+                webClient
+                        .get()
+                        .uri("/split/{text}",text)
+                        .retrieve()
+                        .bodyToMono(Map.class)
+                        .block();
+
+        // 결과 확인
+        log.info(response.toString());
+        return ResponseEntity.ok(response.toString());
+
+    }
+
+
 
 
     // 분할 업로드
@@ -65,12 +95,14 @@ public class StreamingController {
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
                                          @RequestParam(name = "content", required = false) String content, 
-                                          @RequestParam(name = "content", required = false) String title,
-                                          @RequestParam(name = "category", required = false) CategoryStatus category
+                                          @RequestParam(name = "title", required = false) String title
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
-        //업로드 성공 여부 반환
-        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
-        Boolean res = future.get();
+//        //업로드 성공 여부 반환
+//        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
+//        Boolean res = future.get();
+        Boolean res = true;
+//        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
+
         return ResponseEntity.ok().body(res);
     }
 
