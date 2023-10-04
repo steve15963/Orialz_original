@@ -12,6 +12,7 @@ import com.orialz.backend.blur.Config.Mapper;
 import com.orialz.backend.blur.domain.entity.FindKeyword;
 import com.orialz.backend.blur.domain.repository.FindKeywordRepository;
 import com.orialz.backend.blur.dto.response.FindKeywordGetResponse;
+import com.orialz.backend.blur.dto.response.ResponseSet;
 
 import lombok.AllArgsConstructor;
 
@@ -20,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class FindKeywordService {
 	FindKeywordRepository keywordRepository;
 	private final Mapper mapper;
-	public Map<Double,List<FindKeywordGetResponse>> findKeywordList(long mId, long vId){
+	public Map<String,List<ResponseSet>> findKeywordList(long mId, long vId){
 		ModelMapper mp = mapper.FindKeywordToFindKeywordReponseMapper();
 		Map<Double,List<FindKeywordGetResponse>> map = new TreeMap<>();
 		List<FindKeyword> findList = keywordRepository.findAllBymIdAndvId(mId, vId);
@@ -41,6 +42,20 @@ public class FindKeywordService {
 				map.put(time,timelist);
 			}
 		}
-		return map;
+		Map<String,List<ResponseSet>> response = new TreeMap<>();
+		List<ResponseSet> data = new ArrayList<>();
+		response.put(
+			"data",
+			data
+		);
+		map.forEach((key, value)->{
+			data.add(
+				ResponseSet.builder()
+					.time(key)
+					.objects(value)
+					.build()
+			);
+		});
+		return response;
 	}
 }
