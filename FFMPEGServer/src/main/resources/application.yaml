@@ -1,0 +1,22 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${properties.datasource.path}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${properties.datasource.username}
+    password: ${properties.datasource.password}
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+          default_fetch_size: ${chunkSize:100}
+          jdbc.batch_size: ${chunkSize:100}
+    database: mysql
+server:
+  port: ${properties.port}
