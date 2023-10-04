@@ -14,11 +14,11 @@ def run():
     # Use the model
     # model.train(data="coco128.yaml", epochs=3, batch=8)  # train the model
     # metrics = model.val()  # evaluate model performance on the validation set
-    results = model.predict(source="./images/bat_000.jpg", save=True)  # predict on an image
-    results = model.predict(source="./images/bat_001.jpg", save=True)  # predict on an image
-    results = model.predict(source="./images/bat_002.jpg", save=True)  # predict on an image
-    results = model.predict(source="./images/smartphone_000.jpg", save=True)  # predict on an image
-    results = model.predict(source="./images/smartphone_001.jpg", save=True)  # predict on an image
+    results = model.predict(source="./images/insect_000.jpg", save=True) # predict on an image
+    results = model.predict(source="./images/insect_001.jpg", save=True) # predict on an image
+    results = model.predict(source="./images/insect_002.jpg", save=True) # predict on an image
+    results = model.predict(source="./images/insect_003.jpg", save=True) # predict on an image
+    results = model.predict(source="./images/insect_004.jpg", save=True) # predict on an image
     # path = model.export(format="onnx")  # export the model to ONNX format
     print(results)
 
