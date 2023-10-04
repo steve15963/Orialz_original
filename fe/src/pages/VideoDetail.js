@@ -1,20 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
 import './VideoDetail.css';
 import CommentsContainer from '../components/commentsContainer/CommentsContainer';
 import VideoSubs from '../components/videoSubs/VideoSubs';
-import data3 from './data3.json';
+// import data3 from './data3.json';
 // import tempVideo from './tempVideo.mp4';
 require('videojs-contrib-hls.js');
 
 const VideoDetail = ({videos}) => {
 
+	const [curVideo, setCurVideo] = useState({});
 	const urlParams = new URL(window.location.href).searchParams;
 	const videoId = useRef(urlParams.get('id'));
 	
+	
+
+	// const data4 = useRef(null);
+	const [data5, setData5] = useState([]);
+
 	async function viewIncrease() {
 		console.log("hihihihih");
 		try {
@@ -26,7 +32,37 @@ const VideoDetail = ({videos}) => {
 			console.error(error);
 		}
 	}
-	useEffect(()=>{viewIncrease()},[]);
+	
+	async function getBlurData() {
+		console.log("hihihihih");
+		try {
+			//응답 성공
+			const response = await axios.get(`https://test.orialz.com/api/blur/list/7/11`, {});
+			console.log(response);
+			
+			setData5(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+
+	useEffect(()=>{
+		viewIncrease();
+		getBlurData();
+		console.log("hey?");
+		console.log(videos);
+		videos.forEach((e)=>{
+			console.log(e.id === Number(videoId.current));
+			if(e.id === Number(videoId.current)){
+				setCurVideo(e);
+				console.log(e);
+				return;
+			}
+		});
+
+
+	},[videos]);
 
 	const playerRef = React.useRef(null);
 
@@ -73,16 +109,9 @@ const VideoDetail = ({videos}) => {
 		<div className="video-detail-page">
 			<div className="video-detail-container">
 				<div className="videojs-container">
-					<VideoJS options={videoJsOptionsRef.current} onReady={handlePlayerReady} blurData={data3}/>	
+					{data5.length === 0 ? null : <VideoJS options={videoJsOptionsRef.current} onReady={handlePlayerReady} blurData={data5}/>}
 				</div>
-				<div className="video-detail-title">
-					제목제목제목제목제목
-				</div>
-				<div className="video-detail-description">
-					<div>조회수</div>
-					<div>연도</div>
-					<div>설명</div>
-				</div>
+				<VideoDisc curVideo={curVideo}/>
 				
 				<CommentsContainer videoId={videoId.current}/>
 				
@@ -92,5 +121,21 @@ const VideoDetail = ({videos}) => {
 		</div>
 	);
 };
+
+function VideoDisc({curVideo}){
+	return(
+		<>
+			<div className="video-detail-title">
+				{curVideo.title}
+			</div>
+			<div className="video-detail-description">
+				<div>업로드 일: {curVideo.date}</div>
+				<div>올린이: {curVideo.uploader}</div>
+				<div>조회수: {curVideo.view}</div>
+				<div>설명:</div>
+			</div>
+		</>
+	)
+}
 
 export default VideoDetail;
