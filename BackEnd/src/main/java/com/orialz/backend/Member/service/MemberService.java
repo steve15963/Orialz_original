@@ -46,10 +46,11 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected member"));
     }
 
-    public MemberInfoResponseDto getMemberInfo(String email) throws Exception {
-        Member member = memberRepository.findMemberByEmail(email);
+    public MemberInfoResponseDto getMemberInfo(Long id) throws Exception {
+        Member member = memberRepository.findMemberById(id);
 
         MemberInfoResponseDto memberInfoResponseDto = MemberInfoResponseDto.builder()
+                .id(member.getId())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .picture(member.getPicture())
