@@ -43,7 +43,8 @@ public class StreamingService {
     private final VideoRepository videoRepository;
     private final MemberRepository memberRepository;
     private final StreamingAsyncService streaming;
-    private final AmazonS3Client amazonS3Client;
+    private final VideoService videoService;
+//    private final AmazonS3Client amazonS3Client;
 
     @Value("${s3.bucket}")
     private String bucket;
@@ -93,7 +94,7 @@ public class StreamingService {
             Path filePath = Paths.get(path, partFile);
             log.info("filePath: "+String.valueOf(filePath));
             Files.write(filePath, file.getBytes());
-
+            String hashing = "";
             // 마지막 조각이 전송 됐을 경우
             if (chunkNumber == totalChunkNum - 1) {
                 log.info(content);
@@ -111,7 +112,7 @@ public class StreamingService {
                 Video nowVideo = videoRepository.save(video);
                 // 디비에 영상 삽입. status = 0;
                 // 디비에서 가지고온 videoId , createAt
-                String hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
+                hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
                 String videoPath = path + "/"+hashing;
 
                 File hashFolder = new File(videoPath); // 폴더 위치
@@ -145,9 +146,12 @@ public class StreamingService {
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
                 nowVideo.setThumbnail("/thumb/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
+
+//                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
                 return CompletableFuture.completedFuture(true);
             }
             else{
+//                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
                 log.info("Not Last");
                 return CompletableFuture.completedFuture(true);
             }
@@ -181,11 +185,11 @@ public class StreamingService {
     }
 
 
-    private String putS3(File uploadFile, String fileName) {
-
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-        return amazonS3Client.getUrl(bucket, fileName).toString();
-    }
+//    private String putS3(File uploadFile, String fileName) {
+//
+//        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+//        return amazonS3Client.getUrl(bucket, fileName).toString();
+//    }
 
     public void asyncAct() throws InterruptedException {
         for(int i = 0; i<10;i++) {
