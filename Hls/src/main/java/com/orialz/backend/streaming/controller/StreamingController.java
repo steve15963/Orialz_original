@@ -90,19 +90,18 @@ public class StreamingController {
     // 유저 정보 헤더에 담기 나중에 수정
     @ResponseBody
     @PostMapping("/upload/chunk")
-    public ResponseEntity<String> upload(@RequestParam("chunk") MultipartFile file,
+    public ResponseEntity<Boolean> upload(@RequestParam("chunk") MultipartFile file,
                                          @RequestParam("totalChunkNum") Integer totalChunkNum,
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
                                          @RequestParam(name = "content", required = false) String content, 
-                                          @RequestParam(name = "title", required = false) String title,
-                                          @RequestParam(name = "category", required = false) CategoryStatus category
+                                          @RequestParam(name = "title", required = false) String title
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
 //        //업로드 성공 여부 반환
 //        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
-
-        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
+        Boolean res = true;
+//        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
 
         return ResponseEntity.ok().body(res);
     }
