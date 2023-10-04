@@ -13,8 +13,8 @@ import lombok.Setter;
 @Builder
 public class FindKeywordGetResponse {
 	String label;
-	long x;
-	long y;
-	long w;
-	long h;
+	double x;
+	double y;
+	double w;
+	double h;
 }
