@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@AllArgsConstructor
 public class HadoopControl {
 
 	HadoopConfiguration hadoopConfiguration;
@@ -36,27 +37,36 @@ public class HadoopControl {
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
 		String local = job.getRemoteOutputPath();
 		String remote = job.getLocalOutputPath();
-		fileSystem.copyToLocalFile(new Path(root+remote),new Path(local));
+		fileSystem.copyToLocalFile(new Path(local),new Path(root+remote));
 		return true;
 	}
 
-	public void MapreduceRunJob(Job nowJob) throws IOException, InterruptedException {
-		ProcessBuilder processBuilder = new ProcessBuilder(
-			"hadoop",
+	public boolean MapreduceRunJob(Job nowJob) throws IOException, InterruptedException {
+		ProcessBuilder processBuilder = new ProcessBuilder("hadoop",
 			"jar",
 			"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
-			"com.orialz.ImgToJson",
+			"com.orialz.imgToJson",
 			"input.txt",
 			"output"
 		);
-		Process process = processBuilder.start();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		Process start = processBuilder.start();
+		BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
+		BufferedReader er = new BufferedReader(new InputStreamReader(start.getErrorStream()));
+
+
 		String line;
-		while ((line = reader.readLine()) != null) {
-			System.out.println(line);
-			log.info("data : {}",line);
+		while((line = br.readLine()) != null){
+			// System.out.println(line);
+			log.info("Hadoop out{}", line);
 		}
-		int exitCode = process.waitFor();
+
+		while((line = er.readLine()) != null){
+			// System.out.println(line);
+			log.info("Hadoop Err{}", line);
+		}
+		if(start.waitFor() == 0)
+			return false;
+		return true;
 	}
 
 	public void RemoveLocalInput(){

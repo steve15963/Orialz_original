@@ -26,4 +26,15 @@ public class VideoController {
 		videoService.test(vId,"input.txt","input.txt","output","output.txt");
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
+
+	@GetMapping("/uploadTest")
+	public ResponseEntity<String> test2() throws IOException, InterruptedException, ClassNotFoundException {
+		videoService.upload();
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+	@GetMapping("/downloadTest")
+	public ResponseEntity<String> test3() throws IOException, InterruptedException, ClassNotFoundException {
+		videoService.download();
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
 }

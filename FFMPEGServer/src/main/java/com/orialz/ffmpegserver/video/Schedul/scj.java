@@ -14,9 +14,11 @@ import com.orialz.ffmpegserver.video.Repository.JobRepository;
 import com.orialz.ffmpegserver.video.hadoop.HadoopControl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class scj {
 	JobRepository jobRepository;
 	HadoopControl hadoopControl;
@@ -30,29 +32,14 @@ public class scj {
 		if(nextJob.isPresent()){
 			System.out.println("작업시작");
 			Job nowJob = nextJob.get();
-			ProcessBuilder processBuilder = new ProcessBuilder("hadoop",
-				"jar",
-				"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
-				"com.orialz.imgToJson",
-				"input.txt",
-				"output"
-			);
-			Process start = processBuilder.start();
-			BufferedReader br = new BufferedReader(new InputStreamReader(start.getInputStream()));
-			BufferedReader er = new BufferedReader(new InputStreamReader(start.getErrorStream()));
+			
+			String uploadUrl = hadoopControl.HDFSUploadInputTxt(nowJob);
 
-
-			String line;
-			while((line = br.readLine()) != null){
-				System.out.println(line);
-			}
-			while((line = er.readLine()) != null){
-				System.out.println(line);
-			}
-			start.waitFor();
-
-			//hadoopControl.HDFSUploadInputTxt(nowJob);
-			// hadoopControl.MapreduceRunJob(nowJob);
+			//반환값에 따라서 실패시
+			// if(hadoopControl.MapreduceRunJob(nowJob)){
+			// 	log.info("Hadoop 실행 실패");
+			// 	return;
+			// }
 			///hadoopControl.HDFSDownloadOutputTxt(nowJob);
 			//findKeywordService.pushfile(nowJob);
 			//파일 삭제 완료 이후 해당 작업 삭제.

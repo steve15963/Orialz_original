@@ -9,6 +9,7 @@ import com.orialz.ffmpegserver.video.Repository.JobRepository;
 import com.orialz.ffmpegserver.video.Repository.VideoRepository;
 import com.orialz.ffmpegserver.video.Vo.Entity.Job;
 import com.orialz.ffmpegserver.video.Vo.Entity.Video;
+import com.orialz.ffmpegserver.video.hadoop.HadoopControl;
 
 import lombok.AllArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 public class VideoService {
 	JobRepository jobRepository;
 	VideoRepository videoRepository;
+	HadoopControl hadoopControl;
 	public void test(Long vId,String li, String ri, String ro, String lo) throws IOException, InterruptedException, ClassNotFoundException {
 		Optional<Video> byId = videoRepository.findById(vId);
 		byId.ifPresent(video -> jobRepository.save(Job.builder()
@@ -40,5 +42,20 @@ public class VideoService {
 		));
 	}
 
-
+	public void upload() throws IOException {
+		String uploadUrl = hadoopControl.HDFSUploadInputTxt(
+			Job.builder()
+				.localInputPath("inputTest.txt")
+				.remoteInputPath("/user/hadoop/inputTest.txt")
+				.build()
+		);
+	}
+	public void download() throws IOException {
+		boolean b = hadoopControl.HDFSDownloadOutputTxt(
+			Job.builder()
+				.localOutputPath("download.txt")
+				.remoteOutputPath("/user/hadoop/inputTest.txt")
+				.build()
+		);
+	}
 }
