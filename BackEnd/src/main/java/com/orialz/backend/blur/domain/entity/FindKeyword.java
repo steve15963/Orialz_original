@@ -45,8 +45,8 @@ public class FindKeyword {
 	double maxY;
 	@Column
 	double score;
-	public long getLabel() {
-		return keyword.getId();
+	public String getLabel() {
+		return keyword.getKeyword();
 	}
 
 	public long getX() {

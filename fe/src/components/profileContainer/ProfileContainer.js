@@ -32,7 +32,7 @@ export default function ProfileContainer({ falsifyProfileOn }) {
                 }}
             >
                 <img
-                    src="logout-icon.png"
+                    src="exit-icon.png"
                     alt="logoutImage"
                     className="logout-icon"
                 />
