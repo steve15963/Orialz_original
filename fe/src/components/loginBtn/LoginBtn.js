@@ -1,11 +1,10 @@
-
-import { NavLink } from "react-router-dom";
 import "./LoginBtn.css";
 
-export default function LoginBtn(){
-    return(
-        <NavLink to={"login"}>
-            <img src="btn_google_signin_dark_normal_web.png" alt="googleImage" className="google-img"/>
-        </NavLink>
-    )
+export default function LoginBtn({ googleLogin }) {
+  return (
+    <div onClick={googleLogin} className="google-login-btn">
+      <img src="google_icon.png" alt="googleImage" className="google-logo" />
+      <div className="login-text">로그인</div>
+    </div>
+  );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -8,99 +9,62 @@ import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import "./App.css";
 import { useEffect } from "react";
-import Header from "./components/header/Header";
+import axios from "axios";
+import { useState } from "react";
 
 function App() {
-  function logoutGoogle() {
-    window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
-    localStorage.removeItem("access_token");
-  }
 
-  function getCookie(key) {
-    var result = null;
-    var cookie = document.cookie.split(";");
-    cookie.some(function (item) {
-      item = item.replace(" ", "");
-      var dic = item.split("=");
-      if (key === dic[0]) {
-        result = dic[1];
-        return true;
-      }
-    });
-    return result;
-  }
+	const [videos, setVideos] = useState([]);
+	const [myData, setMyData] = useState([]);
 
-  function accessTokenReissue() {
-    const refresh_token = getCookie("refresh_token");
-    console.log(refresh_token);
+	useEffect(()=>{getVideos();getMyData()},[]);
 
-    fetch(`${process.env.REACT_APP_API_PATH}/api/token`, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refreshToken: getCookie("refresh_token"),
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((result) => {
-        console.log(result.accessToken);
-        localStorage.setItem("access_token", result.accessToken);
-      })
-      .catch((error) => console.log(error));
-  }
+	async function getVideos() {
+		try {
+			//응답 성공
+			const response = await axios.get("https://test.orialz.com/api/video", {});
+			console.log(response);
+			setVideos(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
-  function getMemberInfo() {
-    fetch(`${process.env.REACT_APP_API_PATH}/api/member/info`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-  }
+	// 로그인 되어있을때만 적용시켜야함
+	async function getMyData() {
+		try {
+			//응답 성공
+			const response = await axios.get("https://test.orialz.com/api/mypage/1", {});
+			console.log(response);
+			setMyData(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
 
-  useEffect(() => {
-    console.log("appjs is rerendering");
-    const refresh_token = getCookie("refresh_token");
-    if (refresh_token) {
-      accessTokenReissue();
-    }
-    if (localStorage.getItem("access_token")) {
-      getMemberInfo();
-    }
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Link to="/login">Login</Link>
-        <button onClick={logoutGoogle}>로그아웃</button>
-        <Link to="/">Main</Link>
-        <Link to="/videoDetail">테스트페이지</Link>
-        <Link to="/profile">프로필</Link>
-        <Link to="/upload">업로드</Link>
+	return (
+		<BrowserRouter>
+		<div className="App">
+			<Link to="/login">Login</Link>
+			<button>로그아웃</button>
+			<Link to="/">Main</Link>
+			<Link to="/videoDetail">테스트페이지</Link>
+			<Link to="/profile">프로필</Link>
+			<Link to="/upload">업로드</Link>
 
 
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/" element={<Main />}></Route>
-          <Route path="/videoDetail" element={<VideoDetail />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/upload" element={<Upload />}></Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+			<Routes>
+			<Route path="/login" element={<Login/>}></Route>
+			<Route path="/" element={<Main videos={videos}/>}></Route>
+			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
+			<Route path="/profile" element={<Profile myData={myData}/>}></Route>
+			<Route path="/upload" element={<Upload />}></Route>
+			</Routes>
+		</div>
+		</BrowserRouter>
+	);
 }
 
 export default App;

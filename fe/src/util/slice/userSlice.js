@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
-		email: "slemfkdlqm@naver.com",
-		nickname: "pill",
+		email: "",
+		nickname: "",
 		filter: [
 			{
 				name:'bug',
@@ -42,8 +42,8 @@ export const userSlice = createSlice({
 			state.nickname = user.payload.nickname;
 		},
 		discardUser: (state) => {
-			state.email = "";
-			state.nickname = "";
+			state.email = "asd";
+			state.nickname = "asd";
 		},
 		uploadFilter: (state, newFilter) => {
 			state.filter = newFilter.payload;

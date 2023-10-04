@@ -1,22 +1,41 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import axios from 'axios';
+import React, { useRef, useEffect } from 'react';
 import VideoJS from '../components/VideoJS';
 import videojs from 'video.js';
 import './VideoDetail.css';
+import CommentsContainer from '../components/commentsContainer/CommentsContainer';
+import VideoSubs from '../components/videoSubs/VideoSubs';
 import data3 from './data3.json';
+// import tempVideo from './tempVideo.mp4';
+require('videojs-contrib-hls.js');
 
-const VideoDetail = () => {
+const VideoDetail = ({videos}) => {
+
+	const urlParams = new URL(window.location.href).searchParams;
+	const videoId = useRef(urlParams.get('id'));
+	
+	async function viewIncrease() {
+		console.log("hihihihih");
+		try {
+			//응답 성공
+			const response = await axios.get(`https://test.orialz.com/api/video/${videoId.current}/view`, {});
+			console.log(response);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+	useEffect(()=>{viewIncrease()},[]);
+
 	const playerRef = React.useRef(null);
-	const index = React.useRef(0);
-	const imgRef = React.useRef(null);
-	const canvasRef = React.useRef(null);
-	const videoCanvasRef = React.useRef(null);
 
-    const videoJsOptions = {
+	const videoJsOptionsRef = useRef(null);
+	videoJsOptionsRef.current = {
 		autoplay: true,
 		controls: true,
 		// responsive: true,
-		fluid: true,
+		// fluid: true,
 		userActions: {
 			click: false,
 			doubleClick: false,
@@ -26,14 +45,18 @@ const VideoDetail = () => {
 			fullscreenToggle: false,
 		},
 		sources: [{
-			src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-			type: 'video/mp4'
+			src: `https://test.orialz.com/hls/streaming/${videoId.current}/output.m3u8`,
+			type: 'application/x-mpegURL'
+			// src: tempVideo,
+			// type: 'video/mp4'
 		}]
-    };
+	};
+	
+
 	
 	const handlePlayerReady = (player) => {
 		playerRef.current = player;
-	
+		
 		// You can handle player events here, for example:
 		player.on('waiting', () => {
 		  videojs.log('player is waiting');
@@ -45,11 +68,27 @@ const VideoDetail = () => {
 	};
 
 	
+	
 	return (
-		<div className="video-detail-container">
-			<div className="videojs-container">
-		  		<VideoJS options={videoJsOptions} onReady={handlePlayerReady} blurData={data3}/>	
+		<div className="video-detail-page">
+			<div className="video-detail-container">
+				<div className="videojs-container">
+					<VideoJS options={videoJsOptionsRef.current} onReady={handlePlayerReady} blurData={data3}/>	
+				</div>
+				<div className="video-detail-title">
+					제목제목제목제목제목
+				</div>
+				<div className="video-detail-description">
+					<div>조회수</div>
+					<div>연도</div>
+					<div>설명</div>
+				</div>
+				
+				<CommentsContainer videoId={videoId.current}/>
+				
 			</div>
+			<VideoSubs videos={videos}/>
+			
 		</div>
 	);
 };

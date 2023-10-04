@@ -1,73 +1,88 @@
 .header {
-    display: flex;
-    /* height: 80px; */
-    width: 100%;
-    background-color: orange;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid black;
+  display: flex;
+  /* height: 80px; */
+  width: 100vw;
+  /* background-color: orange; */
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid black; */
 }
-
-
-
 
 .logo-img {
-    width:80px;
-    height:80px;
-    margin: 30px;
-    background-color: white;
+  width: 120px;
+  height: 80px;
+  margin: 30px;
+  background-color: white;
 }
 
-
-
 .search-form {
-    display: flex;
-    transition: 250ms;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 /* .search-form:focus-within {
     transform: scale(1.2);
 } */
 
+.search-input-line {
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px 0 0 30px;
+}
+
 .search-form-input {
-    height: 40px;
-    min-width: 300px;
-    padding: 0 5px;
-    border: 0;
-    border-radius: 3px;
+  height: 50px;
+  /* min-width: 300px; */
+  padding: 0 20px;
+  /* padding-left: 15px; */
+  border: none;
+  outline: none;
+  width: 40vw;
+  min-width: 300px;
+  max-height: 50px;
+  transition: 250ms;
+  border-radius: 30px 0 0 30px;
+  /* border: 1px solid grey; */
+  /* border-radius: 20px; */
+  font-size: 16px;
 }
 /* .search-form-input:focus {
     transform: scale(1.2);
 } */
 
 .search-form-btn {
-    height: 40px;
-    width: 60px;
-    margin-left: 1px;
-    border: 0;
-    background-color:bisque;
-    border-radius: 3px;
+  height: 51px;
+  width: 80px;
+  padding-right: 10px;
+  /* border: 3px solid rgb(255, 159, 50); */
+  background-color: rgb(255, 159, 50);
+  border: 0;
+  border-radius: 0 30px 30px 0;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
 }
 .search-form-btn:hover {
-    cursor: pointer;
-    background-color:rgb(246, 255, 0);
-    font-size: large;
+  cursor: pointer;
+  background-color: #ffbf69;
+  font-size: large;
 }
 
-@keyframes search-wiggle{
-    50%{
-        -webkit-transform: rotateY(-180deg);
-        -o-transform: rotateY(-180deg);
-        transform: rotateY(-180deg);
-    }
+@keyframes search-wiggle {
+  50% {
+    -webkit-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
 }
 .search-form-btn-icon {
-    width: 30px;
-    height: 30px;
-    transition: 200ms;
+  width: 30px;
+  height: 30px;
+  transition: 200ms;
 }
 .search-form-btn-icon:hover {
-    /* animation: search-wiggle;
+  /* animation: search-wiggle;
     animation-duration: 1s;
     animation-iteration-count: infinite; */
-    transform: scale(1.5);
+  transform: scale(1.5);
 }

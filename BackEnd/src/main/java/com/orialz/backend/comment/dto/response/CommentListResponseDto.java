@@ -3,6 +3,8 @@ package com.orialz.backend.comment.dto.response;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -14,4 +16,5 @@ public class CommentListResponseDto {
     private String memberProfile;
     private String memberNickname;
     private String content;
+    private LocalDateTime createAt;
 }
