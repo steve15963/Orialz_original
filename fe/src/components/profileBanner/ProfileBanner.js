@@ -1,6 +1,6 @@
 import "./ProfileBanner.css";
 
-export default function ProfileBanner({ handleModalOn }) {
+export default function ProfileBanner({ handleModalOn, videoNum, commentNum }) {
     return (
         <div className="profile-banner">
             <div className="profile-banner-profiles">
@@ -13,10 +13,10 @@ export default function ProfileBanner({ handleModalOn }) {
                     <div className="profile-banner-name">김싸피</div>
                     <div className="profile-banner-cnts">
                         <div className="profile-banner-movie-cnt">
-                            영상 n개 &nbsp;
+                            영상 {videoNum}개 &nbsp;
                         </div>
                         <div className="profile-banner-comment-cnt">
-                            댓글 n개
+                            댓글 {commentNum}개
                         </div>
                     </div>
                 </div>
