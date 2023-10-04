@@ -1,14 +1,13 @@
 package com.orialz.backend.mypage.controller;
 
+import com.orialz.backend.Member.config.jwt.TokenProvider;
 import com.orialz.backend.mypage.dto.response.MypageCommentListResponseDto;
 import com.orialz.backend.mypage.dto.response.MypageVideoListResponseDto;
 import com.orialz.backend.mypage.service.MypageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,17 +16,29 @@ import java.util.List;
 @RequestMapping("/api/mypage")
 public class MypageController {
     private final MypageService mypageService;
+    private final TokenProvider tokenProvider;
 
-    @GetMapping("/video/{memberId}") // 나중에 pathVariable 제거
-    public ResponseEntity<List<MypageVideoListResponseDto>> getMyVideo(@PathVariable Long memberId){
-        List<MypageVideoListResponseDto> response = mypageService.getMyVideo(memberId);
-        return ResponseEntity.ok(response);
+    @GetMapping("/video")
+    public ResponseEntity<List<MypageVideoListResponseDto>> getMyVideo(@RequestHeader(value = "Authorization")String token){
+        try {
+            String accessToken = token.split("Bearer ")[1];
+            Long memberId = tokenProvider.getMemberId(accessToken);
+            List<MypageVideoListResponseDto> response = mypageService.getMyVideo(memberId);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
-    @GetMapping("/comment/{memberId}") // 나중에 pathVariable 제거
-    public ResponseEntity<List<MypageCommentListResponseDto>> getMyComment(@PathVariable Long memberId){
-        List<MypageCommentListResponseDto> response = mypageService.getMyComment(memberId);
-        return ResponseEntity.ok(response);
+    @GetMapping("/comment")
+    public ResponseEntity<List<MypageCommentListResponseDto>> getMyComment(@RequestHeader(value = "Authorization")String token){
+        try {
+            String accessToken = token.split("Bearer ")[1];
+            Long memberId = tokenProvider.getMemberId(accessToken);
+            List<MypageCommentListResponseDto> response = mypageService.getMyComment(memberId);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
-
 }
