@@ -13,6 +13,7 @@ public class VideoListResponseDto {
     Long id;
     String thumbnail;
     String title;
+    String content;
     String uploader;
     Long view;
     LocalDateTime date;

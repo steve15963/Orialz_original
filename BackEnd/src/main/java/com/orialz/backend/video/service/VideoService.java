@@ -26,6 +26,7 @@ public class VideoService {
                       .date(video.getCreatedAt()) //~시간 전으로 수정 가능
                       .thumbnail(video.getThumbnail())
                       .title(video.getTitle())
+                      .content(video.getContent())
                       .uploader(video.getMember().getNickname())
                       .view(video.getView())
                       .build();
