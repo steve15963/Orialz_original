@@ -31,6 +31,10 @@ export default function CommentsContainer({ videoId }) {
         e.preventDefault();
         console.log(commentInputRef.current.value);
         // 여기서 axios 요청으로 댓글 작성
+        let content = commentInputRef.current.value;
+        if (content === "" || content.replace(" ", "") === "") {
+            return alert("내용을 입력해주세요.");
+        }
         axios
             .post(
                 `${process.env.REACT_APP_API_PATH}/api/comment/${videoId}`,
@@ -45,11 +49,17 @@ export default function CommentsContainer({ videoId }) {
                     },
                 }
             )
-            .then((result) => {
-                console.log(result.data);
+            .then(() => {
+                return;
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response.status === 401) {
+                    return alert("로그인 후 댓글을 작성해주세요.");
+                } else {
+                    return alert(
+                        "오류로 인해 댓글을 작성할 수 없습니다.\n다시 시도해주시길 바랍니다."
+                    );
+                }
             });
     }
 
