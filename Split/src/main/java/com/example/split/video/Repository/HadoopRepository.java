@@ -81,8 +81,8 @@ public class HadoopRepository {
 		Path localJson = new Path(localRootPath + "/" + member +"/"+hash+"/json/json.txt");
 		fileSystem.copyToLocalFile(remoteJson,localJson);
 		log.info("json 다운로드 성공");
-		fileSystem.removeAcl(new Path("/user/hadoop/video/" + member + "/" + hash +"/output"));
-		fileSystem.removeAcl(new Path("/user/hadoop/video/" + member + "/" + hash +"/" + title));
+		fileSystem.delete(new Path("/user/hadoop/video/" + member + "/" + hash +"/output"),true);
+		fileSystem.delete(new Path("/user/hadoop/video/" + member + "/" + hash +"/" + title),true);
 		log.info("HDFS JSON 삭제");
 		return true;
 	}
