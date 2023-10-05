@@ -1,6 +1,8 @@
-import VideoSection from '../videoSection/VideoSection';
+import { NavLink } from "react-router-dom";
+import VideoSection from "../videoSection/VideoSection";
+import "./ProfileVideoContainer.css";
 
-export default function ProfileVideoContainer({videoList}){
+export default function ProfileVideoContainer({ videoList }) {
     // const [videos] = useState([
     //     {
     //         id: 1,
@@ -83,9 +85,16 @@ export default function ProfileVideoContainer({videoList}){
     //         date:'2023-04-19',
     //     },
     // ])
-    return(
-        <div className='profile-video-container'>
-            { videoList.length>0 ? <VideoSection videos={videoList}/>: <div>업로드 영상이 없습니다.</div>}
+    return (
+        <div className="profile-video-container">
+            {videoList.length > 0 ? (
+                <VideoSection videos={videoList} />
+            ) : (
+                <div>업로드 영상이 없습니다.</div>
+            )}
+            <NavLink to={"/upload"} style={{ textDecoration: "none" }}>
+                <div className="video-upload-btn">영상 업로드</div>
+            </NavLink>
         </div>
-    )
+    );
 }
