@@ -175,6 +175,8 @@ export default function Header() {
                 nickname: userObj.nickname,
             });
         }
+
+        console.log(user);
     });
 
     function onClickLogo(e) {
