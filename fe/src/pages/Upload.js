@@ -188,8 +188,8 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL: "http://localhost:8081/split",
-        // baseURL: "https://test.orialz.com/split",
+        // baseURL: "http://localhost:8081/split",
+        baseURL: "https://test.orialz.com/split",
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
