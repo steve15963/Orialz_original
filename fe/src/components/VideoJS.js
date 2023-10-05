@@ -62,7 +62,6 @@ export const VideoJS = (props) => {
 	},[])
 
 	async function getBlurData() {
-		console.log("hihihihih");
 		try {
 			//응답 성공
 			const response = await axios.get(blurUrl, {});
@@ -92,7 +91,6 @@ export const VideoJS = (props) => {
 
 	function createBlurElement(){
 		blursRef.current.forEach((e)=>{e.remove()});
-		// console.log(blurDataRef.current.data[blurIdx.current].objects);
 		blurDataRef.current.data[blurIdx.current].objects.forEach((e)=>{
 
 			// 내 필터 키워드에 있을 때만 블러처리
@@ -130,11 +128,9 @@ export const VideoJS = (props) => {
 		let mode = 0;
 		// 영상이 멈춰있을 때
 		if(timeBefore.current === curTime){
-			// console.log("영상멈춤");
 			mode = 0;
 		} else if(timeBefore.current > curTime){
 			mode = -1;
-			// console.log("영상뒤로감");
 			blurDataRef.current.data.some((e,i)=>{
 				if(e.time>curTime){
 					console.log(e.time, curTime, i);
@@ -146,7 +142,6 @@ export const VideoJS = (props) => {
 		} else if(timeBefore.current + 0.05 < curTime) {
 			mode = 1;
 			// blurIdx.current = Math.floor(curTime/20);
-			// console.log("영상점프");
 			blurDataRef.current.data.some((e,i)=>{
 				if(e.time>curTime){
 					console.log(e.time, curTime);
@@ -157,7 +152,6 @@ export const VideoJS = (props) => {
 			})
 		} else {
 			mode = 1;
-			// console.log("영상진행");
 		}
 
 		if(mode === 0){
@@ -173,7 +167,6 @@ export const VideoJS = (props) => {
 				blurIdx.current--;
 			}
 		}
-		// console.log(curTime, blurIdx.current);
 		
 		
 		timeBefore.current = curTime;

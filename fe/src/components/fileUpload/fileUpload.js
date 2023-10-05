@@ -35,7 +35,6 @@ function FileUpload() {
   // 파일을 첨부하면 state에 file 저장
   const handleFile = (event) => { // input으로 바로 넣기
     event.preventDefault();
-    // console.log(event.target.files[0]);
 
     filefunc(event.target.files[0]);
 
@@ -54,7 +53,6 @@ function FileUpload() {
   }
 
   const filefunc = (file) =>{ 
-    console.log(file + " asdfa")
     setFile(file);
     let videoType = "";
     if(file !== undefined){
@@ -76,7 +74,6 @@ function FileUpload() {
   }
 
   const handleTextStyle = () =>{
-    // console.log(event);
     setIsMyTextarea(true);
     if(isMyTextarea){
       myTextarea.current.style.border = " 1px solid orange";
@@ -110,7 +107,6 @@ function FileUpload() {
   };
 
   const handleContent = (event) => {
-    console.log(event);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     // myTextarea1.current.style.height = (12 + event.target.scrollHeight) + 'px' ;
@@ -118,7 +114,6 @@ function FileUpload() {
   };
 
   const handleTitle = (event) => {
-    console.log(event.target.value);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     setTitle(event.target.value);
@@ -189,11 +184,8 @@ function FileUpload() {
       const _endTime = performance.now(); // 시작시간
       console.log(response);
       if(response.status === 200){
-        console.log("value: "+progressRef.current.value)
-        console.log(chunkNum);
         progressRef.current.value = Math.ceil(100 / totalChunkNum) * (chunkNum+1);
       }
-      // console.log("time: "+(_endTime - _startTime)+"ms");
       time += _endTime - _startTime;
     }
     console.log("total: " + time + "ms");
@@ -203,13 +195,8 @@ function FileUpload() {
 
   useEffect(()=>{
       if(title.length > 5 && content.length > 5 && file != null){
-        console.log(title.length)
-        console.log(content.length)
-        console.log(file)
-        console.log("check!!")
         setIsChecked(false);
       }else{
-        console.log("sdjfaksdjf")
         setIsChecked(true);
       }
 
@@ -218,14 +205,11 @@ function FileUpload() {
   useEffect (()=> {
    
     const handleClickOutside = (event) => {
-      // console.log(myTextarea.current.contains(event.target))
       if(myTextarea.current && myTextarea.current.contains(event.target)){
-        console.log("asdf")
 
         return;
       }
       if(myTextarea1.current && myTextarea1.current.contains(event.target)){
-        console.log("asdf")
         return;
       }
       handleTextStyle();

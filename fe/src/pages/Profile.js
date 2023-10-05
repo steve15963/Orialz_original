@@ -10,7 +10,6 @@ export default function Profile({ myData }) {
     const [commentNum, setCommentNum] = useState(0);
     const [videoNum, setVideoNum] = useState(0);
     const userInfoRef = useRef(null);
-    console.log(userInfoRef.current);
 
 
     function getUserInfo(){

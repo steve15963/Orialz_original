@@ -52,7 +52,6 @@ export default function FilterSelect({handleModalOff}){
     }
 
     useEffect(()=>{
-        console.log("hi");
         initKeywords();
     },[])
 
