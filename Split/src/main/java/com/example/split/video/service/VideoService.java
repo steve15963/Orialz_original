@@ -1,8 +1,6 @@
 package com.example.split.video.service;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,25 +11,29 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import org.apache.commons.lang3.math.Fraction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.bramp.ffmpeg.FFmpeg;
-import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
+<<<<<<< Updated upstream
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 
 import com.example.split.video.Repository.JobRepository;
 import com.example.split.video.Repository.VideoRepository;
 import com.example.split.video.domain.Entity.Job;
+=======
+>>>>>>> Stashed changes
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
@@ -40,13 +42,17 @@ public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
 
+<<<<<<< Updated upstream
     private final VideoAsycService videoAsycService;
     private final JobRepository jobRepository;
     private final VideoRepository videoRepository;
+=======
+    private final VideoAsyncService videoAsyncService;
+>>>>>>> Stashed changes
 
     @Value("${video.path}")
     private String rootPath;
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, LocalDateTime createAt, String hashing) throws IOException, NoSuchAlgorithmException {
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, LocalDateTime createAt, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
@@ -85,8 +91,9 @@ public class VideoService {
 
 //                putS3(fullFile,fileName);
                 //Frame 분할
-                videoAsycService.splitFrame(videoPath,fileName);
+                Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
+<<<<<<< Updated upstream
                 videoAsycService.createTextFile(hashing,userId,videoPath,fileName);
 
                 jobRepository.save(
@@ -98,6 +105,14 @@ public class VideoService {
                         .build()
                 );
 
+=======
+                Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
+
+                if(splitCheck.join() && textCheck.join()){
+                    log.info("if안에 : "+ String.valueOf(now()));
+                }
+                log.info("if밖에: "+String.valueOf(now()));
+>>>>>>> Stashed changes
                 return CompletableFuture.completedFuture(true);
             }
             else{
