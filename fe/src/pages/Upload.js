@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Upload.css";
+import "./fileUpload.css";
 import { useRef } from "react";
 import { BsFill1CircleFill, BsFill2CircleFill,BsFill3CircleFill,BsFillFileEarmarkPlayFill } from "react-icons/bs";
-function FileUpload() {
+function Upload() {
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState({});
   // const [formData, setFormData] = useState(new FormData());
@@ -20,6 +19,7 @@ function FileUpload() {
   const [progressActive,setProgressActive] = useState(false);
   const [iconColor,setIconColor] = useState("black");
   const [isChecked,setIsChecked] = useState(true)
+  const [category,setCategory] = useState("MUSIC");
 
 
   const handleDragStart = () => {
@@ -151,15 +151,43 @@ function FileUpload() {
       if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
+        formData.append("category", category);
       }
 
+    
       const response = await axios.post("/upload/chunk", formData, {
+        headers: {
+            Authorization:
+                "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": `multipart/form-data`,
+          // "Origin" : 'http://localhost:3000',
+        },
+        // baseURL: "http://localhost:8080/hls",
+        baseURL: "https://test.orialz.com/hls",
+      });
+
+      const formData2 = new FormData();
+      formData2.append("totalChunkNum", totalChunkNum);
+      formData2.append("chunk", chunk);
+      formData2.append("fileName", file.name);
+      formData2.append("chunkNum", chunkNum);
+      formData2.append("videoId",response.data.videoId);
+      formData2.append("createAt",response.data.createAt);
+      formData2.append("hash",response.data.hash);
+      if (chunkNum === totalChunkNum - 1) {
+        // formData2.append("content", content);
+        // formData2.append("title", title);
+        // formData2.append("category", category);
+      }
+
+
+      const response2 = await axios.post("/upload/chunk", formData2, {
         headers: {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL: "http://localhost:8080/hls",
-        // baseURL: "https://test.orialz.com/hls",
+        // baseURL: "http://localhost:8081/split",
+        baseURL: "https://test.orialz.com/split",
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
@@ -274,4 +302,4 @@ function FileUpload() {
   );
 }
 
-export default FileUpload;
+export default Upload;
