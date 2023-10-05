@@ -43,11 +43,20 @@ public class HadoopRepository {
 		File localImagePath = new File(localRootPath + "/" + member + "/" + hash + "/output");
 		File[] files = localImagePath.listFiles();
 
+		//input
+		fileSystem.copyFromLocalFile(
+			new Path(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt"),
+			new Path(remoteRoot + "/" + member + "/" + hash + "/frame_timeStamp.txt")
+		);
+		File input = new File(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt");
+		input.delete();
+		//img
 		for(int i = 0; i < files.length; i++){
 			fileSystem.copyFromLocalFile(
 				new Path(localRootPath + "/" + member + "/" + hash + "/output/" + files[i].getName()),
 				new Path(remoteRoot + "/" + member + "/" + hash + "/output/" + files[i].getName())
 			);
+			files[i].delete();
 		}
 		return remoteRoot + "/" + member + "/" + hash;
 	}
@@ -60,6 +69,7 @@ public class HadoopRepository {
 		Path remoteJson = new Path("/user/hadoop/" + member + "/" + hash + "/json/part-r-00000");
 		Path localJson = new Path(localRootPath + "/" + member +"/"+hash+"/json/json.txt");
 		fileSystem.copyToLocalFile(remoteJson,localJson);
+		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash));
 		return true;
 	}
 
@@ -72,7 +82,7 @@ public class HadoopRepository {
 			"jar",
 			"/home/hadoop/jenkins/workspace/hadoop/build/libs/Hadoop-Gradle-1.0-SNAPSHOT.jar",
 			"com.orialz.imgToJson",
-			member+"/"+hash+"/output/frame_timeStamp.txt",
+			member+"/"+hash+"/frame_timeStamp.txt",
 			member+"/"+hash+"/json"
 		);
 		Process start = processBuilder.start();
