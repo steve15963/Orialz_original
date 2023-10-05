@@ -183,7 +183,6 @@ export default function Header() {
                     className="search-form-btn"
                 >
                     검색
-                    {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
             </form>
             {userRef.current ? (
@@ -192,20 +191,6 @@ export default function Header() {
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
             )}
 
-            {/* <button onClick={(e)=>{
-                e.preventDefault();
-                dispatch(uploadUser(userInfo));
-            }}>테스트로그인</button>
-
-            <button onClick={(e)=>{
-                e.preventDefault();
-                dispatch(discardUser());
-            }}>테스트로그아웃</button>
-
-            <button onClick={(e)=>{
-                e.preventDefault();
-                console.log(user);
-            }}>리덕스확인</button> */}
         </div>
     );
 }
