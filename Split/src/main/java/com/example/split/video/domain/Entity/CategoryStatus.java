@@ -1,4 +1,4 @@
-package com.example.split.video.domain;
+package com.example.split.video.domain.Entity;
 
 public enum CategoryStatus {
     MUSIC,
