@@ -1,16 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useDispatch } from "react-redux";
-import { uploadUser, discardUser } from "../../util/slice/userSlice";
 import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Header({ searchVideos }) {
-    // const user = useSelector(selectUser);
-    const dispatch = useDispatch();
+export default function Header() {
+    const navigate = useNavigate();
     const userRef = useRef(null);
     const searchInputRef = useRef(null);
 
@@ -18,11 +16,6 @@ export default function Header({ searchVideos }) {
         window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
     }
 
-    function logoutGoogle() {
-        window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("user");
-    }
 
     function getCookie(key) {
         var result = null;
@@ -104,7 +97,7 @@ export default function Header({ searchVideos }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                const userInfo = { email: data.email, nickname: data.nickname };
+                const userInfo = { email: data.email, nickname: data.nickname, userId: data.id, picture: data.picture};
                 localStorage.setItem("user", JSON.stringify(userInfo));
                 console.log(data);
                 userRef.current = userInfo;
@@ -151,14 +144,27 @@ export default function Header({ searchVideos }) {
         }
     }, []);
 
+    function onClickLogo(e) {
+        e.preventDefault();
+        navigate('');
+    }
+
     function handleSearchVideos(e) {
         e.preventDefault();
-        searchVideos(searchInputRef.current.value);
+        const keyword = searchInputRef.current.value;
+        if (keyword) {
+            navigate(`?keyword=${keyword}`);
+            window.location.reload();
+        } else {
+            navigate('');
+            window.location.reload();
+        }
     }
 
     return (
         <div className="header">
-            <img src="/orialzLogo.jpg" alt="logo" className="logo-img" />
+            <NavLink to={"/profile"}>asdf</NavLink>
+            <img src="/orialzLogo.jpg" alt="logo" className="logo-img" onClick={onClickLogo} />
             <form className="search-form">
                 <div className="search-input-line">
                     <input
@@ -173,48 +179,14 @@ export default function Header({ searchVideos }) {
                     className="search-form-btn"
                 >
                     검색
-                    {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
             </form>
-            <div>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(uploadUser());
-                    }}
-                >
-                    인
-                </button>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(discardUser());
-                        logoutGoogle();
-                    }}
-                >
-                    아웃
-                </button>
-            </div>
             {userRef.current ? (
                 <ProfileBox />
             ) : (
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
             )}
 
-            {/* <button onClick={(e)=>{
-                e.preventDefault();
-                dispatch(uploadUser(userInfo));
-            }}>테스트로그인</button>
-
-            <button onClick={(e)=>{
-                e.preventDefault();
-                dispatch(discardUser());
-            }}>테스트로그아웃</button>
-
-            <button onClick={(e)=>{
-                e.preventDefault();
-                console.log(user);
-            }}>리덕스확인</button> */}
         </div>
     );
 }

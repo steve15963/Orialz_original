@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Profile.css";
 import ProfileBanner from "../components/profileBanner/ProfileBanner";
 import ProfileWorks from "../components/profileWorks/ProfileWorks";
@@ -9,10 +9,19 @@ export default function Profile({ myData }) {
     const [modalOn, setModalOn] = useState(false);
     const [commentNum, setCommentNum] = useState(0);
     const [videoNum, setVideoNum] = useState(0);
+    const userInfoRef = useRef(null);
+    console.log(userInfoRef.current);
 
-    useState(() => {
-        console.log(myData);
-    }, [myData]);
+
+    function getUserInfo(){
+        const str = localStorage.getItem("user");
+        if(str){
+            const obj = JSON.parse(str);
+            return obj;
+        } else {
+            return null;
+        }
+    }
 
     function handleModalOn() {
         setModalOn(true);
@@ -45,6 +54,7 @@ export default function Profile({ myData }) {
     }
 
     useEffect(() => {
+        userInfoRef.current = getUserInfo();
         getMyData();
     }, []);
 
