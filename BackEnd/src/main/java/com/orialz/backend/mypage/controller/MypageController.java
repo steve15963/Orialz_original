@@ -31,4 +31,6 @@ public class MypageController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+
 }

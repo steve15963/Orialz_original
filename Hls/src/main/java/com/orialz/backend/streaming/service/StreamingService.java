@@ -4,6 +4,7 @@ package com.orialz.backend.streaming.service;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.orialz.backend.streaming.controller.dto.UploadResponseDto;
 import com.orialz.backend.streaming.domain.entity.CategoryStatus;
 import com.orialz.backend.streaming.domain.entity.Member;
 import com.orialz.backend.streaming.domain.entity.Video;
@@ -43,6 +44,7 @@ public class StreamingService {
     private final VideoRepository videoRepository;
     private final MemberRepository memberRepository;
     private final StreamingAsyncService streaming;
+    private final VideoService videoService;
 //    private final AmazonS3Client amazonS3Client;
 
     @Value("${s3.bucket}")
@@ -80,7 +82,7 @@ public class StreamingService {
 
 
     @Transactional
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
+    public Future<UploadResponseDto> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
@@ -93,7 +95,7 @@ public class StreamingService {
             Path filePath = Paths.get(path, partFile);
             log.info("filePath: "+String.valueOf(filePath));
             Files.write(filePath, file.getBytes());
-
+            String hashing = "";
             // 마지막 조각이 전송 됐을 경우
             if (chunkNumber == totalChunkNum - 1) {
                 log.info(content);
@@ -111,7 +113,7 @@ public class StreamingService {
                 Video nowVideo = videoRepository.save(video);
                 // 디비에 영상 삽입. status = 0;
                 // 디비에서 가지고온 videoId , createAt
-                String hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
+                hashing = hashingPath(nowVideo.getVideoId(), nowVideo.getCreatedAt()); // 4L 오류 발생해보기
                 String videoPath = path + "/"+hashing;
 
                 File hashFolder = new File(videoPath); // 폴더 위치
@@ -135,9 +137,9 @@ public class StreamingService {
 
 //                putS3(fullFile,fileName);
                 //Frame 분할
-                streaming.splitFrame(videoPath,fileName);
+//                streaming.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
-                streaming.createTextFile(hashing,userId,videoPath,fileName);
+//                streaming.createTextFile(hashing,userId,videoPath,fileName);
                 //HLS 변환
                 streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정
@@ -145,16 +147,35 @@ public class StreamingService {
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
                 nowVideo.setThumbnail("/thumb/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
-                return CompletableFuture.completedFuture(true);
+//                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
+                log.info("asdfadf: "+nowVideo.getCreatedAt());
+                UploadResponseDto response = UploadResponseDto.builder()
+                        .videoId(nowVideo.getVideoId())
+                        .createAt(nowVideo.getCreatedAt())
+                        .hash(hashing)
+                        .build();
+                return CompletableFuture.completedFuture(response);
             }
             else{
+//                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
                 log.info("Not Last");
-                return CompletableFuture.completedFuture(true);
+                UploadResponseDto response = UploadResponseDto.builder()
+                        .videoId(0L)
+                        .createAt(null)
+                        .hash(null)
+                        .build();
+                return CompletableFuture.completedFuture(response);
             }
         }
         else{
             log.info("File Not Exist");
-            return CompletableFuture.completedFuture(false);
+            log.info("Not Last");
+            UploadResponseDto response = UploadResponseDto.builder()
+                    .videoId(0L)
+                    .createAt(null)
+                    .hash(null)
+                    .build();
+            return CompletableFuture.completedFuture(response);
         }
     }
 

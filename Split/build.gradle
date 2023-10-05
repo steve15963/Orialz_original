@@ -22,7 +22,23 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+// https://mvnrepository.com/artifact/org.springframework/spring-test
+	implementation group: 'org.springframework', name: 'spring-test', version: '5.3.30'
+	implementation ('org.springframework.data:spring-data-hadoop-core:2.5.0.RELEASE') {
+		exclude group: 'org.slf4j', module: 'slf4j-logback'
+	}
+	implementation 'org.slf4j:slf4j-api:1.7.32'
+	implementation 'ch.qos.logback:logback-classic:1.2.3'
+	implementation 'org.apache.hadoop:hadoop-client:3.3.6'
+	implementation 'org.apache.hadoop:hadoop-common:3.3.6'
+	implementation 'org.apache.hadoop:hadoop-hdfs:3.3.6'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'net.bramp.ffmpeg:ffmpeg:0.7.0'

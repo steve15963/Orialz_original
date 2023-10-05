@@ -25,6 +25,7 @@ public class FindKeywordService {
 		ModelMapper mp = mapper.FindKeywordToFindKeywordReponseMapper();
 		Map<Double,List<FindKeywordGetResponse>> map = new TreeMap<>();
 		List<FindKeyword> findList = keywordRepository.findAllBymIdAndvId(mId, vId);
+
 		for(FindKeyword t : findList){
 
 			Double time = t.getTime();
@@ -57,5 +58,4 @@ public class FindKeywordService {
 		});
 		return response;
 	}
-
 }

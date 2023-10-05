@@ -28,6 +28,7 @@ public class VideoService {
                       .title(video.getTitle())
                       .content(video.getContent())
                       .uploader(video.getMember().getNickname())
+                      .uploaderProfile(video.getMember().getPicture())
                       .view(video.getView())
                       .build();
               response.add(temp);
@@ -55,7 +56,9 @@ public class VideoService {
                     .date(video.getCreatedAt()) //~시간 전으로 수정 가능
                     .thumbnail(video.getThumbnail())
                     .title(video.getTitle())
+                    .content(video.getContent())
                     .uploader(video.getMember().getNickname())
+                    .uploaderProfile(video.getMember().getPicture())
                     .view(video.getView())
                     .build();
             response.add(temp);
