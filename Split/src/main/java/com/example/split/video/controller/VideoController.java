@@ -65,7 +65,7 @@ public class VideoController {
         }
         Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,videoId,localDateTime,hashing);
 
-        return ResponseEntity.ok().body(future.get());
+        return ResponseEntity.ok().body(true);
     }
 
 }
