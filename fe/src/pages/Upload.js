@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./fileUpload.css";
+import "./Upload.css";
 import { useRef } from "react";
 import { BsFill1CircleFill, BsFill2CircleFill,BsFill3CircleFill,BsFillFileEarmarkPlayFill } from "react-icons/bs";
 function Upload() {
