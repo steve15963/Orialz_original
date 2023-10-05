@@ -163,6 +163,10 @@ export default function Header() {
         const keyword = searchInputRef.current.value;
         if (keyword) {
             navigate(`?keyword=${keyword}`);
+            window.location.reload();
+        } else {
+            navigate('');
+            window.location.reload();
         }
     }
 

@@ -8,10 +8,10 @@ import { useSearchParams } from "react-router-dom";
 export default function Main() {
 
 	const [searchedVideos, setSearchedVideos] = useState([]);
-	const [keyword, setKeyword] = useState();
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	async function searchVideos(keyword){
+		console.log(keyword);
 		try {
 			//응답 성공
 			let response = undefined;
@@ -37,13 +37,9 @@ export default function Main() {
 		window.location.replace("/");
 		}
 		
-		setKeyword(searchParams.get('keyword'));
+		const keyword = searchParams.get('keyword');
 		searchVideos(keyword);
 	}, []);
-
-	useEffect(() => {
-		searchVideos(keyword);
-	}, [keyword])
 
 	return (
 		<div className="main">
