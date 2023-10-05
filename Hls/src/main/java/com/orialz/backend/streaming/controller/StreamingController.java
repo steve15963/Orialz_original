@@ -19,12 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -105,6 +100,7 @@ public class StreamingController {
                                           @RequestParam(name = "title", required = false) String title,
                                           @RequestParam(name = "category", required = false) CategoryStatus category
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
+
 //        //업로드 성공 여부 반환
         Future<UploadResponseDto> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
