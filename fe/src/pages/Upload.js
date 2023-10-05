@@ -6,6 +6,7 @@ import axios from "axios";
 import "./Upload.css";
 import { useRef } from "react";
 import { BsFill1CircleFill, BsFill2CircleFill,BsFill3CircleFill,BsFillFileEarmarkPlayFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 function Upload() {
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState({});
@@ -23,6 +24,8 @@ function Upload() {
   const [iconColor,setIconColor] = useState("black");
   const [isChecked,setIsChecked] = useState(true)
   const [category,setCategory] = useState("MUSIC");
+  const [progressMax,setProgressMax] = useState(100);
+  const navigate = useNavigate();
 
 
   const handleDragStart = () => {
@@ -132,11 +135,13 @@ function Upload() {
       alert("파일을 선택해주세요.");
       return;
     }
+   
+   
+    const chunkSize = 1024 * 1024 * 10; //10MB
+    const totalChunkNum = Math.ceil(file.size / chunkSize);
+    setProgressMax(totalChunkNum);
 
     setProgressActive(true);
-    const chunkSize = 1024 * 1024 * 0.5; //1MB
-    const totalChunkNum = Math.ceil(file.size / chunkSize);
-
     console.log(totalChunkNum);
     // const reader = new FileReader();
 
@@ -197,9 +202,16 @@ function Upload() {
       const _endTime = performance.now(); // 시작시간
       console.log(response);
       if(response.status === 200){
-        console.log("value: "+progressRef.current.value)
-        console.log(chunkNum);
-        progressRef.current.value = Math.ceil(100 / totalChunkNum) * (chunkNum+1);
+        // console.log("value: "+progressRef.current.value)
+        // console.log("total chunkNum" + totalChunkNum);
+        // console.log("chunkNum: " + chunkNum);
+        // progressRef.current.value = Math.ceil(100 / totalChunkNum * 2) * (chunkNum+1);
+        progressRef.current.value = chunkNum + 1;
+        if(chunkNum === totalChunkNum -1){
+          progressRef.current.value = chunkNum + 1;
+          alert("업로드 완료");  
+          navigate("/");
+        }
       }
       // console.log("time: "+(_endTime - _startTime)+"ms");
       time += _endTime - _startTime;
@@ -210,11 +222,11 @@ function Upload() {
 
 
   useEffect(()=>{
-      if(title.length > 5 && content.length > 5 && file != null){
-        console.log(title.length)
-        console.log(content.length)
-        console.log(file)
-        console.log("check!!")
+      if(title.length >= 5 && content.length >= 5 && file != null){
+        // console.log(title.length)
+        // console.log(content.length)
+        // console.log(file)
+        // console.log("check!!")
         setIsChecked(false);
       }else{
         console.log("sdjfaksdjf")
@@ -228,12 +240,12 @@ function Upload() {
     const handleClickOutside = (event) => {
       // console.log(myTextarea.current.contains(event.target))
       if(myTextarea.current && myTextarea.current.contains(event.target)){
-        console.log("asdf")
+        // console.log("asdf")
 
         return;
       }
       if(myTextarea1.current && myTextarea1.current.contains(event.target)){
-        console.log("asdf")
+        // console.log("asdf")
         return;
       }
       handleTextStyle();
@@ -245,7 +257,6 @@ function Upload() {
       document.removeEventListener('click',handleClickOutside);
     }
   },[]);
-
 
 
   return (
@@ -296,7 +307,7 @@ function Upload() {
     </div>
     </div>
     <div className="progressContainer">
-    {progressActive ? ( <label><progress ref = {progressRef} value="0" max = "100"></progress></label>) : ""}
+    {progressActive ? ( <label><progress ref = {progressRef} value="0" max = {progressMax}></progress></label>) : ""}
     </div>
     </div>
   </div>
