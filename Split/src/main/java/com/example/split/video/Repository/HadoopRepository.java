@@ -31,15 +31,20 @@ public class HadoopRepository {
 		String hash = job.getHash();
 
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
-		
+
+		Path remoteVideoPath = new Path("/user/hadoop/video");
+		if(!fileSystem.exists(remoteVideoPath)){
+			log.info("비디오 경로 생성");
+			fileSystem.create(remoteVideoPath);
+		}
 
 		Path remoteMemberPath = new Path("/user/hadoop/video/"+member);
-		if(fileSystem.exists(remoteMemberPath)){
+		if(!fileSystem.exists(remoteMemberPath)){
 			log.info("유저 경로 생성");
 			fileSystem.create(remoteMemberPath);
 		}
 		Path remoteHashPath = new Path("/user/hadoop/video/" + member + "/" + hash);
-		if(fileSystem.exists(remoteHashPath)){
+		if(!fileSystem.exists(remoteHashPath)){
 			log.info("동영상 경로 생성");
 			fileSystem.create(remoteHashPath);
 		}
