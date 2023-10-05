@@ -166,7 +166,7 @@ export default function Header() {
 
     return (
         <div className="header">
-            <NavLink to={"/profile"}>asdf</NavLink>
+            {/* <NavLink to={"/profile"}>asdf</NavLink> */}
             <img src="/orialzLogo.jpg" alt="logo" className="logo-img" onClick={onClickLogo} />
             <form className="search-form">
                 <div className="search-input-line">

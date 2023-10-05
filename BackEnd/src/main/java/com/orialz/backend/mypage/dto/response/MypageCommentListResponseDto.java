@@ -18,4 +18,8 @@ public class MypageCommentListResponseDto {
     private String thumbnail;
     private String content;
     private LocalDateTime createAt;
+//
+//    private Long memberId;
+//    private String memberNickname;
+//    private String memberProfile;
 }
