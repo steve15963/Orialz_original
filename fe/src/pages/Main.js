@@ -11,7 +11,6 @@ export default function Main() {
 	const [searchParams] = useSearchParams();
 
 	async function searchVideos(keyword){
-		console.log(keyword);
 		try {
 			//응답 성공
 			let response = undefined;

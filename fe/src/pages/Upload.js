@@ -6,6 +6,7 @@ import axios from "axios";
 import "./Upload.css";
 import { useRef } from "react";
 import { BsFill1CircleFill, BsFill2CircleFill,BsFill3CircleFill,BsFillFileEarmarkPlayFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 function Upload() {
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState({});
@@ -23,6 +24,9 @@ function Upload() {
   const [iconColor,setIconColor] = useState("black");
   const [isChecked,setIsChecked] = useState(true)
   const [category,setCategory] = useState("MUSIC");
+  const [progressMax,setProgressMax] = useState(100);
+  const [isUpload,setIsUpload] = useState(false);
+  const navigate = useNavigate();
 
 
   const handleDragStart = () => {
@@ -38,7 +42,6 @@ function Upload() {
   // 파일을 첨부하면 state에 file 저장
   const handleFile = (event) => { // input으로 바로 넣기
     event.preventDefault();
-    // console.log(event.target.files[0]);
 
     filefunc(event.target.files[0]);
 
@@ -57,7 +60,6 @@ function Upload() {
   }
 
   const filefunc = (file) =>{ 
-    console.log(file + " asdfa")
     setFile(file);
     let videoType = "";
     if(file !== undefined){
@@ -75,11 +77,9 @@ function Upload() {
     }
 
     setActive(false);
-    console.log(videoType);
   }
 
   const handleTextStyle = () =>{
-    // console.log(event);
     setIsMyTextarea(true);
     if(isMyTextarea){
       myTextarea.current.style.border = " 1px solid orange";
@@ -113,7 +113,6 @@ function Upload() {
   };
 
   const handleContent = (event) => {
-    console.log(event);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     // myTextarea1.current.style.height = (12 + event.target.scrollHeight) + 'px' ;
@@ -121,7 +120,6 @@ function Upload() {
   };
 
   const handleTitle = (event) => {
-    console.log(event.target.value);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     setTitle(event.target.value);
@@ -132,12 +130,14 @@ function Upload() {
       alert("파일을 선택해주세요.");
       return;
     }
+   
+   
+    const chunkSize = 1024 * 1024 * 10; //10MB
+    const totalChunkNum = Math.ceil(file.size / chunkSize);
+    setProgressMax(totalChunkNum);
 
     setProgressActive(true);
-    const chunkSize = 1024 * 1024 * 0.5; //1MB
-    const totalChunkNum = Math.ceil(file.size / chunkSize);
-
-    console.log(totalChunkNum);
+    // console.log(totalChunkNum);
     // const reader = new FileReader();
 
     let time = 0;
@@ -165,11 +165,9 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL: "http://localhost:8080/hls",
-        // baseURL: "https://test.orialz.com/hls",
+        // baseURL: "http://localhost:8080/hls",
+        baseURL: "https://test.orialz.com/hls",
       });
-
-      console.log(response.data + "asdf");
 
       const formData2 = new FormData();
       formData2.append("totalChunkNum", totalChunkNum);
@@ -177,7 +175,6 @@ function Upload() {
       formData2.append("fileName", file.name);
       formData2.append("chunkNum", chunkNum);
       formData2.append("videoId",response.data.videoId);
-      formData2.append("createAt",response.data.createAt);
       formData2.append("hash",response.data.hash);
       if (chunkNum === totalChunkNum - 1) {
         // formData2.append("content", content);
@@ -191,33 +188,42 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL: "http://localhost:8081/split",
-        // baseURL: "https://test.orialz.com/split",
+        // baseURL: "http://localhost:8081/split",
+        baseURL: "https://test.orialz.com/split",
       });
       const _endTime = performance.now(); // 시작시간
-      console.log(response);
+      // console.log(response);
       if(response.status === 200){
-        console.log("value: "+progressRef.current.value)
-        console.log(chunkNum);
-        progressRef.current.value = Math.ceil(100 / totalChunkNum) * (chunkNum+1);
+        // console.log("value: "+progressRef.current.value)
+        // console.log("total chunkNum" + totalChunkNum);
+        // console.log("chunkNum: " + chunkNum);
+        // progressRef.current.value = Math.ceil(100 / totalChunkNum * 2) * (chunkNum+1);
+        progressRef.current.value = chunkNum + 1;
+        if(chunkNum === totalChunkNum -1){
+          progressRef.current.value = chunkNum + 1;
+          setIsUpload(true);
+        }
       }
-      // console.log("time: "+(_endTime - _startTime)+"ms");
       time += _endTime - _startTime;
     }
-    console.log("total: " + time + "ms");
-
+    // console.log("total: " + time + "ms");
   };
 
+  useEffect(()=>{
+    if(isUpload){
+      alert("업로드 완료");  
+      navigate("/");
+    }
+  },[isUpload])
 
   useEffect(()=>{
-      if(title.length > 5 && content.length > 5 && file != null){
-        console.log(title.length)
-        console.log(content.length)
-        console.log(file)
-        console.log("check!!")
+      if(title.length >= 5 && content.length >= 5 && file != null){
+        // console.log(title.length)
+        // console.log(content.length)
+        // console.log(file)
+        // console.log("check!!")
         setIsChecked(false);
       }else{
-        console.log("sdjfaksdjf")
         setIsChecked(true);
       }
 
@@ -226,14 +232,13 @@ function Upload() {
   useEffect (()=> {
    
     const handleClickOutside = (event) => {
-      // console.log(myTextarea.current.contains(event.target))
       if(myTextarea.current && myTextarea.current.contains(event.target)){
-        console.log("asdf")
+        // console.log("asdf")
 
         return;
       }
       if(myTextarea1.current && myTextarea1.current.contains(event.target)){
-        console.log("asdf")
+        // console.log("asdf")
         return;
       }
       handleTextStyle();
@@ -245,7 +250,6 @@ function Upload() {
       document.removeEventListener('click',handleClickOutside);
     }
   },[]);
-
 
 
   return (
@@ -296,7 +300,7 @@ function Upload() {
     </div>
     </div>
     <div className="progressContainer">
-    {progressActive ? ( <label><progress ref = {progressRef} value="0" max = "100"></progress></label>) : ""}
+    {progressActive ? ( <label><progress ref = {progressRef} value="0" max = {progressMax}></progress></label>) : ""}
     </div>
     </div>
   </div>

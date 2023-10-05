@@ -47,25 +47,11 @@ public class VideoController {
                                           @RequestParam("fileName") String fileName,
                                           @RequestParam("chunkNum") Integer chunkNum,
                                           @RequestParam("videoId") Long videoId,
-                                          @RequestParam("createAt") String createAt,
                                           @RequestParam("hash") String hashing
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
-//        //업로드 성공 여부 반환
-        log.info("videoId {}",videoId );
-        log.info("createAt {}", createAt);
-        log.info("hash {}",hashing);
-        LocalDateTime localDateTime = null;
-        if(!createAt.equals("null")){
-            log.info("createAt: "+createAt.length());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS");
-            if(createAt.length() == 26){
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
-            }
-            localDateTime = LocalDateTime.parse(createAt, formatter);
-        }
-        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,videoId,localDateTime,hashing);
+        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,videoId,hashing);
 
-        return ResponseEntity.ok().body(future.get());
+        return ResponseEntity.ok().body(true);
     }
 
 }

@@ -1,16 +1,24 @@
 import "./ProfileBanner.css";
 
 export default function ProfileBanner({ handleModalOn, videoNum, commentNum }) {
+    let loginUser = {};
+    const str = localStorage.getItem("user");
+    if(str){
+        loginUser = JSON.parse(str);
+    }
+
     return (
         <div className="profile-banner">
             <div className="profile-banner-profiles">
                 <img
                     className="profile-banner-img"
-                    src="/profile.svg"
+                    src={loginUser.picture}
                     alt="profile"
                 />
                 <div className="profile-banner-data">
-                    <div className="profile-banner-name">김싸피</div>
+                    <div className="profile-banner-name">
+                        {loginUser.nickname}
+                    </div>
                     <div className="profile-banner-cnts">
                         <div className="profile-banner-movie-cnt">
                             영상 {videoNum}개 &nbsp;
