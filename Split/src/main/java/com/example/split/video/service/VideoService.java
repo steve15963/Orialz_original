@@ -41,14 +41,9 @@ import static java.time.LocalDateTime.now;
 public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
-
-<<<<<<< Updated upstream
     private final VideoAsycService videoAsycService;
     private final JobRepository jobRepository;
     private final VideoRepository videoRepository;
-=======
-    private final VideoAsyncService videoAsyncService;
->>>>>>> Stashed changes
 
     @Value("${video.path}")
     private String rootPath;
@@ -93,9 +88,6 @@ public class VideoService {
                 //Frame 분할
                 Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
-<<<<<<< Updated upstream
-                videoAsycService.createTextFile(hashing,userId,videoPath,fileName);
-
                 jobRepository.save(
                     Job.builder()
                         .root(rootPath)
@@ -104,15 +96,11 @@ public class VideoService {
                         .video(videoRepository.findById(videoId).get())
                         .build()
                 );
-
-=======
                 Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
-
                 if(splitCheck.join() && textCheck.join()){
                     log.info("if안에 : "+ String.valueOf(now()));
                 }
                 log.info("if밖에: "+String.valueOf(now()));
->>>>>>> Stashed changes
                 return CompletableFuture.completedFuture(true);
             }
             else{
