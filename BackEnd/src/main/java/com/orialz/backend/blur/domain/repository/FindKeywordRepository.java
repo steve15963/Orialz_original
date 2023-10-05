@@ -12,7 +12,7 @@ public interface FindKeywordRepository extends JpaRepository<FindKeyword,Long> {
 	@Query("SELECT f "
 		+ "FROM FindKeyword as f "
 		+ "WHERE f.video.videoId = :vId "
-		+ "AND f.score >= 0.3"
+		+ "AND f.score >= 0.15"
 		+ "AND f.keyword IN ("
 		+ "SELECT o.keyword "
 		+ "FROM OnKeyword as o "
