@@ -25,6 +25,7 @@ function Upload() {
   const [isChecked,setIsChecked] = useState(true)
   const [category,setCategory] = useState("MUSIC");
   const [progressMax,setProgressMax] = useState(100);
+  const [isUpload,setIsUpload] = useState(false);
   const navigate = useNavigate();
 
 
@@ -164,8 +165,8 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        // baseURL: "http://localhost:8080/hls",
-        baseURL: "https://test.orialz.com/hls",
+        baseURL: "http://localhost:8080/hls",
+        // baseURL: "https://test.orialz.com/hls",
       });
 
       const formData2 = new FormData();
@@ -182,14 +183,14 @@ function Upload() {
       }
 
 
-      const response2 = await axios.post("/upload/chunk", formData2, {
-        headers: {
-          "Content-Type": `multipart/form-data`,
-          // "Origin" : 'http://localhost:3000',
-        },
-        // baseURL: "http://localhost:8081/split",
-        baseURL: "https://test.orialz.com/split",
-      });
+      // const response2 = await axios.post("/upload/chunk", formData2, {
+      //   headers: {
+      //     "Content-Type": `multipart/form-data`,
+      //     // "Origin" : 'http://localhost:3000',
+      //   },
+      //   // baseURL: "http://localhost:8081/split",
+      //   baseURL: "https://test.orialz.com/split",
+      // });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
       if(response.status === 200){
@@ -200,9 +201,7 @@ function Upload() {
         progressRef.current.value = chunkNum + 1;
         if(chunkNum === totalChunkNum -1){
           progressRef.current.value = chunkNum + 1;
-          
-          alert("업로드 완료");  
-          navigate("/");
+          setIsUpload(true);
         }
       }
       time += _endTime - _startTime;
@@ -211,6 +210,12 @@ function Upload() {
 
   };
 
+  useEffect(()=>{
+    if(isUpload){
+      alert("업로드 완료");  
+      navigate("/");
+    }
+  },[isUpload])
 
   useEffect(()=>{
       if(title.length >= 5 && content.length >= 5 && file != null){
