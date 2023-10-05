@@ -88,7 +88,7 @@ export default function Header() {
         }
     }
 
-    function getMemberInfo() {
+    async function getMemberInfo() {
         fetch(`${process.env.REACT_APP_API_PATH}/api/member/info`, {
             method: "GET",
             headers: {
@@ -104,6 +104,20 @@ export default function Header() {
                 userRef.current = userInfo;
             })
             .catch((error) => console.log(error));
+
+        const userStr = localStorage.getItem("user");
+        console.log("userStr:", userStr);
+        if (userStr && !userState) {
+            const userObj = JSON.parse(userStr);
+            // userRef.current = {
+            //     email: userObj.email,
+            //     nickname: userObj.nickname,
+            // };
+            setUserState({
+                email: userObj.email,
+                nickname: userObj.nickname,
+            });
+        }
     }
 
     useEffect(() => {
@@ -163,19 +177,19 @@ export default function Header() {
             getMemberInfo();
         }
 
-        const userStr = localStorage.getItem("user");
-        console.log("userStr:", userStr);
-        if (userStr && !userState) {
-            const userObj = JSON.parse(userStr);
-            // userRef.current = {
-            //     email: userObj.email,
-            //     nickname: userObj.nickname,
-            // };
-            setUserState({
-                email: userObj.email,
-                nickname: userObj.nickname,
-            });
-        }
+        // const userStr = localStorage.getItem("user");
+        // console.log("userStr:", userStr);
+        // if (userStr && !userState) {
+        //     const userObj = JSON.parse(userStr);
+        //     // userRef.current = {
+        //     //     email: userObj.email,
+        //     //     nickname: userObj.nickname,
+        //     // };
+        //     setUserState({
+        //         email: userObj.email,
+        //         nickname: userObj.nickname,
+        //     });
+        // }
 
         console.log("유저 정보:", userState);
     });
