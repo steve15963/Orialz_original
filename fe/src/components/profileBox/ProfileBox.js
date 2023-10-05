@@ -3,7 +3,7 @@ import NoticeContainer from "../noticeContainer/NoticeContainer";
 import ProfileContainer from "../profileContainer/ProfileContainer";
 import "./ProfileBox.css";
 
-export default function ProfileBox() {
+export default function ProfileBox({ handleUserState }) {
     const [noticeOn, setNoticeOn] = useState(false);
     const [profileOn, setProfileOn] = useState(false);
 
@@ -51,7 +51,7 @@ export default function ProfileBox() {
             />
             {profileOn ? (
                 <div ref={profileRef}>
-                    <ProfileContainer falsifyProfileOn={falsifyProfileOn} />
+                    <ProfileContainer falsifyProfileOn={falsifyProfileOn} handleUserState={handleUserState} />
                 </div>
             ) : null}
             <img
