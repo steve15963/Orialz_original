@@ -49,13 +49,18 @@ const VideoDetail = () => {
     useEffect(() => {
         viewIncrease();
         recommendVideos();
+    }, []);
+
+    useEffect(()=>{
+
         recommendedVideos.forEach((e) => {
             if (e.id === Number(videoId.current)) {
                 setCurVideo(e);
                 return;
             }
         });
-    }, []);
+
+    },[recommendedVideos])
 
     const playerRef = useRef(null);
 
