@@ -33,12 +33,12 @@ public class HadoopRepository {
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
 
 		Path remoteMemberPath = new Path("/user/hadoop/"+member);
-		if(fileSystem.exists(remoteMemberPath) && fileSystem.isDirectory(remoteMemberPath)){
+		if(fileSystem.exists(remoteMemberPath)){
 			log.info("유저 경로 생성");
 			fileSystem.create(remoteMemberPath);
 		}
 		Path remoteHashPath = new Path("/user/hadoop/" + member + "/" + hash);
-		if(fileSystem.exists(remoteHashPath)&& fileSystem.isDirectory(remoteHashPath)){
+		if(fileSystem.exists(remoteHashPath)){
 			log.info("동영상 경로 생성");
 			fileSystem.create(remoteHashPath);
 		}
@@ -48,7 +48,7 @@ public class HadoopRepository {
 
 		fileSystem.copyFromLocalFile(
 			new Path(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt"),
-			new Path(remoteRoot + "/" + member + "/" + hash + "/frame_timeStamp.txt")
+			new Path(remoteRoot + "/user/hadoop" + member + "/" + hash + "/frame_timeStamp.txt")
 		);
 		log.info("HDFS Input 파일 업로드 성공");
 		File input = new File(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt");
@@ -58,7 +58,7 @@ public class HadoopRepository {
 		for(int i = 0; i < files.length; i++){
 			fileSystem.copyFromLocalFile(
 				new Path(localRootPath + "/" + member + "/" + hash + "/output/" + files[i].getName()),
-				new Path(remoteRoot + "/" + member + "/" + hash + "/output/" + files[i].getName())
+				new Path(remoteRoot + "/user/hadoop" + member + "/" + hash + "/output/" + files[i].getName())
 			);
 			log.info(files[i].getName()+"파일 업로드 및 삭제");
 			files[i].delete();
