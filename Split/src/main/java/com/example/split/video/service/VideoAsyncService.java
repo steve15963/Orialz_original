@@ -36,7 +36,7 @@ public class VideoAsyncService {
 
 
     public void createTextFile(String hashing,Long userId, String middlePath,String fileName) throws IOException {
-        String output = "/user/hadoop/"+userId+"/"+hashing+"/output";
+        String output = "/user/hadoop/video/"+userId+"/"+hashing+"/output";
         //해당 동영상의 초당 frame 가져오기
         FFmpegProbeResult probeResult = ffprobe.probe(middlePath + "/" + fileName);
         Fraction fps = probeResult.getStreams().get(0).avg_frame_rate;
@@ -50,7 +50,7 @@ public class VideoAsyncService {
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter(timeTextFile));
 
-        for(int i = 0; i <= nFps;i++){
+        for(int i = 1; i <= nFps;i++){
             String temp = String.format("%f %s/frame%08d.png\n",time * i ,output,i);
             bw.write(temp);
         }
