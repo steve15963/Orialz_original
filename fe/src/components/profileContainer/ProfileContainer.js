@@ -3,13 +3,14 @@ import "./ProfileContainer.css";
 import { useDispatch } from "react-redux";
 import { discardUser } from "../../util/slice/userSlice";
 
-export default function ProfileContainer({ falsifyProfileOn }) {
+export default function ProfileContainer({ falsifyProfileOn, handleUserState }) {
     const dispatch = useDispatch();
 
     function logoutGoogle() {
         window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
         localStorage.removeItem("access_token");
         localStorage.removeItem("user");
+        handleUserState(null);
     }
 
     return (
