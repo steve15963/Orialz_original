@@ -34,28 +34,33 @@ public class HadoopRepository {
 
 		Path remoteMemberPath = new Path("/user/hadoop/"+member);
 		if(fileSystem.exists(remoteMemberPath) && fileSystem.isDirectory(remoteMemberPath)){
+			log.info("유저 경로 생성");
 			fileSystem.create(remoteMemberPath);
 		}
 		Path remoteHashPath = new Path("/user/hadoop/" + member + "/" + hash);
 		if(fileSystem.exists(remoteHashPath)&& fileSystem.isDirectory(remoteHashPath)){
+			log.info("동영상 경로 생성");
 			fileSystem.create(remoteHashPath);
 		}
+
 		File localImagePath = new File(localRootPath + "/" + member + "/" + hash + "/output");
 		File[] files = localImagePath.listFiles();
 
-		//input
 		fileSystem.copyFromLocalFile(
 			new Path(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt"),
 			new Path(remoteRoot + "/" + member + "/" + hash + "/frame_timeStamp.txt")
 		);
+		log.info("HDFS Input 파일 업로드 성공");
 		File input = new File(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt");
 		input.delete();
+		log.info("HDFS Input local 삭제");
 		//img
 		for(int i = 0; i < files.length; i++){
 			fileSystem.copyFromLocalFile(
 				new Path(localRootPath + "/" + member + "/" + hash + "/output/" + files[i].getName()),
 				new Path(remoteRoot + "/" + member + "/" + hash + "/output/" + files[i].getName())
 			);
+			log.info(files[i].getName()+"파일 업로드 및 삭제");
 			files[i].delete();
 		}
 		return remoteRoot + "/" + member + "/" + hash;
@@ -70,8 +75,10 @@ public class HadoopRepository {
 		Path remoteJson = new Path("/user/hadoop/" + member + "/" + hash + "/json/part-r-00000");
 		Path localJson = new Path(localRootPath + "/" + member +"/"+hash+"/json/json.txt");
 		fileSystem.copyToLocalFile(remoteJson,localJson);
+		log.info("json 다운로드 성공");
 		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash +"/output"));
 		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash +"/" + title));
+		log.info("HDFS JSON 삭제");
 		return true;
 	}
 
