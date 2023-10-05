@@ -156,8 +156,8 @@ function VideoDisc({ curVideo }) {
                 </div>
 
                 <div className="video-detail-viewndate">
-                    <div>조회수 {curVideo.view}회&nbsp;&nbsp;&nbsp;</div>
                     <div>{formattedDate}</div>
+                    <div>조회수 {curVideo.view}회&nbsp;&nbsp;&nbsp;</div>
                 </div>
                 <br />
                 <div>{curVideo.content}</div>
