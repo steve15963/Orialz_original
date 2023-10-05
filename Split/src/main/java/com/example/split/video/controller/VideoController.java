@@ -2,6 +2,8 @@ package com.example.split.video.controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -45,15 +47,24 @@ public class VideoController {
                                           @RequestParam("totalChunkNum") Integer totalChunkNum,
                                           @RequestParam("fileName") String fileName,
                                           @RequestParam("chunkNum") Integer chunkNum,
-                                          @RequestParam(name = "content", required = false) String content,
-                                          @RequestParam(name = "title", required = false) String title,
-                                          @RequestParam CategoryStatus category
+                                          @RequestParam("videoId") Long videoId,
+                                          @RequestParam("createAt") String createAt,
+                                          @RequestParam("hash") String hashing
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
 //        //업로드 성공 여부 반환
-        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
-//        Boolean res = future.get();
-//        Boolean res = true;
-//        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
+        log.info("videoId {}",videoId );
+        log.info("createAt {}", createAt);
+        log.info("hash {}",hashing);
+        LocalDateTime localDateTime = null;
+        if(!createAt.equals("null")){
+            log.info("createAt: "+createAt.length());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS");
+            if(createAt.length() == 26){
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            }
+            localDateTime = LocalDateTime.parse(createAt, formatter);
+        }
+        Future<Boolean> future = videoService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,videoId,localDateTime,hashing);
 
         return ResponseEntity.ok().body(future.get());
     }

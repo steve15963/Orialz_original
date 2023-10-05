@@ -19,6 +19,7 @@ function FileUpload() {
   const [progressActive,setProgressActive] = useState(false);
   const [iconColor,setIconColor] = useState("black");
   const [isChecked,setIsChecked] = useState(true)
+  const [category,setCategory] = useState("MUSIC");
 
 
   const handleDragStart = () => {
@@ -150,14 +151,40 @@ function FileUpload() {
       if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
+        formData.append("category", category);
       }
 
+    
       const response = await axios.post("/upload/chunk", formData, {
         headers: {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
         baseURL: "http://localhost:8080/hls",
+        // baseURL: "https://test.orialz.com/hls",
+      });
+
+      const formData2 = new FormData();
+      formData2.append("totalChunkNum", totalChunkNum);
+      formData2.append("chunk", chunk);
+      formData2.append("fileName", file.name);
+      formData2.append("chunkNum", chunkNum);
+      formData2.append("videoId",response.data.videoId);
+      formData2.append("createAt",response.data.createAt);
+      formData2.append("hash",response.data.hash);
+      if (chunkNum === totalChunkNum - 1) {
+        // formData2.append("content", content);
+        // formData2.append("title", title);
+        // formData2.append("category", category);
+      }
+
+
+      const response2 = await axios.post("/upload/chunk", formData2, {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+          // "Origin" : 'http://localhost:3000',
+        },
+        baseURL: "http://localhost:8081/split",
         // baseURL: "https://test.orialz.com/hls",
       });
       const _endTime = performance.now(); // 시작시간
