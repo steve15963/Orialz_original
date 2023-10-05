@@ -4,6 +4,7 @@ package com.orialz.backend.streaming.service;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.orialz.backend.streaming.controller.dto.UploadResponseDto;
 import com.orialz.backend.streaming.domain.entity.CategoryStatus;
 import com.orialz.backend.streaming.domain.entity.Member;
 import com.orialz.backend.streaming.domain.entity.Video;
@@ -81,7 +82,7 @@ public class StreamingService {
 
 
     @Transactional
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
+    public Future<UploadResponseDto> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , String content,String title, CategoryStatus category) throws IOException, NoSuchAlgorithmException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
@@ -136,9 +137,9 @@ public class StreamingService {
 
 //                putS3(fullFile,fileName);
                 //Frame 분할
-                streaming.splitFrame(videoPath,fileName);
+//                streaming.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
-                streaming.createTextFile(hashing,userId,videoPath,fileName);
+//                streaming.createTextFile(hashing,userId,videoPath,fileName);
                 //HLS 변환
                 streaming.convertToHls(videoPath,fileName);
                 //HLS경로 재생 Path로 설정
@@ -146,19 +147,35 @@ public class StreamingService {
                 //썸네일 설정
                 streaming.getThumbnail(videoPath+"/"+fileName,videoPath+"/"+"thumbnail.jpg");
                 nowVideo.setThumbnail("/thumb/"+userId+"/"+hashing+"/"+"thumbnail.jpg");
-
 //                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
-                return CompletableFuture.completedFuture(true);
+                log.info("asdfadf: "+nowVideo.getCreatedAt());
+                UploadResponseDto response = UploadResponseDto.builder()
+                        .videoId(nowVideo.getVideoId())
+                        .createAt(nowVideo.getCreatedAt())
+                        .hash(hashing)
+                        .build();
+                return CompletableFuture.completedFuture(response);
             }
             else{
 //                videoService.sendFormData(file,totalChunkNum,fileName,chunkNumber,hashing,userId);
                 log.info("Not Last");
-                return CompletableFuture.completedFuture(true);
+                UploadResponseDto response = UploadResponseDto.builder()
+                        .videoId(0L)
+                        .createAt(null)
+                        .hash(null)
+                        .build();
+                return CompletableFuture.completedFuture(response);
             }
         }
         else{
             log.info("File Not Exist");
-            return CompletableFuture.completedFuture(false);
+            log.info("Not Last");
+            UploadResponseDto response = UploadResponseDto.builder()
+                    .videoId(0L)
+                    .createAt(null)
+                    .hash(null)
+                    .build();
+            return CompletableFuture.completedFuture(response);
         }
     }
 
