@@ -48,17 +48,17 @@ public class HadoopRepository {
 
 		fileSystem.copyFromLocalFile(
 			new Path(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt"),
-			new Path(remoteRoot + "/user/hadoop" + member + "/" + hash + "/frame_timeStamp.txt")
+			new Path(remoteRoot + "/user/hadoop/" + member + "/" + hash + "/frame_timeStamp.txt")
 		);
 		log.info("HDFS Input 파일 업로드 성공");
 		File input = new File(localRootPath + "/" + member + "/" + hash + "/frame_timeStamp.txt");
 		input.delete();
-		log.info("HDFS Input local 삭제");
+		log.info("Local Input 삭제");
 		//img
 		for(int i = 0; i < files.length; i++){
 			fileSystem.copyFromLocalFile(
 				new Path(localRootPath + "/" + member + "/" + hash + "/output/" + files[i].getName()),
-				new Path(remoteRoot + "/user/hadoop" + member + "/" + hash + "/output/" + files[i].getName())
+				new Path(remoteRoot + "/user/hadoop/" + member + "/" + hash + "/output/" + files[i].getName())
 			);
 			log.info(files[i].getName()+"파일 업로드 및 삭제");
 			files[i].delete();
