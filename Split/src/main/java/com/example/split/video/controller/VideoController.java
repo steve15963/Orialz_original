@@ -57,9 +57,15 @@ public class VideoController {
         LocalDateTime localDateTime = null;
         if(!createAt.equals("null")){
             log.info("createAt: "+createAt.length());
+            String format = "yyyy-MM-dd'T'HH:mm:ss.";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS");
-            if(createAt.length() == 26){
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            if( createAt.length() != 29 && createAt.length() - format.length() > 0 ){
+                int gap = createAt.length() - format.length();
+                String add = "";
+                for(int i = 0; i < gap;i++){
+                    add = add + "S";
+                }
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss." + add);
             }
             localDateTime = LocalDateTime.parse(createAt, formatter);
         }
