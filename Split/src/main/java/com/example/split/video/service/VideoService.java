@@ -20,16 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFprobe;
-<<<<<<< Updated upstream
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-
 import com.example.split.video.Repository.JobRepository;
 import com.example.split.video.Repository.VideoRepository;
 import com.example.split.video.domain.Entity.Job;
-=======
->>>>>>> Stashed changes
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,9 +36,9 @@ import static java.time.LocalDateTime.now;
 public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
-    private final VideoAsycService videoAsycService;
-    private final JobRepository jobRepository;
-    private final VideoRepository videoRepository;
+    private final VideoAsyncService videoAsyncService;
+
+
 
     @Value("${video.path}")
     private String rootPath;
@@ -83,24 +78,9 @@ public class VideoService {
                 File fullFile = new File(videoPath + "/"+fileName);
 
                 log.info("File uploaded successfully");
-
-//                putS3(fullFile,fileName);
                 //Frame 분할
-                Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
+                videoAsyncService.asyncFunc(videoPath,fileName,hashing,userId,videoId);
                 //hdfs 전송용 text파일 생성
-                jobRepository.save(
-                    Job.builder()
-                        .root(rootPath)
-                        .member(""+userId)
-                        .hash(hashing)
-                        .video(videoRepository.findById(videoId).get())
-                        .build()
-                );
-                Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
-                if(splitCheck.join() && textCheck.join()){
-                    log.info("if안에 : "+ String.valueOf(now()));
-                }
-                log.info("if밖에: "+String.valueOf(now()));
                 return CompletableFuture.completedFuture(true);
             }
             else{

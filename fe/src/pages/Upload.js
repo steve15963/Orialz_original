@@ -169,6 +169,8 @@ function Upload() {
         baseURL: "https://test.orialz.com/hls",
       });
 
+      console.log(response.data + "asdf");
+
       const formData2 = new FormData();
       formData2.append("totalChunkNum", totalChunkNum);
       formData2.append("chunk", chunk);
