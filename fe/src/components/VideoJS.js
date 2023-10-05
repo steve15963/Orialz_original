@@ -115,6 +115,8 @@ export const VideoJS = (props) => {
 				blurSquare.style.backdropFilter = "blur(20px)";
 				blursRef.current.push(blurSquare);
 				realVideoRef.current.appendChild(blurSquare);
+
+				// setTimeout(()=>{blurSquare.remove()},100)
 			}
 
 		})

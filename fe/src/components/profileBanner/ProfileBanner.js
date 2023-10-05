@@ -1,7 +1,11 @@
 import "./ProfileBanner.css";
 
 export default function ProfileBanner({ handleModalOn, videoNum, commentNum }) {
-    const loginUser = JSON.parse(localStorage.getItem("user"));
+    let loginUser = {};
+    const str = localStorage.getItem("user");
+    if(str){
+        loginUser = JSON.parse(str);
+    }
 
     return (
         <div className="profile-banner">
