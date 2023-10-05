@@ -26,7 +26,9 @@ import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 
-import com.example.split.video.domain.CategoryStatus;
+import com.example.split.video.Repository.JobRepository;
+import com.example.split.video.Repository.VideoRepository;
+import com.example.split.video.domain.Entity.Job;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,8 @@ public class VideoService {
     private final FFprobe ffprobe;
 
     private final VideoAsycService videoAsycService;
+    private final JobRepository jobRepository;
+    private final VideoRepository videoRepository;
 
     @Value("${video.path}")
     private String rootPath;
@@ -84,6 +88,16 @@ public class VideoService {
                 videoAsycService.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
                 videoAsycService.createTextFile(hashing,userId,videoPath,fileName);
+
+                jobRepository.save(
+                    Job.builder()
+                        .root(rootPath)
+                        .member(""+userId)
+                        .hash(hashing)
+                        .video(videoRepository.findById(videoId).get())
+                        .build()
+                );
+
                 return CompletableFuture.completedFuture(true);
             }
             else{
