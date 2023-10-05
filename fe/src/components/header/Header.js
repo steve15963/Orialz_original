@@ -113,8 +113,8 @@ export default function Header() {
 
         if (token) {
             localStorage.setItem("access_token", token);
-            console.log("윈도우 새로고침할거임");
-            window.location.replace("/");
+            // console.log("윈도우 새로고침할거임");
+            // window.location.replace("/");
         }
 
         if (refresh_token) {
@@ -152,6 +152,10 @@ export default function Header() {
         }
         // console.log("유저정보:", userRef.current);
     }, []);
+
+    useEffect(()=>{},[
+
+    ])
 
     function onClickLogo(e) {
         e.preventDefault();
