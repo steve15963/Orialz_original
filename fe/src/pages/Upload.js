@@ -164,8 +164,8 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        baseURL: "http://localhost:8080/hls",
-        // baseURL: "https://test.orialz.com/hls",
+        // baseURL: "http://localhost:8080/hls",
+        baseURL: "https://test.orialz.com/hls",
       });
 
       const formData2 = new FormData();
