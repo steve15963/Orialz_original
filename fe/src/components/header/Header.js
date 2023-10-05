@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useDispatch } from "react-redux";
-import { uploadUser, discardUser } from "../../util/slice/userSlice";
 import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
@@ -11,8 +9,6 @@ import axios from "axios";
 
 export default function Header() {
     const navigate = useNavigate();
-    // const user = useSelector(selectUser);
-    const dispatch = useDispatch();
     const userRef = useRef(null);
     const searchInputRef = useRef(null);
 
@@ -20,11 +16,6 @@ export default function Header() {
         window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
     }
 
-    function logoutGoogle() {
-        window.location.href = `${process.env.REACT_APP_API_PATH}/logout`;
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("user");
-    }
 
     function getCookie(key) {
         var result = null;
