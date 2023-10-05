@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.split.video.controller.dto.response.TestDto;
-import com.example.split.video.domain.CategoryStatus;
 import com.example.split.video.service.VideoService;
 
 import lombok.RequiredArgsConstructor;
