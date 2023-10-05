@@ -121,7 +121,6 @@ export default function Header() {
         }
 
         if (refresh_token) {
-            console.log("토큰 리이슈 할거임");
             accessTokenReissue();
         }
     }, []);
