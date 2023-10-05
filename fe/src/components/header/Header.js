@@ -176,7 +176,7 @@ export default function Header() {
             });
         }
 
-        console.log(user);
+        console.log(userState);
     });
 
     function onClickLogo(e) {
