@@ -163,7 +163,7 @@ export default function Header() {
         }
 
         const userStr = localStorage.getItem("user");
-        console.log(userStr);
+        console.log("userStr:", userStr);
         if (userStr && !userState) {
             const userObj = JSON.parse(userStr);
             // userRef.current = {
