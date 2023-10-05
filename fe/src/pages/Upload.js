@@ -25,6 +25,7 @@ function Upload() {
   const [isChecked,setIsChecked] = useState(true)
   const [category,setCategory] = useState("MUSIC");
   const [progressMax,setProgressMax] = useState(100);
+  const [isUpload,setIsUpload] = useState(false);
   const navigate = useNavigate();
 
 
@@ -136,7 +137,7 @@ function Upload() {
     setProgressMax(totalChunkNum);
 
     setProgressActive(true);
-    console.log(totalChunkNum);
+    // console.log(totalChunkNum);
     // const reader = new FileReader();
 
     let time = 0;
@@ -191,26 +192,29 @@ function Upload() {
         baseURL: "https://test.orialz.com/split",
       });
       const _endTime = performance.now(); // 시작시간
-      console.log(response);
+      // console.log(response);
       if(response.status === 200){
         // console.log("value: "+progressRef.current.value)
-        console.log("total chunkNum" + totalChunkNum);
-        console.log("chunkNum: " + chunkNum);
+        // console.log("total chunkNum" + totalChunkNum);
+        // console.log("chunkNum: " + chunkNum);
         // progressRef.current.value = Math.ceil(100 / totalChunkNum * 2) * (chunkNum+1);
         progressRef.current.value = chunkNum + 1;
         if(chunkNum === totalChunkNum -1){
           progressRef.current.value = chunkNum + 1;
-          
-          alert("업로드 완료");  
-          navigate("/");
+          setIsUpload(true);
         }
       }
       time += _endTime - _startTime;
     }
-    console.log("total: " + time + "ms");
-
+    // console.log("total: " + time + "ms");
   };
 
+  useEffect(()=>{
+    if(isUpload){
+      alert("업로드 완료");  
+      navigate("/");
+    }
+  },[isUpload])
 
   useEffect(()=>{
       if(title.length >= 5 && content.length >= 5 && file != null){
