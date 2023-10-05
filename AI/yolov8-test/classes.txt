@@ -1,0 +1,5 @@
+0 knife
+1 baseball bat
+2 pistol
+3 rifle
+4 insect
