@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import VideoContainer from "../components/videoContainer/VideoContainer";
 import "./Main.css";
-import Header from "../components/header/Header";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export default function Main() {
 
 	const [searchedVideos, setSearchedVideos] = useState([]);
 	const [keyword, setKeyword] = useState();
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 
 	async function searchVideos(keyword){
 		try {
