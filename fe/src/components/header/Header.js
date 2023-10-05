@@ -154,6 +154,7 @@ export default function Header() {
     }, []);
 
     useEffect(()=>{
+        console.log("access_token:", localStorage.getItem("access_token"));
         if (
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
