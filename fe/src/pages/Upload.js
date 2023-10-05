@@ -160,8 +160,8 @@ function Upload() {
     
       const response = await axios.post("/upload/chunk", formData, {
         headers: {
-            Authorization:
-                "Bearer " + localStorage.getItem("access_token"),
+            // Authorization:
+            //     "Bearer " + localStorage.getItem("access_token"),
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
