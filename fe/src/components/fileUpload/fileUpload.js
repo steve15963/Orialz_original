@@ -155,16 +155,13 @@ function FileUpload() {
       }
 
     
-      const response = await axios.post("/upload/chunk", formData, {
+      const response = await axios.post("https://test.orialz.com/hls/upload/chunk", formData, {
         headers: {
             Authorization:
                 "Bearer " + localStorage.getItem("access_token"),
-            "Content-Type": "application/json",
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
-        },
-        // baseURL: "http://localhost:8080/hls",
-        baseURL: "https://test.orialz.com/hls",
+        }
       });
 
       const formData2 = new FormData();
@@ -182,13 +179,12 @@ function FileUpload() {
       }
 
 
-      const response2 = await axios.post("/upload/chunk", formData2, {
+      const response2 = await axios.post("https://test.orialz.com/split/upload/chunk", formData2, {
         headers: {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
         // baseURL: "http://localhost:8081/split",
-        baseURL: "https://test.orialz.com/hls",
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);

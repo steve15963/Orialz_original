@@ -20,16 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFprobe;
-<<<<<<< Updated upstream
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-
 import com.example.split.video.Repository.JobRepository;
 import com.example.split.video.Repository.VideoRepository;
 import com.example.split.video.domain.Entity.Job;
-=======
->>>>>>> Stashed changes
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +36,7 @@ import static java.time.LocalDateTime.now;
 public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
-    private final VideoAsycService videoAsycService;
+    private final VideoAsyncService videoAsyncService;
     private final JobRepository jobRepository;
     private final VideoRepository videoRepository;
 
@@ -97,7 +92,7 @@ public class VideoService {
                         .build()
                 );
                 Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
-                if(splitCheck.join() && textCheck.join()){
+                if(splitCheck.get() && textCheck.get()){
                     log.info("if안에 : "+ String.valueOf(now()));
                 }
                 log.info("if밖에: "+String.valueOf(now()));
