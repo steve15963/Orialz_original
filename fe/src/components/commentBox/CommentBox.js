@@ -14,11 +14,19 @@ export default function CommentBox({ comment }) {
     return (
         <div className="video-detail-comment">
             <div className="comment-detail">
-                <img
-                    className="comment-writer-profile"
-                    src={comment.memberProfile}
-                    alt="profile"
-                />
+                {comment.memberProfile !== null ? (
+                    <img
+                        className="comment-writer-profile"
+                        src={comment.memberProfile}
+                        alt="profile"
+                    />
+                ) : (
+                    <img
+                        className="comment-writer-profile-null"
+                        src="basic-profile-logo.png"
+                        alt="profile"
+                    />
+                )}
                 <div>
                     <div className="comment-writer-detail">
                         <span className="comment-writer-nickname">
