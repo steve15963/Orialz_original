@@ -117,7 +117,6 @@ export default function Header() {
 
         if (token) {
             localStorage.setItem("access_token", token);
-            // console.log("윈도우 새로고침할거임");
             // window.location.replace("/");
         }
 
@@ -125,63 +124,24 @@ export default function Header() {
             console.log("토큰 리이슈 할거임");
             accessTokenReissue();
         }
-
-        // if (
-        //     localStorage.getItem("access_token") &&
-        //     !localStorage.getItem("user")
-        // ) {
-        //     console.log("멤버 정보 가져올거임");
-        //     getMemberInfo();
-        // }
-
-        // const userStr = localStorage.getItem("user");
-        // if(userStr){
-        // 	console.log("dispatching userInfo");
-        // 	const userObj = JSON.parse(userStr);
-        // 	dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
-        // }
-
-        const userStr = localStorage.getItem("user");
-        console.log(userStr);
-        if (userStr) {
-            const userObj = JSON.parse(userStr);
-            // userRef.current = {
-            //     email: userObj.email,
-            //     nickname: userObj.nickname,
-            // };
-            setUserState({
-                email: userObj.email,
-                nickname: userObj.nickname,
-            });
-        }
-        console.log("유저정보:", userRef.current);
     }, []);
 
     useEffect(()=>{
-        console.log("access_token:", localStorage.getItem("access_token"));
         if (
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
         ) {
-            console.log("멤버 정보 가져올거임");
             getMemberInfo();
         }
 
         const userStr = localStorage.getItem("user");
-        console.log("userStr:", userStr);
         if (userStr && !userState) {
             const userObj = JSON.parse(userStr);
-            // userRef.current = {
-            //     email: userObj.email,
-            //     nickname: userObj.nickname,
-            // };
             setUserState({
                 email: userObj.email,
                 nickname: userObj.nickname,
             });
         }
-
-        console.log("유저 정보:", userState);
     });
 
     function onClickLogo(e) {
