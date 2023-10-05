@@ -17,6 +17,14 @@
     margin-right: 20px;
 }
 
+.comment-writer-profile-null {
+    width: 75px;
+    height: 75px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
 .comment-writer-detail {
     margin-top: 5px;
 }
