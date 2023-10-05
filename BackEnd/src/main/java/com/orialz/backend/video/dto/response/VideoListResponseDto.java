@@ -15,6 +15,7 @@ public class VideoListResponseDto {
     String title;
     String content;
     String uploader;
+    String uploaderProfile;
     Long view;
     LocalDateTime date;
 }
