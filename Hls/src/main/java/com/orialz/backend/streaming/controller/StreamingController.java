@@ -1,25 +1,5 @@
 package com.orialz.backend.streaming.controller;
 
-import com.orialz.backend.streaming.domain.entity.CategoryStatus;
-import com.orialz.backend.streaming.service.StreamingService;
-import com.orialz.backend.streaming.service.VideoService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +8,27 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import com.orialz.backend.streaming.controller.dto.UploadResponseDto;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.orialz.backend.streaming.domain.entity.CategoryStatus;
+import com.orialz.backend.streaming.service.StreamingService;
+import com.orialz.backend.streaming.service.VideoService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -91,20 +92,17 @@ public class StreamingController {
     // 유저 정보 헤더에 담기 나중에 수정
     @ResponseBody
     @PostMapping("/upload/chunk")
-    public ResponseEntity<Boolean> upload(@RequestParam("chunk") MultipartFile file,
+    public ResponseEntity<UploadResponseDto> upload(@RequestParam("chunk") MultipartFile file,
                                          @RequestParam("totalChunkNum") Integer totalChunkNum,
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
                                          @RequestParam(name = "content", required = false) String content, 
                                           @RequestParam(name = "title", required = false) String title,
-                                         @RequestParam(name = "category", required = false) CategoryStatus category
+                                          @RequestParam(name = "category", required = false) CategoryStatus category
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
+
 //        //업로드 성공 여부 반환
-
-//        byte[] temp = file.getBytes();
-//        MultipartFile multipartFile = new MockMultipartFile(fileName, fileName, "video/mp4",temp);
-
-        Future<Boolean> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
+        Future<UploadResponseDto> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
 //        Boolean res = true;
 //        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
