@@ -13,8 +13,11 @@
 }
 
 .profile-banner-img {
-    /* min-width: 80px;
-    min-height: 80px; */
+    width: 150px;
+    height: 150px;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 70%;
     /* max-width: 100px; */
 }
 
@@ -34,6 +37,11 @@
     flex-direction: column;
     justify-content: space-evenly;
     /* align-items: center; */
+}
+
+.profile-banner-name {
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .category-select-btn {

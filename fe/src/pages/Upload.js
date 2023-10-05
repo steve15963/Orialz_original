@@ -41,7 +41,6 @@ function Upload() {
   // 파일을 첨부하면 state에 file 저장
   const handleFile = (event) => { // input으로 바로 넣기
     event.preventDefault();
-    // console.log(event.target.files[0]);
 
     filefunc(event.target.files[0]);
 
@@ -60,7 +59,6 @@ function Upload() {
   }
 
   const filefunc = (file) =>{ 
-    console.log(file + " asdfa")
     setFile(file);
     let videoType = "";
     if(file !== undefined){
@@ -78,11 +76,9 @@ function Upload() {
     }
 
     setActive(false);
-    console.log(videoType);
   }
 
   const handleTextStyle = () =>{
-    // console.log(event);
     setIsMyTextarea(true);
     if(isMyTextarea){
       myTextarea.current.style.border = " 1px solid orange";
@@ -116,7 +112,6 @@ function Upload() {
   };
 
   const handleContent = (event) => {
-    console.log(event);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     // myTextarea1.current.style.height = (12 + event.target.scrollHeight) + 'px' ;
@@ -124,7 +119,6 @@ function Upload() {
   };
 
   const handleTitle = (event) => {
-    console.log(event.target.value);
     event.target.style.height = '1px';
     event.target.style.height = (12 + event.target.scrollHeight) + 'px' ;
     setTitle(event.target.value);
@@ -174,8 +168,6 @@ function Upload() {
         baseURL: "https://test.orialz.com/hls",
       });
 
-      console.log(response.data + "asdf");
-
       const formData2 = new FormData();
       formData2.append("totalChunkNum", totalChunkNum);
       formData2.append("chunk", chunk);
@@ -213,7 +205,6 @@ function Upload() {
           navigate("/");
         }
       }
-      // console.log("time: "+(_endTime - _startTime)+"ms");
       time += _endTime - _startTime;
     }
     console.log("total: " + time + "ms");
@@ -229,7 +220,6 @@ function Upload() {
         // console.log("check!!")
         setIsChecked(false);
       }else{
-        console.log("sdjfaksdjf")
         setIsChecked(true);
       }
 
@@ -238,7 +228,6 @@ function Upload() {
   useEffect (()=> {
    
     const handleClickOutside = (event) => {
-      // console.log(myTextarea.current.contains(event.target))
       if(myTextarea.current && myTextarea.current.contains(event.target)){
         // console.log("asdf")
 

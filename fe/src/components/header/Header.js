@@ -100,6 +100,10 @@ export default function Header() {
             .then((data) => {
                 const userInfo = { email: data.email, nickname: data.nickname, userId: data.id, picture: data.picture};
                 localStorage.setItem("user", JSON.stringify(userInfo));
+                setUserState({
+                    email: userInfo.email,
+                    nickname: userInfo.nickname,
+                });
                 console.log(data);
                 userRef.current = userInfo;
             })
@@ -113,44 +117,12 @@ export default function Header() {
 
         if (token) {
             localStorage.setItem("access_token", token);
-            // console.log("윈도우 새로고침할거임");
             // window.location.replace("/");
         }
 
         if (refresh_token) {
-            console.log("토큰 리이슈 할거임");
             accessTokenReissue();
         }
-
-        // if (
-        //     localStorage.getItem("access_token") &&
-        //     !localStorage.getItem("user")
-        // ) {
-        //     console.log("멤버 정보 가져올거임");
-        //     getMemberInfo();
-        // }
-
-        // const userStr = localStorage.getItem("user");
-        // if(userStr){
-        // 	console.log("dispatching userInfo");
-        // 	const userObj = JSON.parse(userStr);
-        // 	dispatch(uploadUser({email:userObj.email, nickname:userObj.nickname}));
-        // }
-
-        const userStr = localStorage.getItem("user");
-        console.log(userStr);
-        if (userStr) {
-            const userObj = JSON.parse(userStr);
-            // userRef.current = {
-            //     email: userObj.email,
-            //     nickname: userObj.nickname,
-            // };
-            setUserState({
-                email: userObj.email,
-                nickname: userObj.nickname,
-            });
-        }
-        console.log("유저정보:", userRef.current);
     }, []);
 
     useEffect(()=>{
@@ -158,25 +130,17 @@ export default function Header() {
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
         ) {
-            console.log("멤버 정보 가져올거임");
             getMemberInfo();
         }
 
         const userStr = localStorage.getItem("user");
-        console.log(userStr);
         if (userStr && !userState) {
             const userObj = JSON.parse(userStr);
-            // userRef.current = {
-            //     email: userObj.email,
-            //     nickname: userObj.nickname,
-            // };
             setUserState({
                 email: userObj.email,
                 nickname: userObj.nickname,
             });
         }
-
-        console.log(userState);
     });
 
     function onClickLogo(e) {
