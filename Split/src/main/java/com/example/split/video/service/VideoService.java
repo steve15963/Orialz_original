@@ -1,22 +1,6 @@
 package com.example.split.video.service;
 
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.bramp.ffmpeg.FFmpeg;
-import net.bramp.ffmpeg.FFmpegExecutor;
-import net.bramp.ffmpeg.FFprobe;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
-import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-import org.apache.commons.lang3.math.Fraction;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +11,29 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFprobe;
+<<<<<<< Updated upstream
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import net.bramp.ffmpeg.probe.FFmpegProbeResult;
+
+import com.example.split.video.Repository.JobRepository;
+import com.example.split.video.Repository.VideoRepository;
+import com.example.split.video.domain.Entity.Job;
+=======
+>>>>>>> Stashed changes
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
@@ -35,11 +41,14 @@ import java.util.concurrent.Future;
 public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
+    private final VideoAsycService videoAsycService;
+    private final JobRepository jobRepository;
+    private final VideoRepository videoRepository;
+
     @Value("${video.path}")
     private String rootPath;
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, LocalDateTime createAt, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
 
-    // HashPath = 순수 해쉬값
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName, int chunkNumber, int totalChunkNum, Long userId,String hashing ) throws IOException, NoSuchAlgorithmException {
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
             File output = new File(path); // 폴더 위치
@@ -54,15 +63,13 @@ public class VideoService {
 
             // 마지막 조각이 전송 됐을 경우
             if (chunkNumber == totalChunkNum - 1) {
-
-//                String hashing = hashingPath(videoId, createAt); // 4L 오류 발생해보기
-                String videoPath = path + "/"+hashing;
-
-                File hashFolder = new File(videoPath); // 폴더 위치
-                if (!hashFolder.exists()) { // 사용자 파일이 없으면 생성
-                    hashFolder.mkdirs();
+                //해당 유저 찾기
+//                String videoPath = path + "/" + fileName.split(".")[0];
+                String videoPath = path + "/" + hashing;
+                File videoFolder = new File(videoPath); // 폴더 위치
+                if (!videoFolder.exists()) { // 사용자 파일이 없으면 생성
+                    videoFolder.mkdirs();
                 }
-
                 Path outputFile = Paths.get(videoPath, fileName);
                 Files.createFile(outputFile);
 
@@ -77,11 +84,23 @@ public class VideoService {
 
                 log.info("File uploaded successfully");
 
+//                putS3(fullFile,fileName);
                 //Frame 분할
-                splitFrame(videoPath,fileName);
+                Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
                 //hdfs 전송용 text파일 생성
-                createTextFile(hashing,userId,videoPath,fileName);
-                //썸네일 설정
+                jobRepository.save(
+                    Job.builder()
+                        .root(rootPath)
+                        .member(""+userId)
+                        .hash(hashing)
+                        .video(videoRepository.findById(videoId).get())
+                        .build()
+                );
+                Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
+                if(splitCheck.join() && textCheck.join()){
+                    log.info("if안에 : "+ String.valueOf(now()));
+                }
+                log.info("if밖에: "+String.valueOf(now()));
                 return CompletableFuture.completedFuture(true);
             }
             else{
@@ -114,46 +133,5 @@ public class VideoService {
         return sha256Hash;
     }
 
-    public void createTextFile(String hashing, Long userId, String hashPath,String fileName) throws IOException {
 
-        String output = "/user/hadoop/"+userId+"/"+hashing+"/output";
-        //해당 동영상의 초당 frame 가져오기
-        FFmpegProbeResult probeResult = ffprobe.probe(hashPath + "/" + fileName);
-        Fraction fps = probeResult.getStreams().get(0).avg_frame_rate;
-//        log.info(fps.toString());
-        double rate = (double)fps.getNumerator() / fps.getDenominator();
-        double time = 1 / rate;
-        long nFps = probeResult.getStreams().get(0).nb_frames;
-        File timeTextFile = new File(hashPath+"/"+"frame_timeStamp.txt");
-        if (!timeTextFile.exists()) {
-            timeTextFile.createNewFile();
-        }
-        BufferedWriter bw = new BufferedWriter(new FileWriter(timeTextFile));
-
-        for(int i = 0; i <= nFps;i++){
-            String temp = String.format("%f %s/frame%08d.png\n",time * i ,output,i);
-            bw.write(temp);
-        }
-        bw.close();
-    }
-
-    public void splitFrame(String hashPath,String fileName) throws IOException {
-        // frame 폴더 생성
-        // 해당 폴더에 frame 변환해서 넣기.
-        String outputPath = hashPath + "/" + "output";
-        File output = new File(outputPath); // 폴더 위치
-        if (!output.exists()) { // 사용자 파일이 없으면 생성
-            output.mkdirs();
-        }
-
-        FFmpegBuilder builder = new FFmpegBuilder()
-                .setInput(hashPath + "/" + fileName) // 입력 동영상 파일 경로
-                .addOutput(outputPath + "/" + "frame%08d.png") // 썸네일 이미지 파일 경로
-                .done();
-
-        FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
-        executor.createJob(builder).run();
-
-        log.info("success create frame");
-    }
 }
