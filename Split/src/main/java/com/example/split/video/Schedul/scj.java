@@ -33,7 +33,7 @@ public class scj {
 			Job nowJob = nextJob.get();
 
 			log.info("HDFS 파일 업로드 시작.");
-			String uploadUrl = hadoopRepository.HDFSUpload(nowJob);
+			hadoopRepository.HDFSUpload(nowJob);
 
 			//반환값에 따라서 실패
 			if(hadoopRepository.MapreduceRunJob(nowJob)){
