@@ -65,11 +65,13 @@ public class HadoopRepository {
 		String localRootPath = job.getRoot();
 		String member = job.getMember();
 		String hash = job.getHash();
+		String title = job.getTitle();
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
 		Path remoteJson = new Path("/user/hadoop/" + member + "/" + hash + "/json/part-r-00000");
 		Path localJson = new Path(localRootPath + "/" + member +"/"+hash+"/json/json.txt");
 		fileSystem.copyToLocalFile(remoteJson,localJson);
-		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash));
+		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash +"/output"));
+		fileSystem.removeAcl(new Path("/user/hadoop/" + member + "/" + hash +"/" + title));
 		return true;
 	}
 

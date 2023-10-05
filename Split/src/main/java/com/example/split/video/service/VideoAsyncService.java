@@ -83,6 +83,7 @@ public class VideoAsyncService {
                         .root(rootPath)
                         .member(""+userId)
                         .hash(hashing)
+                        .title(fileName)
                         .video(videoRepository.findById(videoId).get())
                         .build()
         );
