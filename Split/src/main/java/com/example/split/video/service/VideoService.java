@@ -42,7 +42,7 @@ public class VideoService {
 
     @Value("${video.path}")
     private String rootPath;
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, LocalDateTime createAt, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제

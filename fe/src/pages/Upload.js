@@ -174,7 +174,6 @@ function Upload() {
       formData2.append("fileName", file.name);
       formData2.append("chunkNum", chunkNum);
       formData2.append("videoId",response.data.videoId);
-      formData2.append("createAt",response.data.createAt);
       formData2.append("hash",response.data.hash);
       if (chunkNum === totalChunkNum - 1) {
         // formData2.append("content", content);
