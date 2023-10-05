@@ -31,12 +31,7 @@ public class HadoopRepository {
 		String hash = job.getHash();
 
 		FileSystem fileSystem = hadoopConfiguration.getFileSystem();
-
-		Path remoteVideoPath = new Path("/user/hadoop/video");
-		if(fileSystem.exists(remoteVideoPath)){
-			log.info("비디오 경로 생성");
-			fileSystem.create(remoteVideoPath);
-		}
+		
 
 		Path remoteMemberPath = new Path("/user/hadoop/video/"+member);
 		if(fileSystem.exists(remoteMemberPath)){
@@ -81,9 +76,9 @@ public class HadoopRepository {
 		Path localJson = new Path(localRootPath + "/" + member +"/"+hash+"/json/json.txt");
 		fileSystem.copyToLocalFile(remoteJson,localJson);
 		log.info("json 다운로드 성공");
-		fileSystem.removeAcl(new Path("/user/hadoop/video/" + member + "/" + hash +"/output"));
-		fileSystem.removeAcl(new Path("/user/hadoop/video/" + member + "/" + hash +"/" + title));
-		log.info("HDFS JSON 삭제");
+		fileSystem.delete(new Path("/user/hadoop/video/" + member + "/" + hash +"/output"),true);
+		fileSystem.delete(new Path("/user/hadoop/video/" + member + "/" + hash +"/" + title),true);
+		log.info("이미지 및 동영상 삭제 성공");
 		return true;
 	}
 

@@ -21,10 +21,10 @@ import lombok.AllArgsConstructor;
 public class FindKeywordService {
 	FindKeywordRepository keywordRepository;
 	private final Mapper mapper;
-	public Map<String,List<ResponseSet>> findKeywordList(long mId, long vId){
+	public Map<String,List<ResponseSet>> findKeywordList(long mId, long vId, long per){
 		ModelMapper mp = mapper.FindKeywordToFindKeywordReponseMapper();
 		Map<Double,List<FindKeywordGetResponse>> map = new TreeMap<>();
-		List<FindKeyword> findList = keywordRepository.findAllBymIdAndvId(mId, vId);
+		List<FindKeyword> findList = keywordRepository.findAllBymIdAndvId(mId, vId, ((double)per) / 100.0);
 
 		for(FindKeyword t : findList){
 
