@@ -104,7 +104,7 @@ export default function Header({ searchVideos }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                const userInfo = { email: data.email, nickname: data.nickname, userId: data.id };
+                const userInfo = { email: data.email, nickname: data.nickname, userId: data.id, picture: data.picture};
                 localStorage.setItem("user", JSON.stringify(userInfo));
                 console.log(data);
                 userRef.current = userInfo;
