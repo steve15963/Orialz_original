@@ -4,7 +4,7 @@ import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Header() {
@@ -159,6 +159,7 @@ export default function Header() {
 
     return (
         <div className="header">
+            <NavLink to={"/profile"}>asdf</NavLink>
             <img src="/orialzLogo.jpg" alt="logo" className="logo-img" onClick={onClickLogo} />
             <form className="search-form">
                 <div className="search-input-line">
