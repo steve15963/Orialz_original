@@ -112,10 +112,12 @@ export default function Header() {
 
         if (token) {
             localStorage.setItem("access_token", token);
+            console.log("윈도우 새로고침할거임");
             window.location.replace("/");
         }
 
         if (refresh_token) {
+            console.log("토큰 리이슈 할거임");
             accessTokenReissue();
         }
 
@@ -123,6 +125,7 @@ export default function Header() {
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
         ) {
+            console.log("멤버 정보 가져올거임");
             getMemberInfo();
         }
 
@@ -142,6 +145,7 @@ export default function Header() {
                 nickname: userObj.nickname,
             };
         }
+        console.log("유저정보:", userRef.current);
     }, []);
 
     function onClickLogo(e) {
