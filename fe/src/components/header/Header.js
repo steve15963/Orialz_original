@@ -3,13 +3,14 @@
 import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Header() {
     const navigate = useNavigate();
     const userRef = useRef(null);
+    const [userState, setUserState] = useState(null); 
     const searchInputRef = useRef(null);
 
     function navigateToGoogleLogin() {
@@ -140,12 +141,16 @@ export default function Header() {
         console.log(userStr);
         if (userStr) {
             const userObj = JSON.parse(userStr);
-            userRef.current = {
+            // userRef.current = {
+            //     email: userObj.email,
+            //     nickname: userObj.nickname,
+            // };
+            setUserState({
                 email: userObj.email,
                 nickname: userObj.nickname,
-            };
+            });
         }
-        console.log("유저정보:", userRef.current);
+        // console.log("유저정보:", userRef.current);
     }, []);
 
     function onClickLogo(e) {
@@ -185,7 +190,7 @@ export default function Header() {
                     검색
                 </button>
             </form>
-            {userRef.current ? (
+            {userState ? (
                 <ProfileBox />
             ) : (
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
