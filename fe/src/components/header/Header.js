@@ -6,9 +6,11 @@ import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Header({ searchVideos }) {
+export default function Header() {
+    const navigate = useNavigate();
     // const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const userRef = useRef(null);
@@ -151,14 +153,22 @@ export default function Header({ searchVideos }) {
         }
     }, []);
 
+    function onClickLogo(e) {
+        e.preventDefault();
+        navigate('');
+    }
+
     function handleSearchVideos(e) {
         e.preventDefault();
-        searchVideos(searchInputRef.current.value);
+        const keyword = searchInputRef.current.value;
+        if (keyword) {
+            navigate(`?keyword=${keyword}`);
+        }
     }
 
     return (
         <div className="header">
-            <img src="/orialzLogo.jpg" alt="logo" className="logo-img" />
+            <img src="/orialzLogo.jpg" alt="logo" className="logo-img" onClick={onClickLogo} />
             <form className="search-form">
                 <div className="search-input-line">
                     <input
@@ -176,25 +186,6 @@ export default function Header({ searchVideos }) {
                     {/* <img src="search.svg" alt='search' className="search-form-btn-icon"/> */}
                 </button>
             </form>
-            <div>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(uploadUser());
-                    }}
-                >
-                    인
-                </button>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(discardUser());
-                        logoutGoogle();
-                    }}
-                >
-                    아웃
-                </button>
-            </div>
             {userRef.current ? (
                 <ProfileBox />
             ) : (

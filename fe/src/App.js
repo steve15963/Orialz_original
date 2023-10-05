@@ -10,12 +10,12 @@ import Main from "./pages/Main";
 import VideoDetail from "./pages/VideoDetail";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
+import Header from "./components/header/Header";
 import "./App.css";
 import axios from "axios";
 
 function App() {
 
-	const [videos, setVideos] = useState([]);
 	const [myData, setMyData] = useState([]);
 
 	// const user = useSelector(selectUser);
@@ -23,7 +23,6 @@ function App() {
 
 
 	useEffect(()=>{
-		getVideos();
 		getMyData();
 
 		getAllKeywords();
@@ -34,17 +33,6 @@ function App() {
 			//응답 성공
 			const response = await axios.get(`https://test.orialz.com/api/keyword/list`, {});
 			dispatch(uploadFilter(response.data));
-		} catch (error) {
-			//응답 실패
-			console.error(error);
-		}
-	}
-
-	async function getVideos() {
-		try {
-			//응답 성공
-			const response = await axios.get("https://test.orialz.com/api/video", {});
-			setVideos(response.data);
 		} catch (error) {
 			//응답 실패
 			console.error(error);
@@ -66,18 +54,11 @@ function App() {
 	return (
 		<BrowserRouter>
 		<div className="App">
-			<Link to="/login">Login</Link>
-			<button>로그아웃</button>
-			<Link to="/">Main</Link>
-			<Link to="/videoDetail">테스트페이지</Link>
-			<Link to="/profile">프로필</Link>
-			<Link to="/upload">업로드</Link>
-
-
+			<Header />
 			<Routes>
 			<Route path="/login" element={<Login/>}></Route>
-			<Route path="/" element={<Main videos={videos}/>}></Route>
-			<Route path="/videoDetail" element={<VideoDetail videos={videos}/>}></Route>
+			<Route path="/" element={<Main />}></Route>
+			<Route path="/videoDetail" element={<VideoDetail />}></Route>
 			<Route path="/profile" element={<Profile myData={myData}/>}></Route>
 			<Route path="/upload" element={<Upload />}></Route>
 			</Routes>

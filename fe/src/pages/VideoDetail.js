@@ -10,8 +10,9 @@ import VideoSubs from "../components/videoSubs/VideoSubs";
 // import tempVideo from './tempVideo.mp4';
 require("videojs-contrib-hls.js");
 
-const VideoDetail = ({ videos }) => {
+const VideoDetail = () => {
     const [curVideo, setCurVideo] = useState({});
+    const [recommendedVideos, setRecommendedVideos] = useState([]);
     const urlParams = new URL(window.location.href).searchParams;
     const videoId = useRef(urlParams.get("id"));
 
@@ -33,9 +34,22 @@ const VideoDetail = ({ videos }) => {
         }
     }
 
+    async function recommendVideos(){
+		try {
+			//응답 성공
+			let response = await axios.get("https://test.orialz.com/api/video", {});
+			console.log(response);
+			setRecommendedVideos(response.data);
+		} catch (error) {
+			//응답 실패
+			console.error(error);
+		}
+	}
+
     useEffect(() => {
         viewIncrease();
-        videos.forEach((e) => {
+        recommendVideos();
+        recommendedVideos.forEach((e) => {
             if (e.id === Number(videoId.current)) {
                 setCurVideo(e);
                 return;
@@ -97,7 +111,7 @@ const VideoDetail = ({ videos }) => {
 
                 <CommentsContainer videoId={videoId.current} />
             </div>
-            <VideoSubs videos={videos} />
+            <VideoSubs videos={recommendedVideos} />
         </div>
     );
 };
