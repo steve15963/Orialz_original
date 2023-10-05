@@ -37,8 +37,8 @@ public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
     private final VideoAsyncService videoAsyncService;
-    private final JobRepository jobRepository;
-    private final VideoRepository videoRepository;
+
+
 
     @Value("${video.path}")
     private String rootPath;
@@ -78,24 +78,9 @@ public class VideoService {
                 File fullFile = new File(videoPath + "/"+fileName);
 
                 log.info("File uploaded successfully");
-
-//                putS3(fullFile,fileName);
                 //Frame 분할
-                Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
+                videoAsyncService.asyncFunc(videoPath,fileName,hashing,userId,videoId);
                 //hdfs 전송용 text파일 생성
-                jobRepository.save(
-                    Job.builder()
-                        .root(rootPath)
-                        .member(""+userId)
-                        .hash(hashing)
-                        .video(videoRepository.findById(videoId).get())
-                        .build()
-                );
-                Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
-                if(splitCheck.get() && textCheck.get()){
-                    log.info("if안에 : "+ String.valueOf(now()));
-                }
-                log.info("if밖에: "+String.valueOf(now()));
                 return CompletableFuture.completedFuture(true);
             }
             else{
