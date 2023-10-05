@@ -12,7 +12,7 @@ public interface FindKeywordRepository extends JpaRepository<FindKeyword,Long> {
 	@Query("SELECT f "
 		+ "FROM FindKeyword as f "
 		+ "WHERE f.video.videoId = :vId "
-		+ "AND f.score >= 0.05"
+		+ "AND f.score >= :per "
 		+ "AND f.keyword IN ("
 		+ "SELECT o.keyword "
 		+ "FROM OnKeyword as o "
@@ -20,5 +20,5 @@ public interface FindKeywordRepository extends JpaRepository<FindKeyword,Long> {
 		+ "ORDER BY f.time asc "
 		+ ")"
 	)
-	List<FindKeyword> findAllBymIdAndvId(@Param("mId") long mId,   @Param("vId") long vId);
+	List<FindKeyword> findAllBymIdAndvId(@Param("mId") long mId,   @Param("vId") long vId, @Param("per") Double per);
 }
