@@ -164,8 +164,8 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        // baseURL: "http://localhost:8080/hls",
-        baseURL: "https://test.orialz.com/hls",
+        baseURL: "http://localhost:8080/hls",
+        // baseURL: "https://test.orialz.com/hls",
       });
 
       const formData2 = new FormData();
@@ -183,24 +183,25 @@ function Upload() {
       }
 
 
-      const response2 = await axios.post("/upload/chunk", formData2, {
-        headers: {
-          "Content-Type": `multipart/form-data`,
-          // "Origin" : 'http://localhost:3000',
-        },
-        // baseURL: "http://localhost:8081/split",
-        baseURL: "https://test.orialz.com/split",
-      });
+      // const response2 = await axios.post("/upload/chunk", formData2, {
+      //   headers: {
+      //     "Content-Type": `multipart/form-data`,
+      //     // "Origin" : 'http://localhost:3000',
+      //   },
+      //   baseURL: "http://localhost:8081/split",
+      //   // baseURL: "https://test.orialz.com/split",
+      // });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
       if(response.status === 200){
         // console.log("value: "+progressRef.current.value)
-        // console.log("total chunkNum" + totalChunkNum);
-        // console.log("chunkNum: " + chunkNum);
+        console.log("total chunkNum" + totalChunkNum);
+        console.log("chunkNum: " + chunkNum);
         // progressRef.current.value = Math.ceil(100 / totalChunkNum * 2) * (chunkNum+1);
         progressRef.current.value = chunkNum + 1;
         if(chunkNum === totalChunkNum -1){
           progressRef.current.value = chunkNum + 1;
+          
           alert("업로드 완료");  
           navigate("/");
         }

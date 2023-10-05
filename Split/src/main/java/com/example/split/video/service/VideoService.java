@@ -78,9 +78,9 @@ public class VideoService {
                 File fullFile = new File(videoPath + "/"+fileName);
 
                 log.info("File uploaded successfully");
-                //Frame 분할
+                //Frame 분할  //hdfs 전송용 text파일 생성
                 videoAsyncService.asyncFunc(videoPath,fileName,hashing,userId,videoId);
-                //hdfs 전송용 text파일 생성
+
                 return CompletableFuture.completedFuture(true);
             }
             else{
