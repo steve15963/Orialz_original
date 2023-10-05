@@ -11,6 +11,7 @@
 .profile-works-btns {
     display: flex;
     margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .profile-video-btn,
