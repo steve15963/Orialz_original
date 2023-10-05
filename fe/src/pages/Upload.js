@@ -183,14 +183,14 @@ function Upload() {
       }
 
 
-      // const response2 = await axios.post("/upload/chunk", formData2, {
-      //   headers: {
-      //     "Content-Type": `multipart/form-data`,
-      //     // "Origin" : 'http://localhost:3000',
-      //   },
-      //   baseURL: "http://localhost:8081/split",
-      //   // baseURL: "https://test.orialz.com/split",
-      // });
+      const response2 = await axios.post("/upload/chunk", formData2, {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+          // "Origin" : 'http://localhost:3000',
+        },
+        baseURL: "http://localhost:8081/split",
+        // baseURL: "https://test.orialz.com/split",
+      });
       const _endTime = performance.now(); // 시작시간
       console.log(response);
       if(response.status === 200){
