@@ -5,6 +5,7 @@ import numpy as np
 import json
 import socket
 from hdfs import InsecureClient
+import os
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
@@ -33,6 +34,7 @@ def run():
             with conn:
                 print(f"{addr}에서 연결됨")
 
+
                 url = conn.recv(1024)
                 if not url:
                     break
@@ -40,6 +42,7 @@ def run():
                 with client.read(url.decode('utf-8')) as wr:
                     with open('temp.png','wb') as file:
                         file.write(wr.read())
+
                 results = model.predict(source='temp.png')
 
                 for result in results:
@@ -54,6 +57,7 @@ def run():
                         xywhn[i][1] = xywhn[i][1] - (xywhn[i][3] / 2)
                     data["xywhn"] = xywhn
                     json_data = json.dumps(data)
+                    print(json_data)
                     conn.sendall(json_data.encode('utf-8'))
                     conn.close()
                     break;
