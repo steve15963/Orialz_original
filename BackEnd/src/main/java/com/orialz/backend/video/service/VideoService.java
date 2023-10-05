@@ -28,6 +28,7 @@ public class VideoService {
                       .title(video.getTitle())
                       .content(video.getContent())
                       .uploader(video.getMember().getNickname())
+                      .uploaderProfile(video.getMember().getPicture())
                       .view(video.getView())
                       .build();
               response.add(temp);
@@ -57,6 +58,7 @@ public class VideoService {
                     .title(video.getTitle())
                     .content(video.getContent())
                     .uploader(video.getMember().getNickname())
+                    .uploaderProfile(video.getMember().getPicture())
                     .view(video.getView())
                     .build();
             response.add(temp);
