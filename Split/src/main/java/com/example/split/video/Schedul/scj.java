@@ -44,7 +44,7 @@ public class scj {
 			findKeywordService.pushfile(nowJob);
 			//파일 삭제 완료 이후 해당 작업 삭제.
 			jobRepository.delete(nowJob);
-			log.info("작업 끝")
+			log.info("작업 끝");
 		}
 		else{
 			System.out.println("작업 없음");
