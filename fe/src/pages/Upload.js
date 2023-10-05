@@ -165,9 +165,11 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        // baseURL: "http://localhost:8080/hls",
-        baseURL: "https://test.orialz.com/hls",
+        baseURL: "http://localhost:8080/hls",
+        // baseURL: "https://test.orialz.com/hls",
       });
+
+      console.log(response.data + "asdf");
 
       const formData2 = new FormData();
       formData2.append("totalChunkNum", totalChunkNum);
@@ -189,8 +191,8 @@ function Upload() {
           "Content-Type": `multipart/form-data`,
           // "Origin" : 'http://localhost:3000',
         },
-        // baseURL: "http://localhost:8081/split",
-        baseURL: "https://test.orialz.com/split",
+        baseURL: "http://localhost:8081/split",
+        // baseURL: "https://test.orialz.com/split",
       });
       const _endTime = performance.now(); // 시작시간
       console.log(response);

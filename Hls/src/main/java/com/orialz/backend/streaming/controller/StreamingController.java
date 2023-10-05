@@ -106,7 +106,7 @@ public class StreamingController {
 //        Boolean res = future.get();
 //        Boolean res = true;
 //        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
-
+        log.info("여기다ㅏㅏㅏㅏ");
         return ResponseEntity.ok().body(future.get());
     }
 
