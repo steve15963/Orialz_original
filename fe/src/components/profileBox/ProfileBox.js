@@ -7,6 +7,8 @@ export default function ProfileBox({ handleUserState }) {
     const [noticeOn, setNoticeOn] = useState(false);
     const [profileOn, setProfileOn] = useState(false);
 
+    const loginUser = JSON.parse(localStorage.getItem("user"));
+
     const profileRef = useRef();
 
     function falsifyNoticeOn() {
@@ -51,11 +53,14 @@ export default function ProfileBox({ handleUserState }) {
             />
             {profileOn ? (
                 <div ref={profileRef}>
-                    <ProfileContainer falsifyProfileOn={falsifyProfileOn} handleUserState={handleUserState} />
+                    <ProfileContainer
+                        falsifyProfileOn={falsifyProfileOn}
+                        handleUserState={handleUserState}
+                    />
                 </div>
             ) : null}
             <img
-                src="/profile.svg"
+                src={loginUser.picture}
                 alt="profile"
                 className="profile-img icon-wiggle"
                 onClick={profileImgClick}
