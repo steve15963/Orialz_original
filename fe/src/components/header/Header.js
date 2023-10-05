@@ -176,7 +176,7 @@ export default function Header() {
             });
         }
 
-        console.log(userState);
+        console.log("유저 정보:", userState);
     });
 
     function onClickLogo(e) {
