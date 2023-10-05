@@ -122,13 +122,13 @@ export default function Header() {
             accessTokenReissue();
         }
 
-        if (
-            localStorage.getItem("access_token") &&
-            !localStorage.getItem("user")
-        ) {
-            console.log("멤버 정보 가져올거임");
-            getMemberInfo();
-        }
+        // if (
+        //     localStorage.getItem("access_token") &&
+        //     !localStorage.getItem("user")
+        // ) {
+        //     console.log("멤버 정보 가져올거임");
+        //     getMemberInfo();
+        // }
 
         // const userStr = localStorage.getItem("user");
         // if(userStr){
@@ -150,12 +150,32 @@ export default function Header() {
                 nickname: userObj.nickname,
             });
         }
-        // console.log("유저정보:", userRef.current);
+        console.log("유저정보:", userRef.current);
     }, []);
 
-    useEffect(()=>{},[
+    useEffect(()=>{
+        if (
+            localStorage.getItem("access_token") &&
+            !localStorage.getItem("user")
+        ) {
+            console.log("멤버 정보 가져올거임");
+            getMemberInfo();
+        }
 
-    ])
+        const userStr = localStorage.getItem("user");
+        console.log(userStr);
+        if (userStr && !userState) {
+            const userObj = JSON.parse(userStr);
+            // userRef.current = {
+            //     email: userObj.email,
+            //     nickname: userObj.nickname,
+            // };
+            setUserState({
+                email: userObj.email,
+                nickname: userObj.nickname,
+            });
+        }
+    });
 
     function onClickLogo(e) {
         e.preventDefault();
@@ -172,6 +192,10 @@ export default function Header() {
             navigate('');
             window.location.reload();
         }
+    }
+
+    function handleUserState(user){
+        setUserState(user);
     }
 
     return (
@@ -195,7 +219,7 @@ export default function Header() {
                 </button>
             </form>
             {userState ? (
-                <ProfileBox />
+                <ProfileBox setUserState={handleUserState} />
             ) : (
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
             )}
