@@ -15,18 +15,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class VideoAsycService {
+public class VideoAsyncService {
 
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
 
 
     @Async
-    public void createTextFile(String hashing,Long userId, String middlePath,String fileName) throws IOException {
+    public Future<Boolean> createTextFile(String hashing,Long userId, String middlePath,String fileName) throws IOException {
         String output = "/user/hadoop/"+userId+"/"+hashing+"/output";
         //해당 동영상의 초당 frame 가져오기
         FFmpegProbeResult probeResult = ffprobe.probe(middlePath + "/" + fileName);
@@ -46,10 +48,11 @@ public class VideoAsycService {
             bw.write(temp);
         }
         bw.close();
+        return CompletableFuture.completedFuture(true);
     }
 
     @Async
-    public void splitFrame(String hashPath,String fileName) throws IOException {
+    public Future<Boolean> splitFrame(String hashPath, String fileName) throws IOException {
         // frame 폴더 생성
         // 해당 폴더에 frame 변환해서 넣기.
         String outputPath = hashPath + "/" + "output";
@@ -67,5 +70,6 @@ public class VideoAsycService {
         executor.createJob(builder).run();
 
         log.info("success create frame");
+        return CompletableFuture.completedFuture(true);
     }
 }
