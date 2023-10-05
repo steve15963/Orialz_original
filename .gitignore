@@ -44,4 +44,3 @@ BackEnd/src/main/resources/properties/env.properties
 Hls/src/main/resources/properties/env.properties
 
 Split/src/main/resources/properties/env.properties
-Split/gradle/wrapper/gradle-wrapper.properties
