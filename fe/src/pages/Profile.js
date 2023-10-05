@@ -7,7 +7,9 @@ import axios from "axios";
 
 export default function Profile({ myData }) {
     const [modalOn, setModalOn] = useState(false);
+    const [commentList, setCommentList] = useState([]);
     const [commentNum, setCommentNum] = useState(0);
+    const [videoList, setVideoList] = useState([]);
     const [videoNum, setVideoNum] = useState(0);
     const userInfoRef = useRef(null);
 
@@ -45,8 +47,10 @@ export default function Profile({ myData }) {
                 }
             );
             console.log(response.data);
-            setVideoNum(response.data.videoNum);
+            setCommentList(response.data.commentList);
             setCommentNum(response.data.commentNum);
+            setVideoList(response.data.videoList);
+            setVideoNum(response.data.videoNum);
         } catch (error) {
             console.log(error);
         }
@@ -65,7 +69,7 @@ export default function Profile({ myData }) {
                 videoNum={videoNum}
                 commentNum={commentNum}
             />
-            <ProfileWorks />
+            <ProfileWorks videoList={videoList} commentList={commentList}/>
         </div>
     );
 }
