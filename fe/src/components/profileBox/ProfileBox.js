@@ -3,9 +3,11 @@ import NoticeContainer from "../noticeContainer/NoticeContainer";
 import ProfileContainer from "../profileContainer/ProfileContainer";
 import "./ProfileBox.css";
 
-export default function ProfileBox() {
+export default function ProfileBox({ handleUserState }) {
     const [noticeOn, setNoticeOn] = useState(false);
     const [profileOn, setProfileOn] = useState(false);
+
+    const loginUser = JSON.parse(localStorage.getItem("user"));
 
     const profileRef = useRef();
 
@@ -51,11 +53,14 @@ export default function ProfileBox() {
             />
             {profileOn ? (
                 <div ref={profileRef}>
-                    <ProfileContainer falsifyProfileOn={falsifyProfileOn} />
+                    <ProfileContainer
+                        falsifyProfileOn={falsifyProfileOn}
+                        handleUserState={handleUserState}
+                    />
                 </div>
             ) : null}
             <img
-                src="/profile.svg"
+                src={loginUser.picture}
                 alt="profile"
                 className="profile-img icon-wiggle"
                 onClick={profileImgClick}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import ProfileVideoContainer from "../profileVideoContainer/ProfileVideoContainer";
 import ProfileCommentsContainer from "../profileCommentsContainer/ProfileCommentsContainer";
 
-export default function ProfileWorks() {
+export default function ProfileWorks({videoList, commentList}) {
     const [mode, setMode] = useState(0);
 
     function setModeOne() {
@@ -35,9 +35,9 @@ export default function ProfileWorks() {
             </div>
             <div className="profile-works-containers">
                 {mode === 0 ? (
-                    <ProfileVideoContainer />
+                    <ProfileVideoContainer videoList={videoList}/>
                 ) : (
-                    <ProfileCommentsContainer />
+                    <ProfileCommentsContainer commentList={commentList}/>
                 )}
             </div>
         </div>

@@ -1,7 +1,7 @@
 .video-detail-page {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .blur-box {
@@ -57,6 +57,7 @@
 
 .video-detail-viewndate {
     display: flex;
+    flex-direction: column;
 }
 
 .comment-form {

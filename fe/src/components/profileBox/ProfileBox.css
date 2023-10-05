@@ -25,6 +25,7 @@
     animation-duration: 0.5s;
     animation-iteration-count: 2;
     animation-fill-mode: forwards;
+    cursor: pointer;
 }
 
 .bell-img {
@@ -32,14 +33,12 @@
     height: 50px;
     margin: 5px;
 }
-.bell-img:hover {
-    cursor: pointer;
-}
 
 .profile-img {
     width: 50px;
     height: 50px;
     margin: 5px;
+    border-radius: 70%;
 }
 
 .bell-profile-box {

@@ -37,12 +37,12 @@ public class VideoService {
     private final FFmpeg ffmpeg;
     private final FFprobe ffprobe;
     private final VideoAsyncService videoAsyncService;
-    private final JobRepository jobRepository;
-    private final VideoRepository videoRepository;
+
+
 
     @Value("${video.path}")
     private String rootPath;
-    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, LocalDateTime createAt, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
+    public Future<Boolean> chunkUpload(MultipartFile file, String fileName,int chunkNumber, int totalChunkNum,Long userId , long videoId, String hashing) throws IOException, NoSuchAlgorithmException, ExecutionException, InterruptedException {
 
         if (!file.isEmpty()) {
             String path = rootPath + "/" + userId; //임시 폴더 + 실제
@@ -78,24 +78,9 @@ public class VideoService {
                 File fullFile = new File(videoPath + "/"+fileName);
 
                 log.info("File uploaded successfully");
+                //Frame 분할  //hdfs 전송용 text파일 생성
+                videoAsyncService.asyncFunc(videoPath,fileName,hashing,userId,videoId);
 
-//                putS3(fullFile,fileName);
-                //Frame 분할
-                Future<Boolean> splitCheck = videoAsyncService.splitFrame(videoPath,fileName);
-                //hdfs 전송용 text파일 생성
-                jobRepository.save(
-                    Job.builder()
-                        .root(rootPath)
-                        .member(""+userId)
-                        .hash(hashing)
-                        .video(videoRepository.findById(videoId).get())
-                        .build()
-                );
-                Future<Boolean> textCheck = videoAsyncService.createTextFile(hashing,userId,videoPath,fileName);
-                if(splitCheck.get() && textCheck.get()){
-                    log.info("if안에 : "+ String.valueOf(now()));
-                }
-                log.info("if밖에: "+String.valueOf(now()));
                 return CompletableFuture.completedFuture(true);
             }
             else{

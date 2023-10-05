@@ -28,11 +28,12 @@ public class scj {
 		Optional<Job> nextJob = jobRepository.findFirstByOrderByIdAsc();
 		//새 작업이 있다면 시작
 		if(nextJob.isPresent()){
-			System.out.println("작업시작");
+			log.info("작업 시작.");
 
 			Job nowJob = nextJob.get();
-			
-			String uploadUrl = hadoopRepository.HDFSUpload(nowJob);
+
+			log.info("HDFS 파일 업로드 시작.");
+			hadoopRepository.HDFSUpload(nowJob);
 
 			//반환값에 따라서 실패
 			if(hadoopRepository.MapreduceRunJob(nowJob)){
@@ -43,10 +44,10 @@ public class scj {
 			findKeywordService.pushfile(nowJob);
 			//파일 삭제 완료 이후 해당 작업 삭제.
 			jobRepository.delete(nowJob);
-			System.out.println("작업끝");
+			log.info("작업 끝");
 		}
 		else{
-			//System.out.println("작업 없음");
+			System.out.println("작업 없음");
 			//너무 많은 스케줄링 방지.
 			Thread.sleep(1000);
 		}

@@ -16,7 +16,7 @@ const VideoDetail = () => {
     const urlParams = new URL(window.location.href).searchParams;
     const videoId = useRef(urlParams.get("id"));
 
-    const blurUrlRef = useRef(`https://test.orialz.com/api/blur/list/7/11`);
+    const blurUrlRef = useRef(`https://test.orialz.com/api/blur/list/7/35/10`);
     const userInfoRef = useRef("ImUser");
 
     // const data4 = useRef(null);
@@ -156,8 +156,8 @@ function VideoDisc({ curVideo }) {
                 </div>
 
                 <div className="video-detail-viewndate">
-                    <div>조회수 {curVideo.view}회&nbsp;&nbsp;&nbsp;</div>
                     <div>{formattedDate}</div>
+                    <div>조회수 {curVideo.view}회&nbsp;&nbsp;&nbsp;</div>
                 </div>
                 <br />
                 <div>{curVideo.content}</div>
