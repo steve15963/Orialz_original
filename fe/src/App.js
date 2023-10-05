@@ -23,7 +23,7 @@ function App() {
 
 
 	useEffect(()=>{
-		getMyData();
+		// getMyData();
 
 		getAllKeywords();
 	},[]); 

@@ -3,13 +3,14 @@
 import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Header() {
     const navigate = useNavigate();
     const userRef = useRef(null);
+    const [userState, setUserState] = useState(null); 
     const searchInputRef = useRef(null);
 
     function navigateToGoogleLogin() {
@@ -112,10 +113,12 @@ export default function Header() {
 
         if (token) {
             localStorage.setItem("access_token", token);
-            window.location.replace("/");
+            // console.log("윈도우 새로고침할거임");
+            // window.location.replace("/");
         }
 
         if (refresh_token) {
+            console.log("토큰 리이슈 할거임");
             accessTokenReissue();
         }
 
@@ -123,6 +126,7 @@ export default function Header() {
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
         ) {
+            console.log("멤버 정보 가져올거임");
             getMemberInfo();
         }
 
@@ -137,12 +141,21 @@ export default function Header() {
         console.log(userStr);
         if (userStr) {
             const userObj = JSON.parse(userStr);
-            userRef.current = {
+            // userRef.current = {
+            //     email: userObj.email,
+            //     nickname: userObj.nickname,
+            // };
+            setUserState({
                 email: userObj.email,
                 nickname: userObj.nickname,
-            };
+            });
         }
+        // console.log("유저정보:", userRef.current);
     }, []);
+
+    useEffect(()=>{},[
+
+    ])
 
     function onClickLogo(e) {
         e.preventDefault();
@@ -181,7 +194,7 @@ export default function Header() {
                     검색
                 </button>
             </form>
-            {userRef.current ? (
+            {userState ? (
                 <ProfileBox />
             ) : (
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
