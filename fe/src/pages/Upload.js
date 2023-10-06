@@ -158,7 +158,7 @@ function Upload() {
       formData.append("chunk", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
-      formData.append("memberId",str.userId);
+      // formData.append("memberId",str.userId);
       if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
