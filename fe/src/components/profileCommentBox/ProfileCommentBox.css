@@ -15,15 +15,12 @@
     margin-right: 20px;
 }
 
-.profile-comment-titlendate {
-    margin-top: 5px;
-}
-
 .profile-comment-title {
     margin-right: 20px;
     font-weight: bold;
 }
 
 .profile-comment-date {
+    margin-top: 5px;
     font-size: 12px;
 }

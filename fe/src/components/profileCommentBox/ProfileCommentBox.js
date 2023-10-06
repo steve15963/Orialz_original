@@ -20,14 +20,9 @@ export default function ProfileCommentBox({ comment }) {
                     alt="thumbnail"
                 />
                 <div>
-                    <div className="profile-comment-titlendate">
-                        <span className="profile-comment-title">
-                            {comment.title}
-                        </span>
-                        <span className="profile-comment-date">
-                            {formattedDate}
-                        </span>
-                    </div>
+                    <span className="profile-comment-date">
+                        {formattedDate}
+                    </span>
                     <p>{comment.content}</p>
                 </div>
             </div>
