@@ -27,7 +27,7 @@ function Upload() {
   const [progressMax,setProgressMax] = useState(100);
   const [isUpload,setIsUpload] = useState(false);
   const navigate = useNavigate();
-
+  const [loginUser,setLoginUser] = useState({});
 
   const handleDragStart = () => {
     setActive(true);
@@ -131,6 +131,13 @@ function Upload() {
       return;
     }
    
+
+    const str = localStorage.getItem("user");
+    if(str){
+        setLoginUser(JSON.parse(str))
+        // console.log(loginUser);
+        // console.log(JSON.parse(str));
+    }
    
     const chunkSize = 1024 * 1024 * 10; //10MB
     const totalChunkNum = Math.ceil(file.size / chunkSize);
@@ -151,6 +158,7 @@ function Upload() {
       formData.append("chunk", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
+      formData.append("memberId",loginUser.userId);
       if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
@@ -287,11 +295,11 @@ function Upload() {
   
     <div className="submitCheck">
     <div>
-    <BsFill1CircleFill size="50" color={title.length > 5 ? "orange":"black"}></BsFill1CircleFill>
+    <BsFill1CircleFill size="50" color={title.length >= 5 ? "orange":"black"}></BsFill1CircleFill>
     <p className="checkText">제목</p>
     </div>
     <div>
-   <BsFill2CircleFill size="50"  color={content.length > 5 ? "orange":"black"}></BsFill2CircleFill>
+   <BsFill2CircleFill size="50"  color={content.length >= 5 ? "orange":"black"}></BsFill2CircleFill>
     <p className="checkText">설명</p>
     </div>
     <div>
