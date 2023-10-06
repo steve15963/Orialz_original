@@ -27,7 +27,8 @@ function Upload() {
   const [progressMax,setProgressMax] = useState(100);
   const [isUpload,setIsUpload] = useState(false);
   const navigate = useNavigate();
-  // const [loginUser,setLoginUser] = useState({});
+  const [loginUserIdTrigger,setLoginUserIdTrigger] = useState(false);
+  const [loginUserId,setLoginUserId] = useState(1);
 
   const handleDragStart = () => {
     setActive(true);
@@ -132,12 +133,7 @@ function Upload() {
     }
    
 
-    const str = localStorage.getItem("user");
-    if(str){
-        // setLoginUser(JSON.parse(str))
-        // console.log(loginUser);
-        console.log(JSON.parse(str).userId);
-    }
+    console.log("loginUserId: "+loginUserId);
    
     const chunkSize = 1024 * 1024 * 10; //10MB
     const totalChunkNum = Math.ceil(file.size / chunkSize);
@@ -156,6 +152,7 @@ function Upload() {
       const formData = new FormData();
       formData.append("totalChunkNum", totalChunkNum);
       formData.append("chunk", chunk);
+      formData.append("memberId",loginUserId);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
       // formData.append("memberId",str.userId);
@@ -191,14 +188,14 @@ function Upload() {
       }
 
 
-      const response2 = await axios.post("/upload/chunk", formData2, {
-        headers: {
-          "Content-Type": `multipart/form-data`,
-          // "Origin" : 'http://localhost:3000',
-        },
-        // baseURL: "http://localhost:8081/split",
-        baseURL: "https://test.orialz.com/split",
-      });
+      // const response2 = await axios.post("/upload/chunk", formData2, {
+      //   headers: {
+      //     "Content-Type": `multipart/form-data`,
+      //     // "Origin" : 'http://localhost:3000',
+      //   },
+      //   // baseURL: "http://localhost:8081/split",
+      //   baseURL: "https://test.orialz.com/split",
+      // });
       const _endTime = performance.now(); // 시작시간
       // console.log(response);
       if(response.status === 200){
@@ -216,6 +213,16 @@ function Upload() {
     }
     // console.log("total: " + time + "ms");
   };
+
+  // useEffect(()=>{
+  //   if(loginUserIdTrigger){
+  //     const str = localStorage.getItem("user");
+  //       // setLoginUser(JSON.parse(str))
+  //       // console.log(loginUser);
+  //       // console.log(JSON.parse(str).userId);
+  //     setLoginUserId(JSON.parse(str).userId);
+  //   }
+  // },[loginUserIdTrigger])
 
   useEffect(()=>{
     if(isUpload){
@@ -238,7 +245,15 @@ function Upload() {
   },[title.length,content.length,file])
 
   useEffect (()=> {
+
    
+      const str = localStorage.getItem("user");
+        // setLoginUser(JSON.parse(str))
+        // console.log(loginUser);
+        // console.log(JSON.parse(str).userId);
+      setLoginUserId(JSON.parse(str).userId);
+
+
     const handleClickOutside = (event) => {
       if(myTextarea.current && myTextarea.current.contains(event.target)){
         // console.log("asdf")
