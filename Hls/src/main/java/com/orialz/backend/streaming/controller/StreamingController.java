@@ -96,15 +96,14 @@ public class StreamingController {
                                          @RequestParam("totalChunkNum") Integer totalChunkNum,
                                          @RequestParam("fileName") String fileName,
                                          @RequestParam("chunkNum") Integer chunkNum,
-                                         @RequestParam("memberId") Long memberId,
                                          @RequestParam(name = "content", required = false) String content, 
                                           @RequestParam(name = "title", required = false) String title,
                                           @RequestParam(name = "category", required = false) CategoryStatus category
     ) throws IOException, ExecutionException, InterruptedException, NoSuchAlgorithmException {
 
-        log.info(memberId.toString());
+//        log.info(memberId);
 //        //업로드 성공 여부 반환
-        Future<UploadResponseDto> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,memberId,content,title,category);
+        Future<UploadResponseDto> future = streamingService.chunkUpload(file,fileName,chunkNum,totalChunkNum,1L,content,title,category);
 //        Boolean res = future.get();
 //        Boolean res = true;
 //        String res = videoService.sendFormData(file,totalChunkNum,fileName,chunkNum);
