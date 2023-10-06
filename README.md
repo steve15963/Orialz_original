@@ -45,6 +45,7 @@
 <div>
   <img src="https://img.shields.io/badge/React-0088CC?style=for-the-badge&logo=react&logoColor=white" alt="">
   <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white&color=white alt="">
+  <img src="https://img.shields.io/badge/airplayvideo-000000?style=for-the-badge&logo=airplayvideo&logoColor=white&color=white alt="">
 </div>
 
 ### CI/CD & infra
