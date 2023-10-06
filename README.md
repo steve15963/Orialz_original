@@ -13,7 +13,7 @@
 # ❤ 서비스 소개
 
 <p>사용자가 원치 않는 객체를 지정해 해당 객체가 영상에 나올때 <strong>모자이크</strong> 처리 해주는 <strong>사용자 맞춤형 블러 스트리밍 서비스</strong> </p><br/>
-<img src="docs/.gif>
+<img src="docs/main.gif>
 
 # 🧡 팀원 소개
 
