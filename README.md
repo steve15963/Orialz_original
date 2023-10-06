@@ -1,7 +1,7 @@
 # 👀 오리알즈 블러 서비스
 
 <h4 align="center">사용자 맞춤형 블러 영상 스트리밍 서비스 </h4>
-<p align="center"><img src="docs/orialzLogo.jpg" height="528px" width="841px"></p>
+<p align="center"><img src="docs/orialzLogo.jpg" height="396px" width="631px"></p>
 <h5 align="center">개발기간: 2023.8.28 ~ 2023.10.06</h5>
 <p>팀 명 : 낙동강 오리들</p>
 <p>프로젝트 명 : Orialz Blur Service</p>
