@@ -27,7 +27,7 @@ function Upload() {
   const [progressMax,setProgressMax] = useState(100);
   const [isUpload,setIsUpload] = useState(false);
   const navigate = useNavigate();
-  const [loginUser,setLoginUser] = useState({});
+  // const [loginUser,setLoginUser] = useState({});
 
   const handleDragStart = () => {
     setActive(true);
@@ -134,9 +134,9 @@ function Upload() {
 
     const str = localStorage.getItem("user");
     if(str){
-        setLoginUser(JSON.parse(str))
-        console.log(loginUser);
-        console.log(JSON.parse(str));
+        // setLoginUser(JSON.parse(str))
+        // console.log(loginUser);
+        console.log(JSON.parse(str).userId);
     }
    
     const chunkSize = 1024 * 1024 * 10; //10MB
@@ -158,7 +158,7 @@ function Upload() {
       formData.append("chunk", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkNum", chunkNum);
-      formData.append("memberId",loginUser.userId);
+      formData.append("memberId",str.userId);
       if (chunkNum === totalChunkNum - 1) {
         formData.append("content", content);
         formData.append("title", title);
