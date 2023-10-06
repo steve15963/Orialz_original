@@ -1,0 +1,6 @@
+### OSError: [WinError 1455] 이 작업을 완료하기 위한 페이징 파일이 너무 작습니다. Error loading "C:\Users\dldnt\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\lib\cudnn_adv_infer64_8.dll" or one of its dependencies. ###
+- pip install pefile
+- git clone https://gist.github.com/7d1fe28dd370e110a372c4d268dcb2e5.git
+- 클론받은 폴더 진입
+- python fixNvPe.py --input C:\Users\ubicomp\Anaconda3\envs\py39\lib\site-packages\torch\lib\*.dll
+	※ torch 패키지가 설치된 위치 ※
