@@ -221,28 +221,28 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 ## 목업
 
 ### 로그인
-<img src="docs/로그인_목업.png>
+<img src="docs/로그인_목업.png">
 
 ### 회원가입 - 필터링
-<img src="docs/회원가입_-_필터링_카테고리_목업.png>
+<img src="docs/회원가입_-_필터링_카테고리_목업.png">
 
 ### 메인페이지 - 로그인 상태
-<img src="docs/메인페이지_로그인_상태__목업.png>
+<img src="docs/메인페이지_로그인_상태__목업.png">
 
 ### 메인페이지 - 로그아웃 상태
-<img src="docs/메인페이지_로그아웃_상태__목업.png>
+<img src="docs/메인페이지_로그아웃_상태__목업.png">
 
 ### 마이페이지 - 영상
-<img src="docs/마이페이지_-_영상_목업.png>
+<img src="docs/마이페이지_-_영상_목업.png">
 
 ### 마이페이지 - 댓글
-<img src="docs/마이페이지_-_댓글_목업.png>
+<img src="docs/마이페이지_-_댓글_목업.png">
 
 ### 영상 업로드
-<img src="docs/영상업로드_목업.png>
+<img src="docs/영상업로드_목업.png">
 
 ### 동영상 시청
-<img src="docs/동영상_시청_목업.png>
+<img src="docs/동영상_시청_목업.png">
 
 ### 동영상 검색 결과
-<img src="docs/동영상_검색_결과_목업.png>
+<img src="docs/동영상_검색_결과_목업.png">
