@@ -195,18 +195,25 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 
 ### 로그인
 <img src="docs/로그인.png">
+
 ### 회원가입
 <img src="docs/회원가입.png">
+
 ### 메인페이지
 <img src="docs/메인페이지(영상리스트,_검색_등등).png">
+
 ### 마이페이지 - 영상
 <img src="docs/마이페이지_-_영상.png">
+
 ### 마이페이지 - 댓글
 <img src="docs/마이페이지_-_댓글.png">
+
 ### 마이페이지 - 영상업로드
 <img src="docs/영상업로드.png">
+
 ### 동영상 시청
 <img src="docs/동영상_시청.png">
+
 ### 동영상 검색 결과
 <img src="docs/동영상_검색_결과.png">
 
