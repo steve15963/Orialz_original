@@ -60,6 +60,7 @@
 ### AI
 <div>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white" alt="">
+  <img src="https://img.shields.io/badge/Pytorch-EE4C2C?style=for-the-badge&logo=Pytorch&logoColor=white" alt="">
   <img src="https://img.shields.io/badge/Yolov8-00FFFF?style=for-the-badge&logo=Yolo&logoColor=white" alt="">
 </div>
 
