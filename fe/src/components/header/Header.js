@@ -4,19 +4,18 @@ import "./Header.css";
 import ProfileBox from "../profileBox/ProfileBox";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Header() {
     const navigate = useNavigate();
     const userRef = useRef(null);
-    const [userState, setUserState] = useState(null); 
+    const [userState, setUserState] = useState(null);
     const searchInputRef = useRef(null);
 
     function navigateToGoogleLogin() {
         window.location.href = `${process.env.REACT_APP_API_PATH}/oauth2/authorization/google`;
     }
-
 
     function getCookie(key) {
         var result = null;
@@ -98,7 +97,12 @@ export default function Header() {
         })
             .then((response) => response.json())
             .then((data) => {
-                const userInfo = { email: data.email, nickname: data.nickname, userId: data.id, picture: data.picture};
+                const userInfo = {
+                    email: data.email,
+                    nickname: data.nickname,
+                    userId: data.id,
+                    picture: data.picture,
+                };
                 localStorage.setItem("user", JSON.stringify(userInfo));
                 setUserState({
                     email: userInfo.email,
@@ -125,7 +129,7 @@ export default function Header() {
         }
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (
             localStorage.getItem("access_token") &&
             !localStorage.getItem("user")
@@ -145,7 +149,7 @@ export default function Header() {
 
     function onClickLogo(e) {
         e.preventDefault();
-        navigate('');
+        navigate("");
     }
 
     function handleSearchVideos(e) {
@@ -155,19 +159,24 @@ export default function Header() {
             navigate(`?keyword=${keyword}`);
             window.location.reload();
         } else {
-            navigate('');
+            navigate("");
             window.location.reload();
         }
     }
 
-    function handleUserState(user){
+    function handleUserState(user) {
         setUserState(user);
     }
 
     return (
         <div className="header">
             {/* <NavLink to={"/profile"}>asdf</NavLink> */}
-            <img src="/orialzLogo.jpg" alt="logo" className="logo-img" onClick={onClickLogo} />
+            <img
+                src="/orialzLogo.jpg"
+                alt="logo"
+                className="logo-img"
+                onClick={onClickLogo}
+            />
             <form className="search-form">
                 <div className="search-input-line">
                     <input
@@ -189,7 +198,6 @@ export default function Header() {
             ) : (
                 <LoginBtn googleLogin={navigateToGoogleLogin} />
             )}
-
         </div>
     );
 }
