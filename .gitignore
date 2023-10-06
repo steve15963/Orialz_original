@@ -40,6 +40,22 @@ fe/.env
 ### application.properties ###
 **/src/main/resources/application.yaml
 
+### AI - Datasets ###
+AI/datasets
+AI/datasets_zip
+AI/yolov8-test/images
+AI/yolov8-test/Aquarium
+
+### AI - Models ###
+
+
+### AI - MMDetection ###
+AI/object-detection/practice/mmdetection
+
+### AI - YOLO ###
+AI/weigths
+AI/runs
+
 BackEnd/src/main/resources/properties/env.properties
 Hls/src/main/resources/properties/env.properties
 
