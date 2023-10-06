@@ -102,7 +102,7 @@
 
 ## 2. 브랜치 관리
 
-## 1. 브랜치 관리
+### 1. 브랜치 관리
 Git-Flow 브랜치 전략에 따라 기능별로 브랜치를 나누어 작업하고 있고 모든 브랜치에 대해 pull request를 통한 리뷰 완료 후 Merge를 하고 있습니다.
 ![1](/uploads/210aa8c397441e20d6cd77a97a8449b4/1.png)
 
@@ -118,7 +118,7 @@ Git-Flow 브랜치 전략에 따라 기능별로 브랜치를 나누어 작업�
 - [우아한 형제들 기술블로그 "우린 Git-flow를 사용하고 있어요"](https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html)
 - [README 참고](https://github.com/f-lab-edu/event-recommender-festa)
 
-## 2. 커밋 관리
+### 2. 커밋 관리
 
 Karma - Git Commit Msg
 
@@ -191,25 +191,25 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 
 # 🤍 Front
 
-### 와이어프레임
+## 와이어프레임
 
-#### 로그인
+### 로그인
 <img src="docs/로그인.png">
-#### 회원가입
+### 회원가입
 <img src="docs/회원가입.png">
-#### 메인페이지
+### 메인페이지
 <img src="docs/메인페이지(영상리스트,_검색_등등).png">
-#### 마이페이지 - 영상
-<img src="docs/마이페이지 - 영상.png">
-#### 마이페이지 - 댓글
-<img src="docs/마이페이지 - 댓글.png">
-#### 마이페이지 - 영상업로드
+### 마이페이지 - 영상
+<img src="docs/마이페이지_-_영상.png">
+### 마이페이지 - 댓글
+<img src="docs/마이페이지_-_댓글.png">
+### 마이페이지 - 영상업로드
 <img src="docs/영상업로드.png">
-#### 동영상 시청
+### 동영상 시청
 <img src="docs/동영상_시청.png">
-#### 동영상 검색 결과
+### 동영상 검색 결과
 <img src="docs/동영상_검색_결과.png">
 
-### 목업
+## 목업
 
 <img src="docs/목업_모음.png">
