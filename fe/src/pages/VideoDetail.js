@@ -16,7 +16,7 @@ const VideoDetail = () => {
     const urlParams = new URL(window.location.href).searchParams;
     const videoId = useRef(urlParams.get("id"));
 
-    const blurUrlRef = useRef(`https://test.orialz.com/api/blur/list/7/${videoId}/10`);
+    const blurUrlRef = useRef(`https://test.orialz.com/api/blur/list/7/${videoId.current}/10`);
     const userInfoRef = useRef("ImUser");
 
     // const data4 = useRef(null);
