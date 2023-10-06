@@ -92,7 +92,7 @@ export default function ProfileVideoContainer({ videoList }) {
             ) : (
                 <div>업로드 영상이 없습니다.</div>
             )}
-            <NavLink to={"/upload"} style={{ textDecoration: "none" }}>
+            <NavLink to={"/upload"} style={{ textDecoration: "none", display: "flex", justifyContent:"center"}}>
                 <div className="video-upload-btn">영상 업로드</div>
             </NavLink>
         </div>
