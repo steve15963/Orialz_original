@@ -185,7 +185,7 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 
 # 🖤 DB ERD
 
-![오리알즈_ERD](docs/Orialz_erd.png)
+![오리알즈_ERD](docs/Orialz_erd.PNG)
 
 # 🤍 Front
 
