@@ -47,7 +47,7 @@ public class scj {
 			log.info("작업 끝");
 		}
 		else{
-			System.out.println("작업 없음");
+			//System.out.println("작업 없음");
 			//너무 많은 스케줄링 방지.
 			Thread.sleep(1000);
 		}
