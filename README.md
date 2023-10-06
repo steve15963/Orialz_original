@@ -248,12 +248,19 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 <img src="docs/동영상_검색_결과_목업.png">
 
 ## 실제 화면
-- 없는 내용은 목업과 동일
+- 없는 내용은 목업과 
+
 ### 메인 페이지
-<img src="docs/main.gif">
+<img src="docs/mainpage.PNG">
+
 ### 상세 페이지
-<img src="docs/detailPage.png">
+<img src="docs/detailPage.PNG">
+
 ### 댓글
-<img src="docs/comment.png">
+<img src="docs/comment.PNG">
+
 ### 파일 업로드 
-<img src="docs/fileupload.png">
+<img src="docs/fileupload.PNG">
+
+### 마이 페이지
+<img src="docs/mypage.PNG">
