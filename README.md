@@ -246,3 +246,14 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 
 ### 동영상 검색 결과
 <img src="docs/동영상_검색_결과_목업.png">
+
+## 실제 화면
+- 없는 내용은 목업과 동일
+### 메인 페이지
+<img src="docs/main.gif">
+### 상세 페이지
+<img src="docs/detailPage.png">
+### 댓글
+<img src="docs/comment.png">
+### 파일 업로드 
+<img src="docs/fileupload.png">
