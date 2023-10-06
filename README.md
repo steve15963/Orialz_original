@@ -16,10 +16,11 @@
 <img src="docs/main.gif">
 
 # 🧡 팀원 소개
+<img src="docs/팀원_소개.png">
 
-|                  송진현                   |                       이우석                        |               양을필                |                    이지원                    |   황시은   | 
+|                  송진현 (팀장)                   |                       이우석                        |               양을필                |                    이지원                    |   황시은   | 
 | :---------------------------------------: | :-------------------------------------------------: | :---------------------------------: | :------------------------------------------: | :--------: | 
-| <p>팀장</p> <p>인프라,하둡</p> | <p>사물 인식 인공지능</p> | <p>프론트엔드</p> <p>영상 Blur 처리 </p> | <p>백엔드</p><P> 로그인 + Rest API </p> | <p>백엔드</p><p> 파일 분할 업로드 + Rest API</p> |
+| <p>인프라, 하둡</p> <p>이미지 분산 처리</p> | <p>인공지능</p> <p>사물 인식</p> | <p>프론트엔드</p> <p>영상 Blur 처리 </p> | <p>백엔드</p><P> 로그인 + Rest API </p> | <p>백엔드</p><p> 파일 분할 업로드 + Rest API</p> |
 
 <br>
 
@@ -33,7 +34,7 @@
   <img src="https://img.shields.io/badge/Spring Data Jpa-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="">
   <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="">
   <img src="https://img.shields.io/badge/ffmpeg-007808?style=for-the-badge&logo=ffmpeg&logoColor=white">
-  <img src="https://img.shields.io/badge/apachehadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=white">
+  <img src="https://img.shields.io/badge/apache_hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=white">
 </div>
 
 ### Database
@@ -105,7 +106,6 @@
 
 ### 1. 브랜치 관리
 Git-Flow 브랜치 전략에 따라 기능별로 브랜치를 나누어 작업하고 있고 모든 브랜치에 대해 pull request를 통한 리뷰 완료 후 Merge를 하고 있습니다.
-![1](/uploads/210aa8c397441e20d6cd77a97a8449b4/1.png)
 
 ✅ master : 제품으로 출시될 수 있는 브랜치
 
@@ -220,4 +220,29 @@ EX) 채팅 기능 구현시 **Feat: 채팅 기능 구현**
 
 ## 목업
 
-<img src="docs/목업_모음.png">
+### 로그인
+<img src="docs/로그인_목업.png">
+
+### 회원가입 - 필터링
+<img src="docs/회원가입_-_필터링_카테고리_목업.png">
+
+### 메인페이지 - 로그인 상태
+<img src="docs/메인페이지_로그인_상태__목업.png">
+
+### 메인페이지 - 로그아웃 상태
+<img src="docs/메인페이지_로그아웃_상태__목업.png">
+
+### 마이페이지 - 영상
+<img src="docs/마이페이지_-_영상_목업.png">
+
+### 마이페이지 - 댓글
+<img src="docs/마이페이지_-_댓글_목업.png">
+
+### 영상 업로드
+<img src="docs/영상업로드_목업.png">
+
+### 동영상 시청
+<img src="docs/동영상_시청_목업.png">
+
+### 동영상 검색 결과
+<img src="docs/동영상_검색_결과_목업.png">
