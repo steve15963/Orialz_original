@@ -1,0 +1,39 @@
+.video-detail-comment {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+.comment-detail {
+    display: flex;
+}
+
+.comment-writer-profile {
+    border-radius: 70%;
+    width: 75px;
+    height: 75px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+.comment-writer-profile-null {
+    width: 75px;
+    height: 75px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+.comment-writer-detail {
+    margin-top: 5px;
+}
+
+.comment-writer-nickname {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.comment-write-date {
+    font-size: 12px;
+}

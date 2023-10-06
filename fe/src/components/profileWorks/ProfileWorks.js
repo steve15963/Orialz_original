@@ -1,32 +1,45 @@
-import './ProfileWorks.css';
-import {useState} from 'react';
-import ProfileVideoContainer from '../profileVideoContainer/ProfileVideoContainer';
-import ProfileCommentsContainer from '../profileCommentsContainer/ProfileCommentsContainer';
+import "./ProfileWorks.css";
+import { useState } from "react";
+import ProfileVideoContainer from "../profileVideoContainer/ProfileVideoContainer";
+import ProfileCommentsContainer from "../profileCommentsContainer/ProfileCommentsContainer";
 
-export default function ProfileWorks(){
-
+export default function ProfileWorks({videoList, commentList}) {
     const [mode, setMode] = useState(0);
 
-    function setModeOne(){
+    function setModeOne() {
         setMode(1);
     }
-    function setModeZero(){
+    function setModeZero() {
         setMode(0);
     }
 
-    return(
-        <div className='profile-works'>
-            <div className='profile-works-btns'>
-                <div className='profile-video-btn' onClick={setModeZero}>영상</div>
-                <div className='profile-comments-btn' onClick={setModeOne}>댓글</div>
+    return (
+        <div className="profile-works">
+            <div className="profile-works-btns">
+                <div
+                    className={`profile-video-btn ${
+                        mode === 0 ? "active" : ""
+                    }`}
+                    onClick={setModeZero}
+                >
+                    영상
+                </div>
+                <div
+                    className={`profile-comments-btn ${
+                        mode === 1 ? "active" : ""
+                    }`}
+                    onClick={setModeOne}
+                >
+                    댓글
+                </div>
             </div>
-            <div className='profile-works-containers'>
-                {
-                    mode===0
-                    ? <ProfileVideoContainer/>
-                    : <ProfileCommentsContainer/>
-                }
+            <div className="profile-works-containers">
+                {mode === 0 ? (
+                    <ProfileVideoContainer videoList={videoList}/>
+                ) : (
+                    <ProfileCommentsContainer commentList={commentList}/>
+                )}
             </div>
         </div>
-    )
+    );
 }

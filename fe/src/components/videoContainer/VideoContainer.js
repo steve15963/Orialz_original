@@ -5,6 +5,8 @@ import "./VideoContainer.css";
 import { useEffect } from "react";
 
 export default function VideoContainer({videos}){
+	
+	// 아직 반영안됨. 검색기능 반영한 뒤로 살짝 맛이 감
     useEffect(()=>{
         let targetClassName = 'flex-wrap-anim';
         let defaultDuration = '0.5s';
@@ -13,25 +15,25 @@ export default function VideoContainer({videos}){
         function addDummy(item, duration) {
 			let top = item.offsetTop;
 			let left = item.offsetLeft;
-				setTimeout(function() {
-					item.style.position = 'absolute';
-					item.style.top = top + 'px';
-					item.style.left = left + 'px';
+			setTimeout(function() {
+				item.style.position = 'absolute';
+				item.style.top = top + 'px';
+				item.style.left = left + 'px';
 			
-					let dummyDiv = document.createElement('div');
+				let dummyDiv = document.createElement('div');
 					
-					dummyDiv.classList.add(targetClassName + '-dummy');
-					let rect = item.getBoundingClientRect();
-					dummyDiv.style.width = rect.width +10+ 'px';
-					dummyDiv.style.height = rect.height +10+ 'px';
-					dummyDiv.style.visibility = 'hidden';
-					dummyDiv['__' + targetClassName + '_pair'] = item;
-					dummyDiv['__' + targetClassName + '_duration'] = duration;
-					item.parentNode.appendChild(dummyDiv);
-					dummyList.push(dummyDiv);
-				}, 0);
-            }
-          
+				dummyDiv.classList.add(targetClassName + '-dummy');
+				let rect = item.getBoundingClientRect();
+				dummyDiv.style.width = rect.width +30+ 'px';
+				dummyDiv.style.height = rect.height +30+ 'px';
+				dummyDiv.style.visibility = 'hidden';
+				dummyDiv['__' + targetClassName + '_pair'] = item;
+				dummyDiv['__' + targetClassName + '_duration'] = duration;
+				item.parentNode.appendChild(dummyDiv);
+				dummyList.push(dummyDiv);
+			}, 0);
+        }
+	
         let conts = document.getElementsByClassName(targetClassName);
         for (let i = 0, max = conts.length; i < max; i++) {
 			let cont = conts[i];
@@ -58,14 +60,20 @@ export default function VideoContainer({videos}){
 				}
 			});
         });
-    },[])
+
+		return(()=>{
+			// dummyList.forEach((e)=>{e.style.position = "none"});
+			// dummyList=[];
+		});
+
+    },[videos])
 	
     return(
         <div className="video-container flex-cont flex-wrap-anim">
             {
                 videos.map((video, index) => {
                     return (
-                        <NavLink to={"/test"} key={video.id} style={{ textDecoration: "none" }}>
+                        <NavLink to={`/videoDetail?id=${video.id}`} key={video.id} style={{ textDecoration: "none" }}>
                             <VideoBox
                                 thumbnail={video.thumbnail}
                                 title={video.title}

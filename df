@@ -1,0 +1,763 @@
+[33mcommit d6d69e36d2105a4870e1d124070e14cf0dcf04a2[m[33m ([m[1;36mHEAD -> [m[1;32mfe/eulpil[m[33m)[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 14:25:23 2023 +0900
+
+    로그인테스트
+
+[33mcommit 246428c7709a1a1e4cc38a2aaa143c87853e9e8b[m[33m ([m[1;31morigin/fe/eulpil[m[33m)[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 14:21:28 2023 +0900
+
+    로그인 테스트
+
+[33mcommit c9a582f9006c2363c776651292766f1ec497a1dd[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 14:17:03 2023 +0900
+
+    로그인 테스트
+
+[33mcommit 210b697a2c25150af5a18880090744b90066acc4[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 14:09:40 2023 +0900
+
+    [Feat] 로그인 시스템 프론트에 적용 테스트
+
+[33mcommit 3c75c10082b675a253a08451d5c74e253cef8417[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 13:30:29 2023 +0900
+
+    [Feat] 다시1
+
+[33mcommit ad724d3507d2b33ec91610ceb6fb2cc44aa31388[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 22 13:27:19 2023 +0900
+
+    [Feat] 로그인 기능 합쳐보기
+
+[33mcommit 327819f08c2f77bd7fd83c00e011d92f629cc56d[m
+Merge: 470d6f0 b7ae0b3
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Thu Sep 21 17:35:39 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    [Feat] 동영상 백엔드 api와 연결 및 화면 비율에 따른 블러 크기 조정
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!26
+
+[33mcommit b7ae0b3af96d8e9afdee9081e33fcfd93f45a9e7[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Thu Sep 21 17:34:42 2023 +0900
+
+    [Feat] 동영상 백엔드 api와 연결 및 화면 비율에 따른 블러 크기 조정
+
+[33mcommit 470d6f0c8be0fa1c07da6e71c41fc7bb385d9ea3[m
+Merge: 30fb934 026d456
+Author: cvivis <hsy0754@naver.com>
+Date:   Thu Sep 21 11:09:54 2023 +0900
+
+    Merge branch 'back/video' into develop
+
+[33mcommit 026d456a93dedcd47e5fb3729bea905303f0ef14[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Thu Sep 21 11:04:48 2023 +0900
+
+    [Chore] api 주소 변경
+
+[33mcommit 30fb934b92217f81307b67458eea41b710458a5d[m
+Merge: dd51294 195ad5c
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 17:47:49 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    [Feat] 동영사 블러 로직 개선
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!25
+
+[33mcommit 195ad5c9482c6a9540220290cde67e94d3bb814e[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 17:47:03 2023 +0900
+
+    [Feat] 동영사 블러 로직 개선
+
+[33mcommit 9d201a8c66bf5aa0ae20c3c5b612a7c6c002d9a9[m
+Merge: 6ec436e fd4cbdd
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 17:17:10 2023 +0900
+
+    Merge remote-tracking branch 'origin/back/video' into back/video
+
+[33mcommit 6ec436eb9392e2bbec54af78bc2bdfeef3bffc0c[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 17:17:03 2023 +0900
+
+    [Feat] 마이페이지 API로 한번에 보내기 수정
+
+[33mcommit dd51294c1fbe4304b97699bb73890a8bfd6c5369[m
+Merge: 71e6df4 724294d
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 16:38:17 2023 +0900
+
+    Merge branch 'back/video' into 'develop'
+    
+    Back/video
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!24
+
+[33mcommit 724294d393413bd436ac79f8cf4750a47f0552e3[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 16:38:17 2023 +0900
+
+    Back/video
+
+[33mcommit fd4cbdd97ba0536fd8da4fa19324a0fe550e4ff1[m
+Merge: a8c8175 71e6df4
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 07:38:02 2023 +0000
+
+    Merge branch 'develop' into 'back/video'
+    
+    # Conflicts:
+    #   Hls/src/main/resources/application.yml
+
+[33mcommit a8c8175fae87d244c91057c06a1a9c676d7381fa[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 16:31:34 2023 +0900
+
+    [Feat] 파일 분할 업로드 Front 추가
+
+[33mcommit 35d60f2934aa9d594677860f463a26caa30397cb[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 16:20:18 2023 +0900
+
+    [Feat] 마이페이지 - 내 댓글,영상 보기 API 개발
+
+[33mcommit b9981db6b31c2798f56cd8b94f13e3b5313aecf2[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 14:54:14 2023 +0900
+
+    [Chore] server.port 설정
+
+[33mcommit 71e6df4bb1cb4bf5be58d0bb666fe5c15583f6e5[m
+Merge: 20b93c6 2f21259
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 14:53:25 2023 +0900
+
+    Merge branch 'back/login' into 'develop'
+    
+    api 주소 수정
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!23
+
+[33mcommit 2f21259d9b2375c11caf95a8b6b8bd02264e9c75[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 14:52:23 2023 +0900
+
+    [Chore] 테스트 환경 api 주소 수정
+
+[33mcommit dcd54bae98d7a712f7ddd1c667d78b443dc61297[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 14:50:27 2023 +0900
+
+    [Chore] api 주소 수정
+
+[33mcommit 9708d9fd65bff076b9940cdf49706424b9b0152a[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 13:52:08 2023 +0900
+
+    [Chore] 테스트 환경 api 주소 변경
+
+[33mcommit 60e8cd059c34262ca6479980bd7112d1ebda1a25[m[33m ([m[1;31morigin/back/video[m[33m)[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 13:32:49 2023 +0900
+
+    [Chore] BackEnd 폴더 엔티티 명 수정
+
+[33mcommit 20b93c60a03db21fa97c9190b65c126ddaa05272[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: e8cb61d 9c59ee1
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 13:26:35 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'master'
+    
+    Fe/eulpil
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!20
+
+[33mcommit 9c59ee19fda03353d59ba7f99f7754e9923f8f54[m
+Merge: 858ab23 e8cb61d
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 04:25:58 2023 +0000
+
+    Merge branch 'master' into 'fe/eulpil'
+    
+    # Conflicts:
+    #   fe/src/App.js
+
+[33mcommit 858ab234e0eec995219cb33e679d883eb32dfc63[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 13:23:58 2023 +0900
+
+    [Feat]: eslint 해결
+
+[33mcommit e8cb61d673e2d78ceabf1d0323e5b11e99357aea[m
+Merge: a06a24f 3a7164e
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 13:15:27 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'master'
+    
+    Feature: 비디오 flex-wrap 애니메이션 적용, 필터 모달 애니메이션 개선
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!18
+
+[33mcommit 3a7164e29ed7c515d6a11377f6072137cf027c51[m
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 13:15:27 2023 +0900
+
+    Feature: 비디오 flex-wrap 애니메이션 적용, 필터 모달 애니메이션 개선
+
+[33mcommit 4069bdf9d504da060b885f5dfdf3b544da674264[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 20 13:10:53 2023 +0900
+
+    [Feat] eslint 수정 및 블러 로직 업데이트
+
+[33mcommit 954cbddcc05ec84546141e33fad9f0ecb7a4c12a[m
+Merge: 16772d6 00cb161
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 02:20:09 2023 +0000
+
+    Merge branch 'develop' into 'back/video'
+    
+    # Conflicts:
+    #   BackEnd/src/main/resources/application.yml
+    #   BackEnd/src/test/java/com/orialz/backend/BackEndApplicationTests.java
+    #   Hls/src/main/resources/application.yml
+
+[33mcommit a06a24fdfdc68ed2eb68c9f7d10657a531d8b7a8[m
+Merge: d2316c5 eee35af
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 11:16:39 2023 +0900
+
+    Merge branch 'revert-d2316c5c' into 'master'
+    
+    Revert "Merge branch 'develop' into 'master'"
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!16
+
+[33mcommit eee35afc237aea6dad07d3f6b1be578851af255b[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 11:16:39 2023 +0900
+
+    Revert "Merge branch 'develop' into 'master'"
+
+[33mcommit d2316c5c02f5ecbd70449c9d54005405471e709c[m
+Merge: 6d4be8a 21ee37b
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 11:13:48 2023 +0900
+
+    Merge branch 'develop' into 'master'
+    
+    back/video -> develop merge
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!15
+
+[33mcommit 21ee37bbf31584f022c86935546beccb8219d543[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 20 11:13:48 2023 +0900
+
+    back/video -> develop merge
+
+[33mcommit 00cb161fa70662e66ff787a0e00995eee9aee332[m
+Merge: e8fadc0 76c9ca2
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 11:08:39 2023 +0900
+
+    Merge branch 'back/login' into 'develop'
+    
+    [BE] 로그인 기능 및 액세스 토큰 저장 기능(+FE)
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!14
+
+[33mcommit 76c9ca22aca4bb0b87e2cf2a3b1442f5b192707f[m[33m ([m[1;31morigin/back/login[m[33m)[m
+Merge: 533a48a e8fadc0
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 02:06:13 2023 +0000
+
+    Merge branch 'develop' into 'back/login'
+    
+    # Conflicts:
+    #   BackEnd/src/main/resources/application.yml
+    #   fe/src/pages/Login.js
+
+[33mcommit 533a48aa6e279656da023fbb1343e8c365f555d3[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 20 11:01:38 2023 +0900
+
+    [Feat] 로그인 후 액세스 토큰 저장 기능
+
+[33mcommit 16772d61c944be019b40f802d64323657662dec4[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 10:32:04 2023 +0900
+
+    [Choret] test주석
+
+[33mcommit 5e44ff68283f0d65b6365722e722483d40688335[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 10:26:09 2023 +0900
+
+    [Chore] ddl-auto 설정 변경
+
+[33mcommit a6846dcabb109430d1dc39808907f1d2c397668c[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 09:59:15 2023 +0900
+
+    [Chore] entity 재생성
+
+[33mcommit 4f575902ffb628a86e076f9ea4745eaf36cdf960[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Wed Sep 20 09:54:01 2023 +0900
+
+    [Chore] entity 단수형으로 변경
+
+[33mcommit ed37b15e9d276ea22c009d8238942011dcbe200d[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Tue Sep 19 10:33:43 2023 +0900
+
+    [fix] dockerfile에러 수정
+
+[33mcommit fb11ab83d2f15675894ce23d05316df31b948917[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Tue Sep 19 10:09:29 2023 +0900
+
+    [Chore] path수정
+
+[33mcommit 9e82937818ed4ace99f5f5e9116d7d983600bbd8[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Tue Sep 19 09:56:33 2023 +0900
+
+    [Chore] : db 방언 교체
+
+[33mcommit 7c6781de22766a4db63a55e3360fffafbb243fe4[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Tue Sep 19 09:41:22 2023 +0900
+
+    [Chore] env.properties 수정
+
+[33mcommit e8fadc0ce199b2ee121ba8697ed2a6f5bdfaddc7[m
+Merge: df96a77 0990045
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Mon Sep 18 17:57:03 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    [Feat]: 블러 처리 html 요소로 전환, 영상 뒤로 땡기고 앞으로 땡길 때 블러 처리 따라가도록 구현, 풀스크린 블러처리 구현
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!13
+
+[33mcommit 099004569d1e08d0dd328cce939ff9c3d825e642[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Mon Sep 18 17:53:36 2023 +0900
+
+    [Feat]: 블러 처리 html 요소로 전환, 영상 뒤로 땡기고 앞으로 땡길 때 블러 처리 따라가도록 구현, 풀스크린 블러처리 구현
+
+[33mcommit d71fba3280a327f4a88fc54fd30b21d7796831c9[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Mon Sep 18 17:25:29 2023 +0900
+
+    [Feat] 동영상 검색 API 개발
+
+[33mcommit e495ac33074532b387ff67ba218304a85b2933c0[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Mon Sep 18 15:51:14 2023 +0900
+
+    [Feat] 댓글 API , 조회수 API 작성 및 프로젝트 구조 변경
+
+[33mcommit 6d4be8ad89e53b19170313a3f97ccbe7efdf9930[m
+Merge: bcf8f87 df96a77
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 22:16:46 2023 +0900
+
+    Merge branch 'develop'
+
+[33mcommit df96a775977ce6c3ec1a3e6894c4fdb6a42a764a[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 21:56:36 2023 +0900
+
+    [TEST] Fix3
+
+[33mcommit bad31d65d45172863a1d527b37ab88a52e0d19bb[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 20:28:14 2023 +0900
+
+    [TEST] Was Application.yml fix
+
+[33mcommit c54acdb6c26cd32a9ad8da8b85498fcb2f088ff6[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 19:29:23 2023 +0900
+
+    [TEST] Fix2
+
+[33mcommit 591d35baf9dec3b573f730852107ef87e9dfcf0d[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 19:27:25 2023 +0900
+
+    [TEST] DockerFile Fix
+
+[33mcommit ff615450f7a4ba9bac1a33f58eb141b24d1749fb[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 19:11:06 2023 +0900
+
+    [Fix] Db Uri Fix
+
+[33mcommit 0338f3680f850a42d27aa701cac44c2ac26631c9[m
+Merge: 51597c2 9966524
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Sat Sep 16 18:57:41 2023 +0900
+
+    [Test] 배포 테스트
+
+[33mcommit 9966524ba23891512889a0dafdba4a49158c402a[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Fri Sep 15 17:13:40 2023 +0900
+
+    [Feat] category 테이블 삭제및 속성으로 추가
+
+[33mcommit 51597c2bfaf2ce179439ad141766eabf8c243724[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Fri Sep 15 16:56:31 2023 +0900
+
+    feature: 샘플 데이터로 동영상 블러, 전체화면 커스텀 구현
+
+[33mcommit 15a7c6f0f98c23cb7b319248e61fe7b89dd566e4[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Fri Sep 15 15:20:23 2023 +0900
+
+    [Feat] 카테고리 Entity추가
+
+[33mcommit bcf8f87d2977734b5e67b53b0b9e57e40e7207c7[m
+Merge: 309dcc6 62e5b28
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Fri Sep 15 15:12:49 2023 +0900
+
+    Merge branch 'back/video' into 'master'
+    
+    Update Hls/gradle/wrapper/gradle-wrapper.jar,...
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!11
+
+[33mcommit 62e5b281ebce2c1bfa3749f9c389af303dde26d1[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Fri Sep 15 15:10:46 2023 +0900
+
+    [Feat] ADD Hls DockerFile
+
+[33mcommit 7c33cc7425fbf51129466cac0fee561062852f65[m
+Merge: 7897f0c 45f4608
+Author: cvivis <hsy0754@naver.com>
+Date:   Fri Sep 15 13:46:35 2023 +0900
+
+    Merge remote-tracking branch 'origin/back/video' into back/video
+
+[33mcommit 7897f0c881b84bf0f56f9dcab66a9c6370aa01fa[m
+Author: cvivis <hsy0754@naver.com>
+Date:   Fri Sep 15 13:46:23 2023 +0900
+
+    [Feat] : 파일 처리 비동기 적용
+
+[33mcommit 9e6460cc6cfb61fe5a3e9b31cbbb91a41c101864[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Fri Sep 15 12:14:48 2023 +0900
+
+    [Test] 로그인 테스트 위한 프론트 코드 수정
+
+[33mcommit 0e3538cb246fc5d998ae3c96935dd32dea16c8df[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Fri Sep 15 09:27:22 2023 +0900
+
+    [Refact] Hls로 폴더명 변경
+
+[33mcommit 1e54661682bb3bf96933460305abb3d23a8c3d91[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Fri Sep 15 09:21:14 2023 +0900
+
+    [Test] 테스트 위한 yml 파일 수정
+
+[33mcommit 309dcc600f634dd2aaa4b1b03ed82d21c7e9aa3b[m
+Merge: 3743c94 e99df6c
+Author: 황시은 <hsy0754@naver.com>
+Date:   Thu Sep 14 17:58:21 2023 +0900
+
+    Merge branch 'develop' into 'master'
+    
+    Update Hls
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!10
+
+[33mcommit e99df6cd1c3fc74e3dbf92a7d79c1e52e3b11db1[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Thu Sep 14 17:52:53 2023 +0900
+
+    Update Hls/gradle/wrapper/gradle-wrapper.jar, Hls/gradle/wrapper/gradle-wrapper.properties, Hls/src/main/java/com/orialz/backend/common/BaseTimeEntity.java, Hls/src/main/java/com/orialz/backend/config/FfmpegConfig.java, Hls/src/main/java/com/orialz/backend/config/PropertyConfig.java, Hls/src/main/java/com/orialz/backend/config/WebConfig.java, Hls/src/main/java/com/orialz/backend/streaming/controller/StreamingController.java, Hls/src/main/java/com/orialz/backend/streaming/service/StreamingService.java, Hls/src/main/java/com/orialz/backend/video/controller/VideoController.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Member.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Video.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/VideoStatus.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/MemberRepository.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/VideoRepository.java, Hls/src/main/java/com/orialz/backend/video/dto/response/VideoListResponseDto.java, Hls/src/main/java/com/orialz/backend/video/service/VideoService.java, Hls/src/main/java/com/orialz/backend/BackEndApplication.java, Hls/src/main/resources/application.yml, Hls/src/test/java/com/orialz/backend/BackEndApplicationTests.java, Hls/.gitignore, Hls/build.gradle, Hls/gradlew, Hls/gradlew.bat, Hls/settings.gradle
+    Deleted Hsl/src/main/resources/properties/env.properties
+
+[33mcommit 3743c94e8e51a6d8858757cb69e646bfa88f8e7d[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 14 17:51:25 2023 +0900
+
+    Update Hls/gradle/wrapper/gradle-wrapper.jar, Hls/gradle/wrapper/gradle-wrapper.properties, Hls/src/main/java/com/orialz/backend/common/BaseTimeEntity.java, Hls/src/main/java/com/orialz/backend/config/FfmpegConfig.java, Hls/src/main/java/com/orialz/backend/config/PropertyConfig.java, Hls/src/main/java/com/orialz/backend/config/WebConfig.java, Hls/src/main/java/com/orialz/backend/streaming/controller/StreamingController.java, Hls/src/main/java/com/orialz/backend/streaming/service/StreamingService.java, Hls/src/main/java/com/orialz/backend/video/controller/VideoController.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Member.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Video.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/VideoStatus.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/MemberRepository.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/VideoRepository.java, Hls/src/main/java/com/orialz/backend/video/dto/response/VideoListResponseDto.java, Hls/src/main/java/com/orialz/backend/video/service/VideoService.java, Hls/src/main/java/com/orialz/backend/BackEndApplication.java, Hls/src/main/resources/application.yml, Hls/src/test/java/com/orialz/backend/BackEndApplicationTests.java, Hls/.gitignore, Hls/build.gradle, Hls/gradlew, Hls/gradlew.bat, Hls/settings.gradle
+    Deleted Hsl/src/main/resources/properties/env.properties
+
+[33mcommit 45f4608bc9f0825836db02062c2322312c21160e[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Thu Sep 14 17:42:57 2023 +0900
+
+    Update Hls/gradle/wrapper/gradle-wrapper.jar, Hls/gradle/wrapper/gradle-wrapper.properties, Hls/src/main/java/com/orialz/backend/common/BaseTimeEntity.java, Hls/src/main/java/com/orialz/backend/config/FfmpegConfig.java, Hls/src/main/java/com/orialz/backend/config/PropertyConfig.java, Hls/src/main/java/com/orialz/backend/config/WebConfig.java, Hls/src/main/java/com/orialz/backend/streaming/controller/StreamingController.java, Hls/src/main/java/com/orialz/backend/streaming/service/StreamingService.java, Hls/src/main/java/com/orialz/backend/video/controller/VideoController.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Member.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/Video.java, Hls/src/main/java/com/orialz/backend/video/domain/entity/VideoStatus.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/MemberRepository.java, Hls/src/main/java/com/orialz/backend/video/domain/repository/VideoRepository.java, Hls/src/main/java/com/orialz/backend/video/dto/response/VideoListResponseDto.java, Hls/src/main/java/com/orialz/backend/video/service/VideoService.java, Hls/src/main/java/com/orialz/backend/BackEndApplication.java, Hls/src/main/resources/application.yml, Hls/src/test/java/com/orialz/backend/BackEndApplicationTests.java, Hls/.gitignore, Hls/build.gradle, Hls/gradlew, Hls/gradlew.bat, Hls/settings.gradle
+    Deleted Hsl/src/main/resources/properties/env.properties
+
+[33mcommit 59d2ed4172742d37225d4ae74fac9733976d3293[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Thu Sep 14 17:10:09 2023 +0900
+
+    [Fix] 프론트 로그인 기능 추가
+
+[33mcommit 670973971f2f5445e0c6f2a0c2d3f264498567f5[m
+Merge: 05f62d4 6557704
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Thu Sep 14 16:40:08 2023 +0900
+
+    Merge branch 'develop' into 'back/login'
+    
+    [BE] 로그인 테스트를 위한 머지
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!8
+
+[33mcommit f8369211d37652c6db7da53ef96dc43985f84ccf[m
+Merge: bce7d43 6557704
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 14 10:27:58 2023 +0900
+
+    Merge branch 'develop' into 'master'
+    
+    [TEST] Jenkins 배포 테스트
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!7
+
+[33mcommit 6557704b1a9f3e8e7d8d752c033567aeecec1711[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 14 10:08:56 2023 +0900
+
+    [TEST] 테스트 코드 비 활성화
+
+[33mcommit d433c64266792b412145c82146a6fc1cb1f2e869[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 17:33:37 2023 +0900
+
+    [Fix] gradle 파일 수정
+
+[33mcommit 05f62d445193f317c456dcd393664f33c28cc8d0[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 17:18:45 2023 +0900
+
+    Delete application.yml
+
+[33mcommit 1157b55f1680bc47010d5643dae6d837004250c8[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 17:17:39 2023 +0900
+
+    [Fix] 커밋 복구
+
+[33mcommit bc0b8d74f2447f578e542de72576edb52218a407[m
+Merge: 75087e6 cd46af6
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 13 16:39:47 2023 +0900
+
+    Merge branch 'back/streaming' into 'develop'
+    
+    Back/streaming test배포 용 올리기
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!6
+
+[33mcommit cd46af6fdc7a09df4b78ec5e263533ade296cb32[m
+Author: 황시은 <hsy0754@naver.com>
+Date:   Wed Sep 13 16:39:47 2023 +0900
+
+    Back/streaming test배포 용 올리기
+
+[33mcommit 75087e610a4c00bb79423623ccd6b03754a739e4[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Wed Sep 13 15:50:25 2023 +0900
+
+    feat DockerFile추가.
+
+[33mcommit fba478f8da6607937d60eae4ec1a4cccf42d6af6[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Wed Sep 13 15:44:08 2023 +0900
+
+    Test 필요 없는 Test코드 주석처리
+
+[33mcommit 81570284adbb3082b5c2dba9d35f636ae74d0ca4[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 15:40:42 2023 +0900
+
+    Delete application.yml
+
+[33mcommit b8a42f36f1172ba502f1d62bd0a2540c10e7ab38[m
+Merge: f957a22 7a7aaa8
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 15:38:58 2023 +0900
+
+    Merge branch 'back/login' into 'develop'
+    
+    [BE] 구글 소셜 로그인 기능 추가
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!5
+
+[33mcommit 7a7aaa88d5f8d093b557ecbd514067b944de1c1b[m
+Author: 이지원 <dlwldnjs427@naver.com>
+Date:   Wed Sep 13 15:34:18 2023 +0900
+
+    [Feat] 구글 소셜 로그인 기능 구현
+
+[33mcommit f957a227ac92b6935e6f548f88d0a3d10513b046[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 15:05:27 2023 +0900
+
+    eslint 수정 또함
+
+[33mcommit 498c8d19c5bf5a5bd4116cac400ccc663ca47599[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 14:56:57 2023 +0900
+
+    eslint 수정 다시
+
+[33mcommit 6a8317e2419d98567b61ca29de42b5117f9ac6b8[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 14:47:38 2023 +0900
+
+    eslint 수정 다시
+
+[33mcommit f007f84e40b1b05e4f99a9d36fe90e23c99da987[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 13:49:42 2023 +0900
+
+    eslint 수정
+
+[33mcommit d7da5dd3785375060e9a56efc1a601ea93431985[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 13:19:20 2023 +0900
+
+    프론트 폴더 다시 올림
+
+[33mcommit 89eefa3d91eb203adad6785997aef309007f6973[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 13:18:07 2023 +0900
+
+    fe 폴더 임시 뺌
+
+[33mcommit 304cd8c07467688881e769620f6e7325e3aaf0e6[m
+Merge: 6b9dc7b d7277b7
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 12:50:31 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    feature: 프론트 필터링 창 디자인창 수정
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!4
+
+[33mcommit d7277b76f818251af8461ba8abb6d93e256fbadb[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Wed Sep 13 12:49:36 2023 +0900
+
+    feature: 프론트 필터링 창 디자인창 수정
+
+[33mcommit 6b9dc7bf180e9261ee570d1d0abb03aad283a295[m
+Merge: 5d1e234 d5c344b
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Tue Sep 12 17:51:56 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    Feature: 비디오 flex-wrap 애니메이션 적용, 필터 모달 애니메이션 개선
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!3
+
+[33mcommit d5c344bf489dac58a8daad77a612bfd6aaf58fc6[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Tue Sep 12 17:49:19 2023 +0900
+
+    feature: 비디오 flex-wrap 애니메이션 추가, filter창 모달 애니메이션 개선
+
+[33mcommit 5d1e234a6114ea647733cc324ba30df65e98a852[m
+Merge: 33ff9e3 162474d
+Author: 양을필 <slemfkdlqm@naver.com>
+Date:   Mon Sep 11 17:56:38 2023 +0900
+
+    Merge branch 'fe/eulpil' into 'develop'
+    
+    feature: 디자인, 버튼, 호버 애니메이션추가
+    
+    See merge request s09-bigdata-dist-sub2/S09P22A603!2
+
+[33mcommit 162474daf407b99e03b2961c4358d07e70190ad7[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Mon Sep 11 17:54:25 2023 +0900
+
+    feature: 디자인, 버튼, 호버 애니메이션추가
+
+[33mcommit 33ff9e35e779be4ccecb5b9dad080cc9a8449077[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Mon Sep 11 12:16:35 2023 +0900
+
+    프론트 다시 합치기
+
+[33mcommit 12a061cc0abadfcd4c8814154f060c15da2cd16e[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Mon Sep 11 12:11:17 2023 +0900
+
+    프론트 삭제
+
+[33mcommit 2bafe3789d094389d7ad2a9177ccb515677cb73b[m
+Author: slemfkdlqm <slemfkdlqm@naver.com>
+Date:   Mon Sep 11 11:58:44 2023 +0900
+
+    feature: 프론트일단 합치기
+
+[33mcommit ac031dc0d9131453b257281e7823e2ffe379ddad[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 7 14:31:47 2023 +0900
+
+    add application.yml
+
+[33mcommit bce7d43ac4bf3095470ee8565b7da649cf4bc6bf[m[33m ([m[1;32mmaster[m[33m)[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 7 11:34:42 2023 +0900
+
+    Recreate Beackend Project
+
+[33mcommit c5a45d07f4aadeef85fdb4614cce64001ff0186f[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Thu Sep 7 10:55:57 2023 +0900
+
+    BackEnd Project Create
+
+[33mcommit fd1baf6a8f178c64d079e4226dd7e4695da7ce96[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Tue Sep 5 10:39:47 2023 +0900
+
+    S09P22A603-10 test Message
+
+[33mcommit cdd284c01c57d62a58a8c6c7f7be0fa05762823f[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Tue Sep 5 10:33:16 2023 +0900
+
+    Update README.md
+
+[33mcommit 45a35212854c642bc8c255a46932e381d24fddeb[m
+Author: 송진현 <dkdkdkal123@naver.com>
+Date:   Tue Sep 5 10:33:05 2023 +0900
+
+    Update README.md

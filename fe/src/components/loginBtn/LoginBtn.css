@@ -1,7 +1,29 @@
-.google-img{
-    transition: 250ms;
+.google-login-btn {
+  border: 1px solid #dadada;
+  height: 55px;
+  width: 115px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.google-img:hover{
-    transform: scale(1.2);
+.google-login-btn:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.google-logo {
+  transition: 250ms;
+}
+
+.login-text {
+  font-size: 18px;
+  color: black;
 }
