@@ -135,8 +135,8 @@ function Upload() {
     const str = localStorage.getItem("user");
     if(str){
         setLoginUser(JSON.parse(str))
-        // console.log(loginUser);
-        // console.log(JSON.parse(str));
+        console.log(loginUser);
+        console.log(JSON.parse(str));
     }
    
     const chunkSize = 1024 * 1024 * 10; //10MB
