@@ -50,6 +50,7 @@ public class VideoAsyncService {
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter(timeTextFile));
 
+        log.info("imgDiretory : " + middlePath+"/output");
         File imgDiretory = new File(middlePath+"/output");
 
         File[] files = imgDiretory.listFiles();
