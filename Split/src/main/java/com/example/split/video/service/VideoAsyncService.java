@@ -50,7 +50,7 @@ public class VideoAsyncService {
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter(timeTextFile));
 
-        File imgDiretory = new File("/user/hadoop/video/"+userId+"/"+hashing+"/output");
+        File imgDiretory = new File(middlePath+"/output");
 
         File[] files = imgDiretory.listFiles();
 
