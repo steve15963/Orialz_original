@@ -114,8 +114,6 @@ public class HadoopRepository {
 			// System.out.println(line);
 			log.info("Hadoop Err{}", line);
 		}
-		if(start.waitFor() == 0)
-			return false;
-		return true;
+		return start.waitFor() != 0;
 	}
 }

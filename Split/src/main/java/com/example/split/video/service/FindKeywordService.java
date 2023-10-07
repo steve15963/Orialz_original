@@ -86,7 +86,7 @@ public class FindKeywordService {
 					.H(position.get(3))
 					//.maxX(position.get(2))
 					//.maxY(position.get(3))
-					.score(conf.get(i))
+					.score(1)
 					.build()
 			);
 
