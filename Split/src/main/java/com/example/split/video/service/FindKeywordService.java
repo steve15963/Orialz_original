@@ -55,6 +55,7 @@ public class FindKeywordService {
 		YOLOv8 yolOv8 = om.readValue(json, YOLOv8.class);
 		ArrayList<ArrayList<Double>> xywhn = yolOv8.getXywhn();
 		ArrayList<Integer> cls = yolOv8.getCls();
+		ArrayList<Double> conf = yolOv8.getConf();
 		int size = cls.size();
 		for(int i = 0; i < size; i++){
 			//Integer label = labels.get(i);
@@ -81,9 +82,11 @@ public class FindKeywordService {
 					.time(key)
 					.minX(position.get(0))
 					.minY(position.get(1))
-					.maxX(position.get(2))
-					.maxY(position.get(3))
-					.score(1)
+					.W(position.get(2))
+					.H(position.get(3))
+					//.maxX(position.get(2))
+					//.maxY(position.get(3))
+					.score(conf.get(i))
 					.build()
 			);
 
