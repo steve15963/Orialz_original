@@ -43,15 +43,21 @@ public class VideoAsyncService {
 //        log.info(fps.toString());
         double rate = (double)fps.getNumerator() / fps.getDenominator();
         double time = 1 / rate;
-        long nFps = probeResult.getStreams().get(0).nb_frames;
+
         File timeTextFile = new File(middlePath+"/"+"frame_timeStamp.txt");
         if (!timeTextFile.exists()) {
             timeTextFile.createNewFile();
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter(timeTextFile));
 
-        for(int i = 1; i <= nFps;i++){
-            String temp = String.format("%f %s/frame%08d.png\n",time * i ,output,i);
+        File imgDiretory = new File("/user/hadoop/video/"+userId+"/"+hashing+"/output");
+
+        File[] files = imgDiretory.listFiles();
+
+        long nFps = files.length;
+
+        for(int i = 0; i < nFps;i++){
+            String temp = String.format("%f %s/%s\n",time * (i+1) ,output,files[i].getName());
             bw.write(temp);
         }
         bw.close();
