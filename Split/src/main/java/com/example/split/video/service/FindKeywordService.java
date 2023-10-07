@@ -77,7 +77,7 @@ public class FindKeywordService {
 			ArrayList<Double> position = xywhn.get(i);
 			findKeywordRepository.save(
 				FindKeyword.builder()
-					.keyword_id(cls.get(i)+200)
+					.keyword_id(cls.get(i))
 					.video(video)
 					.time(key)
 					.minX(position.get(0))
