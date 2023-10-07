@@ -44,6 +44,10 @@ public class FindKeyword {
 	@Column
 	double maxY;
 	@Column
+	double W;
+	@Column
+	double H;
+	@Column
 	double score;
 	public String getLabel() {
 		return keyword.getKeyword();
@@ -57,11 +61,11 @@ public class FindKeyword {
 		return minY;
 	}
 
-	public double getW() {
-		return maxX - minX;
-	}
+	//public double getW() {
+	//	return maxX - minX;
+	//}
 
-	public double getH() {
-		return maxY - minY;
-	}
+	//public double getH() {
+	//	return maxY - minY;
+	//}
 }
