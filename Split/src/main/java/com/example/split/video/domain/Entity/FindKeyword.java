@@ -43,5 +43,9 @@ public class FindKeyword {
 	@Column
 	double maxY;
 	@Column
+	double W;
+	@Column
+	double H;
+	@Column
 	double score;
 }
